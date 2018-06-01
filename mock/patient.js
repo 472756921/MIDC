@@ -88,9 +88,91 @@ let patient = {
               maizhen: '@csentence(5, 10)',
             }
           },
-          diagnosisOfWe: {},
-          diagnosisAndtreatment: {},
-          ohter: {},
+          diagnosisOfWe: {
+            tigejiancha: '@csentence(20, 50)',
+            xcg: {
+              'img|0-5':['@image("200x100")'],
+              text: '@csentence(20, 50)',
+            },
+            xdt: {
+              'img|0-5':['@image("200x100")'],
+              text: '@csentence(20, 50)',
+            },
+            ncg: {
+              'img|0-5':['@image("200x100")'],
+              text: '@csentence(20, 50)',
+            },
+            CT: {
+              'img|0-5':['@image("200x100")'],
+              text: '@csentence(20, 50)',
+            },
+            dbcg: {
+              'img|0-5':['@image("200x100")'],
+              text: '@csentence(20, 50)',
+            },
+            MRI: {
+              'img|0-5':['@image("200x100")'],
+              text: '@csentence(20, 50)',
+            },
+            xsh: {
+              'img|0-5':['@image("200x100")'],
+              text: '@csentence(20, 50)',
+            },
+            cs: {
+              'img|0-5':['@image("200x100")'],
+              text: '@csentence(20, 50)',
+            },
+            X: {
+              'img|0-5':['@image("200x100")'],
+              text: '@csentence(20, 50)',
+            },
+            orther: {
+              'img|0-5':['@image("200x100")'],
+              text: '@csentence(20, 50)',
+            },
+          },
+          diagnosisAndtreatment: {
+            zdyzl:{
+              zyjb: '@csentence(20, 50)',
+              xyjb: '@csentence(20, 50)',
+              zyzh: '@csentence(20, 50)',
+              zzzf: '@csentence(20, 50)',
+            },
+            cf:{
+              zycf: {
+                zfm: '@csentence(5, 8)',
+                type: '@csentence(5, 8)',
+                number: '@natural(1, 5)',
+                doctor: '@cname',
+                'medicine|1-20':[
+                  {name: '@csentence(2, 3)', liang: '@natural(5, 30)', zhuyong: '@cword("君臣佐使")', yongfa: '@cword("煎炸烹卤")'}
+                ],
+              },
+              orther: {
+                medicineC: '@csentence(20, 50)',
+                medicineW: '@csentence(20, 50)',
+                orther: '@csentence(20, 50)',
+              }
+            }
+          },
+          orther: {
+            zhiliaoxiaoguo: {
+              zylxpj: '@csentence(20, 50)',
+              xylxpj: '@csentence(20, 50)',
+            },
+            huifangjilu: {
+              date: '@date("yyyy-MM-dd HH:mm")',
+              huifangren: '@cname',
+              huifangneirong: '@csentence(20, 50)',
+              qita: '@csentence(20, 50)'
+            },
+            anyu:{
+              lsdy: '@csentence(20, 50)',
+              grxd: '@csentence(20, 50)',
+              zjdp: '@csentence(20, 50)',
+              qita: '@csentence(20, 50)'
+            }
+          },
           }]
       })
 

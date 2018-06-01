@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Tabs, Table, Icon, Divider, Row, Col } from 'antd';
+import { Tabs, Table, Icon, Divider, Row, Col, Modal, Button } from 'antd';
 import PropTypes from 'prop-types';
 import Info from './compontent/info';
 import DiagnosisOfZh from './compontent/diagnosisOfZh';
+import DiagnosisOfWe from './compontent/diagnosisOfWe';
+import OhterInfo from './compontent/ohter';
+import DagnosisAndtreatment from './compontent/diagnosisAndtreatment';
 
 const TabPane = Tabs.TabPane;
 const columns = [{
@@ -25,13 +28,17 @@ const columns = [{
 }];
 
 const ICD = ({loading, Idetail, dispatch}) => {
-  const chage = (p, f, s) => {
-    dispatch({type: 'informationCollection/query', payload:{ page: p.current, pageSize: 30 }});
-  }
   function callback(key) {
     console.log(key);
   }
-
+  const handleCancel = () => {dispatch({type: 'Idetail/showImg', payload:{ visible: false, imgSrc: '' }});};
+  function imgShow(srcs) {
+    let s = srcs.split('/');
+    s[s.length-1] = '600x900';
+    srcs = s.join('/');
+    console.log(srcs);
+    dispatch({type: 'Idetail/showImg', payload:{ visible: true, imgSrc: srcs }});
+  }
 
   return(
     <div>
@@ -48,17 +55,25 @@ const ICD = ({loading, Idetail, dispatch}) => {
           {
             Idetail.patient.historyData.data?
               <Tabs onChange={callback} type="card">
-                <TabPane tab="中医四诊" key="1"><DiagnosisOfZh info={Idetail.patient.historyData.data[0].diagnosisOfZh}/></TabPane>
-                <TabPane tab="西医检查" key="2">Content of Tab Pane 3</TabPane>
-                <TabPane tab="诊断治疗" key="3">Content of Tab Pane 3</TabPane>
-                <TabPane tab="其他信息" key="4">Content of Tab Pane 3</TabPane>
-                <TabPane tab="综合信息" key="5">Content of Tab Pane 3</TabPane>
+                <TabPane tab="中医四诊" key="1"><DiagnosisOfZh info={Idetail.patient.historyData.data[0].diagnosisOfZh} imgShow={imgShow}/></TabPane>
+                <TabPane tab="西医检查" key="2"><DiagnosisOfWe info={Idetail.patient.historyData.data[0].diagnosisOfWe} imgShow={imgShow}/></TabPane>
+                <TabPane tab="诊断治疗" key="3"><DagnosisAndtreatment info={Idetail.patient.historyData.data[0].diagnosisAndtreatment}/></TabPane>
+                <TabPane tab="其他信息" key="4"><OhterInfo info={Idetail.patient.historyData.data[0].orther}/></TabPane>
+                {/*<TabPane tab="综合信息" key="5">*/}
+                  {/*<DiagnosisOfZh info={Idetail.patient.historyData.data[0].diagnosisOfZh}/>*/}
+                  {/*<DiagnosisOfWe info={Idetail.patient.historyData.data[0].diagnosisOfWe}/>*/}
+                  {/*<DagnosisAndtreatment info={Idetail.patient.historyData.data[0].diagnosisAndtreatment}/>*/}
+                  {/*<OhterInfo info={Idetail.patient.historyData.data[0].orther}/>*/}
+                {/*</TabPane>*/}
               </Tabs>
             :''
           }
         </Col>
       </Row>
 
+      <Modal title="图片详情" width='800px'  closable={false} visible={Idetail.visible} footer={[<Button key="back" onClick={handleCancel}>关闭</Button>]}>
+        <img src={Idetail.imgSrc} width='100%'/>
+      </Modal>
 
     </div>
   )

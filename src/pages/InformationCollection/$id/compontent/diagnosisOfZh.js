@@ -1,7 +1,7 @@
 import { Row, Col, Divider } from 'antd';
 import styles from './styles.css';
 
-const info = ({info}) => {
+const info = ({info, imgShow}) => {
   const m = {
     ask: {
       name: '问诊',
@@ -57,7 +57,7 @@ const info = ({info}) => {
               {
                 fvalue[iit].img.map( (srcs, iii) => {
                 return (
-                  <img src={srcs} key={i*10 + ii*10 + iii} style={{marginLeft:'2em'}}/>
+                  <img src={srcs} key={i*10 + ii*10 + iii} style={{marginLeft:'2em'}} onClick={()=>{imgShow(srcs)}}/>
                 )
                 })
               }

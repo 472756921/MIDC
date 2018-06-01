@@ -4,6 +4,8 @@ import {query, queryPatient} from "../../services/InformationCollection";
 export default {
   namespace: 'Idetail',
   state: {
+    visible: false,
+    imgSrc: '',
     patient: {
       info: {},
       historyData:[
@@ -37,6 +39,9 @@ export default {
   reducers: {
     querySuccess(state, {payload}) {
       return {...state, patient: payload}
+    },
+    showImg(state, {payload}) {
+      return {...state, visible: payload.visible, imgSrc: payload.imgSrc}
     },
   }
 }
