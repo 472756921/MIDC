@@ -12,3 +12,6 @@ export function queryPatient (data) {
   let url = getParmas( api.queryPatient, data);
   return request(url, {method: 'get', headers: JSONS});
 }
+export function addPatient (data) {
+  return request(api.addPatient, {method: 'post', headers: JSONS, body: JSON.stringify(data)});
+}

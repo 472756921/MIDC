@@ -1,11 +1,12 @@
 import pathToRegexp from 'path-to-regexp'
-import {query, queryPatient} from "../../services/InformationCollection";
+import {queryPatient} from "../../services/InformationCollection";
 
 export default {
   namespace: 'Idetail',
   state: {
     visible: false,
     imgSrc: '',
+    index: 0,
     patient: {
       info: {},
       historyData:[
@@ -42,6 +43,9 @@ export default {
     },
     showImg(state, {payload}) {
       return {...state, visible: payload.visible, imgSrc: payload.imgSrc}
+    },
+    changIndex(state, {payload}) {
+      return {...state, index: payload.index}
     },
   }
 }

@@ -27,7 +27,7 @@ const winfo = ({info}) => {
               {
                 info[it].img.map( (srcs, ii) => {
                   return (
-                    <img src={srcs} key={i*10 + ii} style={{marginLeft:'2em'}}/>
+                    <img src={srcs} key={i*10 + ii} style={{marginLeft:'2em'}}  alt='检查图片'/>
                   )
                 })
               }

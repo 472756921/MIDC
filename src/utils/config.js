@@ -11,5 +11,6 @@ module.exports = {
     loginOut: api_M + '/user/loginOut',
     patientList: api_M + '/patient/list',
     queryPatient: api_M + '/patient/info',
+    addPatient: api_M + '/patient/add',
   }
 }

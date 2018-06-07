@@ -5,7 +5,7 @@ module.exports = {
       name: '信息采集',
       type: 3,
       icon: 'desktop',
-      route: '/user',
+      route: '/InformationCollection',
     },
     {
       id: '2',

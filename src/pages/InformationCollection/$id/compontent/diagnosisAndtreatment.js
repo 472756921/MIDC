@@ -47,13 +47,15 @@ const info = ({info}) => {
           </Col>
         )
       })
-        return (
-          <Row gutter={16} key={i}>
-            {t}
-            {c}
-          </Row>
-        )
-      }
+      return (
+        <Row gutter={16} key={i}>
+          {t}
+          {c}
+        </Row>
+      )
+    } else {
+      return ''
+    }
   });
 
   return(

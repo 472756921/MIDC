@@ -14,6 +14,9 @@ export const getParmas = (url, data) => {
   return sendUrl;
 }
 
+export const Trim = (m) => {
+  return m.replace(/\s|\xA0/g,"");
+}
 export const DateFormate = (date, format) => {
   let o = {
     "M+" : date.getMonth()+1,                 //月份
@@ -33,4 +36,11 @@ export const DateFormate = (date, format) => {
     }
   }
   return format;
+}
+export const isNumber = (val) =>{
+  if(!/^\d+$/.test(val)){
+    return false;
+  } else {
+    return true;
+  }
 }
