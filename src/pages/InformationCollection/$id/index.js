@@ -7,6 +7,7 @@ import DiagnosisOfZh from './compontent/diagnosisOfZh';
 import DiagnosisOfWe from './compontent/diagnosisOfWe';
 import OhterInfo from './compontent/ohter';
 import DagnosisAndtreatment from './compontent/diagnosisAndtreatment';
+import AddModal from './compontent/add/add';
 
 const TabPane = Tabs.TabPane;
 let _dispatch = '';
@@ -35,9 +36,6 @@ function datileInVisit(index) {
 
 const ICD = ({loading, Idetail, dispatch}) => {
   _dispatch = dispatch;
-  function callback(key) {
-    console.log(key);
-  }
   const handleCancel = () => {dispatch({type: 'Idetail/showImg', payload:{ visible: false, imgSrc: '' }});};
   function imgShow(srcs) {
     let s = srcs.split('/');
@@ -48,9 +46,9 @@ const ICD = ({loading, Idetail, dispatch}) => {
 
   return(
     <div>
+      <Button type="primary" icon="file-add">添加就诊记录</Button>
       <Divider orientation="left">基础信息</Divider>
       <Info info={Idetail.patient.info}/>
-
       <Row gutter={16}>
         <Col xxl={{span:8}}>
           <Divider orientation="left">就诊历史</Divider>
@@ -60,7 +58,7 @@ const ICD = ({loading, Idetail, dispatch}) => {
           <Divider orientation="left">就诊详情</Divider>
           {
             Idetail.patient.historyData.data?
-              <Tabs onChange={callback} type="card">
+              <Tabs type="card">
                 <TabPane tab="中医四诊" key="1"><DiagnosisOfZh info={Idetail.patient.historyData.data[Idetail.index].diagnosisOfZh} imgShow={imgShow}/></TabPane>
                 <TabPane tab="西医检查" key="2"><DiagnosisOfWe info={Idetail.patient.historyData.data[Idetail.index].diagnosisOfWe} imgShow={imgShow}/></TabPane>
                 <TabPane tab="诊断治疗" key="3"><DagnosisAndtreatment info={Idetail.patient.historyData.data[Idetail.index].diagnosisAndtreatment}/></TabPane>
@@ -77,9 +75,12 @@ const ICD = ({loading, Idetail, dispatch}) => {
         </Col>
       </Row>
 
-      <Modal title="图片详情" width='800px'  closable={false} visible={Idetail.visible} footer={[<Button key="back" onClick={handleCancel}>关闭</Button>]}>
+      <Modal title="图片详情" width='800px'  closable={false} visible={Idetail.visible}
+             footer={[<Button key="back" onClick={handleCancel}>关闭</Button>]}>
         <img src={Idetail.imgSrc} width='100%' alt='检查报告图片'/>
       </Modal>
+
+      <AddModal/>
 
     </div>
   )

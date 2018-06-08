@@ -20,7 +20,11 @@ let patientList = Mock.mock({
 let patient = {
   'GET /apiM/patient/list': (req, res) => {
     let {query} = req;
+    let v = query.searchV;
     let nd = patientList.data;
+    if(v != '') {
+      nd = patientList.data.filter(item => item.name.indexOf(v)!=-1);
+    }
     let bd = nd.slice((query.page-1)*query.pageSize, query.page*query.pageSize);
     let resData = {
       data: bd,
@@ -28,6 +32,11 @@ let patient = {
       page: Number(query.page),
     }
     res.json(resData);
+  },
+
+  'POST /apiM/patient/add': (req, res) => {
+    let {body} = req;
+    res.json({msg: 'ok', id: '14836497910853'});
   },
   'GET /apiM/patient/info': (req, res) => {
     let {query} = req;
@@ -52,6 +61,7 @@ let patient = {
       historyData:  Mock.mock({
         'data|1-20':[{
           key: '@id',
+          id: '@id',
           date: '@date("yyyy-MM-dd HH:mm")',
           visitTimes: '@natural(1, 20)',
           diagnosisOfZh: {
