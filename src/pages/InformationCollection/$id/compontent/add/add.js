@@ -12,7 +12,7 @@ class modalAdd extends React.Component{
   constructor(props){
     super(props);
     this.state={
-      modalShow: false,
+      modalShow: true,
     }
   }
 

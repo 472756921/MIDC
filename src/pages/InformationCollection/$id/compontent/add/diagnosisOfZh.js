@@ -1,5 +1,6 @@
-import { Row, Col, Divider } from 'antd';
+import { Row, Col, Divider, Input } from 'antd';
 import styles from './styles.css';
+const { TextArea } = Input;
 
 const info = ({info}) => {
   const m = {
@@ -51,6 +52,7 @@ const info = ({info}) => {
             return (
               <Col span={12} key={i*10+j}>
                 {temp[itt].name}
+                <TextArea rows={3} style={{'resize': 'none'}}/>
               </Col>
             )
           })
