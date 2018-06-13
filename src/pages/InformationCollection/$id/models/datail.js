@@ -5,6 +5,7 @@ export default {
   namespace: 'Idetail',
   state: {
     visible: false,
+    addModel: false,
     imgSrc: '',
     index: 0,
     patient: {
@@ -40,6 +41,9 @@ export default {
   reducers: {
     querySuccess(state, {payload}) {
       return {...state, patient: payload}
+    },
+    addModelOp(state, {payload}) {
+      return {...state, addModel: payload.f}
     },
     showImg(state, {payload}) {
       return {...state, visible: payload.visible, imgSrc: payload.imgSrc}

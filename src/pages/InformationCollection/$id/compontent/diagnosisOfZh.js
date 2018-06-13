@@ -57,7 +57,7 @@ const info = ({info, imgShow}) => {
               {
                 fvalue[iit].img.map( (srcs, iii) => {
                 return (
-                  <img src={srcs} key={i*10 + ii*10 + iii} style={{marginLeft:'2em'}} onClick={()=>{imgShow(srcs)}} alt='检查图片'/>
+                  <img src={srcs} key={i*10 + ii*10 + iii} style={{marginLeft:'2em'}} onClick={()=>{imgShow(srcs)}} alt='检查图片' title='点击查看大图'/>
                 )
                 })
               }

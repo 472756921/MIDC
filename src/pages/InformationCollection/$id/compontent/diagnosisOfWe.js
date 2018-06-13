@@ -1,7 +1,7 @@
 import { Row, Col, Divider } from 'antd';
 import styles from './styles.css';
 
-const winfo = ({info}) => {
+const winfo = ({info, imgShow}) => {
   const m = {
     tigejiancha: '体格检查',
     xcg: '血常规',
@@ -27,7 +27,7 @@ const winfo = ({info}) => {
               {
                 info[it].img.map( (srcs, ii) => {
                   return (
-                    <img src={srcs} key={i*10 + ii} style={{marginLeft:'2em'}}  alt='检查图片'/>
+                    <img src={srcs} key={i*10 + ii} style={{marginLeft:'2em'}} onClick={()=>{imgShow(srcs)}} alt='检查图片' title='点击查看大图'/>
                   )
                 })
               }

@@ -43,10 +43,12 @@ const ICD = ({loading, Idetail, dispatch}) => {
     srcs = s.join('/');
     dispatch({type: 'Idetail/showImg', payload:{ visible: true, imgSrc: srcs }});
   }
-
+  const addModel = ()=>{
+    dispatch({type: 'Idetail/addModelOp', payload:{f: true}});
+  }
   return(
     <div>
-      <Button type="primary" icon="file-add">添加就诊记录</Button>
+      <Button type="primary" icon="file-add" onClick={addModel}>添加就诊记录</Button>
       <Divider orientation="left">基础信息</Divider>
       <Info info={Idetail.patient.info}/>
       <Row gutter={16}>
