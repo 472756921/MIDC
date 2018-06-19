@@ -13,7 +13,6 @@ class modalAdd extends React.Component{
   constructor(props){
     dis = props.dispatch;
     super(props);
-    console.log(props);
     this.state={
       count: {1:'1'},
       btnDis: true,
@@ -21,7 +20,7 @@ class modalAdd extends React.Component{
     _this = this;
   }
 
-  handleCancel(){
+  handleAdd(){
     const zhd = _this.refs.zhD.getData();
     const wed = _this.refs.weD.getData();
     const arD = _this.refs.arD.getData();
@@ -34,6 +33,9 @@ class modalAdd extends React.Component{
     }
     console.log(postData);
     dis({type: 'Idetail/addModelOp', payload:{f: false}});
+  }
+  handleCancel() {
+    dis({type: 'Idetail/addModelOp',payload:{f: false}});
   }
 
   callback(key) {
@@ -53,7 +55,7 @@ class modalAdd extends React.Component{
     return (
       <div>
         <Modal title="添加就诊记录" width='800px'  closable={false} visible={this.props.Idetail.addModel}
-               footer={[<Button key="back" onClick={this.handleCancel} disabled={this.state.btnDis} >添加</Button>]}>
+               footer={[<Button key="back" type="primary" onClick={this.handleAdd} disabled={this.state.btnDis} >添加</Button>,<Button key="close" onClick={this.handleCancel}>取消</Button>]}>
           <Tabs type="card" onChange={this.callback}>
             <TabPane tab="中医四诊" key="1"><DiagnosisOfZh ref='zhD'/></TabPane>
             <TabPane tab="西医检查" key="2"><DiagnosisOfWe ref='weD'/></TabPane>
