@@ -40,7 +40,7 @@ module.exports = {
       name: '平台管理',
       type: 2,
       icon: 'tool',
-      route: '/admin',
+      route: '/systemMannger',
     },
     {
       id: '7',
