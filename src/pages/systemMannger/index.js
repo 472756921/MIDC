@@ -24,7 +24,7 @@ const index = ({loading, systemMannger, dispatch}) => {
     let td = [];
     for(let i=0; i<data.length; i++) {
       if(data[i].fClass === fClass){
-        td.push(<TreeNode title={data[i].name} key={data[i].id} cltype={data[i].type}>
+        td.push(<TreeNode title={data[i].name} key={data[i].id} cltype={data[i].type} isMenu={data[i].isMenu}>
           {createTree(data, data[i].id)}
         </TreeNode>);
       }

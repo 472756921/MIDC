@@ -8,7 +8,8 @@ import styles from '../index.css'
 const { TextArea } = Input;
 const Option = Select.Option;
 
-const cdm = ({systemMannger, dispatch})=>{
+const wdm = ({systemMannger, dispatch})=>{
+
   const changeValue = (data) => {
     if(systemMannger.itemData !== '' && typeof data === "object") {
       systemMannger.itemData[data.target['title']] = data.target.value;
@@ -53,7 +54,7 @@ const cdm = ({systemMannger, dispatch})=>{
           </Select>
         </Col>
       </Row>
-      <Row gutter={16} hidden={systemMannger.itemData.fClass===0?true:false}>
+      <Row gutter={16} hidden={systemMannger.itemData.isMenu===1?true:false}>
         <Col span={12} style={{marginBottom: '10px'}}>
           <div>疾病概况：</div>
           <TextArea rows={3} value={systemMannger.itemData.gk}title='gk' onChange={changeValue} />
@@ -64,36 +65,36 @@ const cdm = ({systemMannger, dispatch})=>{
         </Col>
         <Col span={12} style={{marginBottom: '10px'}}>
           <div>发病机制：</div>
-          <TextArea rows={3} value={systemMannger.itemData.bx} title='bx' onChange={changeValue} />
+          <TextArea rows={3} value={systemMannger.itemData.fbjz} title='fbjz' onChange={changeValue} />
         </Col>
         <Col span={12} style={{marginBottom: '10px'}}>
           <div>体征：</div>
-          <TextArea rows={3} value={systemMannger.itemData.jbzd} title='jbzd' onChange={changeValue} />
+          <TextArea rows={3} value={systemMannger.itemData.tz} title='tz' onChange={changeValue} />
         </Col>
         <Col span={12} style={{marginBottom: '10px'}}>
           <div>理化检查：</div>
-          <TextArea rows={3} value={systemMannger.itemData.zdyd} title='zdyd' onChange={changeValue} />
+          <TextArea rows={3} value={systemMannger.itemData.lhjc} title='lhjc' onChange={changeValue} />
         </Col>
         <Col span={12} style={{marginBottom: '10px'}}>
           <div>鉴别：</div>
-          <TextArea rows={3} value={systemMannger.itemData.zlyz} title='zlyz' onChange={changeValue} />
+          <TextArea rows={3} value={systemMannger.itemData.jb} title='jb' onChange={changeValue} />
         </Col>
         <Col span={12} style={{marginBottom: '10px'}}>
           <div>鉴别诊断：</div>
-          <TextArea rows={3} value={systemMannger.itemData.bzyd} title='bzyd' onChange={changeValue} />
+          <TextArea rows={3} value={systemMannger.itemData.jbzd} title='jbzd' onChange={changeValue} />
         </Col>
         <Col span={12} style={{marginBottom: '10px'}}>
           <div>预后：</div>
-          <TextArea rows={3} value={systemMannger.itemData.fxlz} title='fxlz' onChange={changeValue} />
+          <TextArea rows={3} value={systemMannger.itemData.yh} title='yh' onChange={changeValue} />
         </Col>
       </Row>
       <Button type='primary' onClick={save}>保存</Button>
     </div>
   )
 }
-cdm.propTypes = {
+wdm.propTypes = {
   loading: PropTypes.object,
   systemMannger: PropTypes.object,
 }
 
-export default connect(({systemMannger}) => ({systemMannger}))(cdm);
+export default connect(({systemMannger}) => ({systemMannger}))(wdm);
