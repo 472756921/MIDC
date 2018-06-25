@@ -13,5 +13,6 @@ module.exports = {
     queryPatient: api_M + '/patient/info',
     addPatient: api_M + '/patient/add',
     getSLData: api_M + '/sys/getListData',
+    getSLITData: api_M + '/sys/getSLITData',
   }
 }

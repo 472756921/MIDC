@@ -31,7 +31,6 @@ const m = {
     },
   },
 };
-let midL = [];
 class info extends React.Component{
   constructor(props){
     super(props);
@@ -70,6 +69,7 @@ class info extends React.Component{
           ..._this.state
         });
       }
+      return ''
     })
   };
   createdMid() {
@@ -133,7 +133,7 @@ class info extends React.Component{
             let temp = m[it];
             if(it !== 'cf'){
               let t = (
-                <Col span={24}>
+                <Col span={24}  key={i}>
                   <Divider orientation="left" style={{fontSize:'14px', marginTop:'20px', color:'#1890ff'}}>{m[it].name}</Divider>
                 </Col>
               )
@@ -145,6 +145,8 @@ class info extends React.Component{
                       <TextArea rows={2} style={{'resize': 'none'}} className='zhTextA' data-name={iit}/>
                     </Col>
                   )
+                } else {
+                  return ''
                 }
               })
               return (
@@ -167,13 +169,16 @@ class info extends React.Component{
           </Col>
           {
             Object.keys(m.cf.zycf).map((it, i)=>{
-              if(i != 0)
-              return(
-                <Col span={12} style={{margin: '5px 0'}}>
-                  {m.cf.zycf[it].name}:
-                  <Input placeholder={m.cf.zycf[it].name} data-name={it} className='zhTextA'/>
-                </Col>
-              )
+              if(i !== 0) {
+                return (
+                  <Col span={12} style={{margin: '5px 0'}} key={i}>
+                    {m.cf.zycf[it].name}:
+                    <Input placeholder={m.cf.zycf[it].name} data-name={it} className='zhTextA'/>
+                  </Col>
+                )
+              } else {
+                return ''
+              }
             })
           }
           <Col span={6} style={{marginTop: '10px'}}>中药名</Col>
@@ -194,13 +199,16 @@ class info extends React.Component{
           </Col>
           {
             Object.keys(m.cf.orther).map((it, i)=>{
-              if(i != 0)
+              if(i !== 0){
                 return(
-                  <Col span={8}>
+                  <Col span={8} key={i}>
                     {m.cf.orther[it].name}:
                     <TextArea rows={2} style={{'resize': 'none'}} className='zhTextA' data-name={it}/>
                   </Col>
                 )
+              } else {
+                return ''
+              }
             })
           }
         </Row>

@@ -46,13 +46,19 @@ class info extends React.Component{
                 </Col>
                 {
                   Object.keys(temp).map((itt, j) => {
-                    if(j>0)
+                    if(j>0) {
                       return (
-                        <Col span={12} key={i*10+j}>
+                        <Col span={12} key={i * 10 + j}>
                           {temp[itt].name}:
-                          {itt == 'zylxpj' || itt == 'xylxpj'
+                          {itt === 'zylxpj' || itt === 'xylxpj'
                             ?
-                            <select className='zhTextO' data-name={itt} style={{width: '100px',border:'1px solid #ccc',borderRadius: '5px', height: '30px',marginLeft: '10px'}}>
+                            <select className='zhTextO' data-name={itt} style={{
+                              width: '100px',
+                              border: '1px solid #ccc',
+                              borderRadius: '5px',
+                              height: '30px',
+                              marginLeft: '10px'
+                            }}>
                               <option value='恶化'>恶化</option>
                               <option value='无效'>无效</option>
                               <option value='有效'>有效</option>
@@ -64,6 +70,9 @@ class info extends React.Component{
 
                         </Col>
                       )
+                    } else {
+                      return ''
+                    }
                   })
                 }
               </Row>

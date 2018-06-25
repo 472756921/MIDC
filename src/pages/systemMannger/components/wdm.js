@@ -18,7 +18,7 @@ const cdm = ({systemMannger, dispatch})=>{
     dispatch({type:'systemMannger/changeItemData', itemData:systemMannger.itemData})
   }
 
-  const classes = systemMannger.lsitData.filter(_=>_.type < 2);
+  const classes = systemMannger.lsitData;
 
   const save = ()=>{
 
@@ -44,7 +44,7 @@ const cdm = ({systemMannger, dispatch})=>{
         <Col span={12} style={{marginBottom: '10px'}}>
           <div>类别：<span className={styles.redPoint}>*</span></div>
           <Select value={systemMannger.itemData.fClass} style={{ width: '100%' }}  title='fClass' onChange={changeValue} disabled={systemMannger.itemData.fClass===0?true:false}>
-            <Option key={99991} value={0}  disabled={systemMannger.itemData.fClass!==0?true:false}>中医疾病类型</Option>
+            <Option key={99991} value={0}  disabled={systemMannger.itemData.fClass!==0?true:false}>西医疾病类型</Option>
             {
               classes.map((it, i) => {
                 return (<Option key={i} value={it.id}>{it.name}</Option>)
@@ -63,52 +63,28 @@ const cdm = ({systemMannger, dispatch})=>{
           <TextArea rows={3} value={systemMannger.itemData.by} title='by' onChange={changeValue} />
         </Col>
         <Col span={12} style={{marginBottom: '10px'}}>
-          <div>临床表现：</div>
+          <div>发病机制：</div>
           <TextArea rows={3} value={systemMannger.itemData.bx} title='bx' onChange={changeValue} />
         </Col>
         <Col span={12} style={{marginBottom: '10px'}}>
-          <div>鉴别诊断：</div>
+          <div>体征：</div>
           <TextArea rows={3} value={systemMannger.itemData.jbzd} title='jbzd' onChange={changeValue} />
         </Col>
         <Col span={12} style={{marginBottom: '10px'}}>
-          <div>诊断要点：</div>
+          <div>理化检查：</div>
           <TextArea rows={3} value={systemMannger.itemData.zdyd} title='zdyd' onChange={changeValue} />
         </Col>
         <Col span={12} style={{marginBottom: '10px'}}>
-          <div>治疗原则：</div>
+          <div>鉴别：</div>
           <TextArea rows={3} value={systemMannger.itemData.zlyz} title='zlyz' onChange={changeValue} />
         </Col>
         <Col span={12} style={{marginBottom: '10px'}}>
-          <div>辨证要点：</div>
+          <div>鉴别诊断：</div>
           <TextArea rows={3} value={systemMannger.itemData.bzyd} title='bzyd' onChange={changeValue} />
         </Col>
         <Col span={12} style={{marginBottom: '10px'}}>
-          <div>分型论治：</div>
+          <div>预后：</div>
           <TextArea rows={3} value={systemMannger.itemData.fxlz} title='fxlz' onChange={changeValue} />
-        </Col>
-        <Col span={12} style={{marginBottom: '10px'}}>
-          <div>历代医家论述：</div>
-          <TextArea rows={3} value={systemMannger.itemData.ldyjls} title='ldyjls' onChange={changeValue} />
-        </Col>
-        <Col span={12} style={{marginBottom: '10px'}}>
-          <div>转归预后：</div>
-          <TextArea rows={3} value={systemMannger.itemData.zgyh} title='zgyh' onChange={changeValue} />
-        </Col>
-        <Col span={12} style={{marginBottom: '10px'}}>
-          <div>关联证候：</div>
-          <TextArea rows={3} value={systemMannger.itemData.glzh} title='glzh' onChange={changeValue} />
-        </Col>
-        <Col span={12} style={{marginBottom: '10px'}}>
-          <div>关联症状：</div>
-          <TextArea rows={3} value={systemMannger.itemData.glzz} title='glzz' onChange={changeValue} />
-        </Col>
-        <Col span={12} style={{marginBottom: '10px'}}>
-          <div>相关西医疾病：</div>
-          <TextArea rows={3} value={systemMannger.itemData.xgyxjb} title='xgyxjb' onChange={changeValue} />
-        </Col>
-        <Col span={12} style={{marginBottom: '10px'}}>
-          <div>其它：</div>
-          <TextArea rows={3} value={systemMannger.itemData.qt} title='qt' onChange={changeValue} />
         </Col>
       </Row>
       <Button type='primary' onClick={save}>保存</Button>

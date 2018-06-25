@@ -2,7 +2,6 @@ import React from 'react';
 import { Row, Col, Divider, Input } from 'antd';
 import Upload from '../../../../../components/upload';
 import {Trim} from "../../../../../utils";
-import styles from './styles.css';
 const { TextArea } = Input;
 
 const m = {
@@ -23,17 +22,19 @@ class winfo extends React.Component{
   imgList = ()=> this.refs.upload.getList();
   getData = (()=>{
     const data = document.getElementsByClassName('zhTextW');
-    let postData = {};
+    let postData = {}, westernMedicines = [];
     for(let i=0; i<data.length; i++) {
-      if(data[i].getAttribute('data-name') != 'tigejiancha') {
-        postData[data[i].getAttribute('data-name')] = {
+      if(data[i].getAttribute('data-name') !== 'tigejiancha') {
+        westernMedicines.push({
           text: Trim(data[i].value),
+          name: data[i].getAttribute('data-name'),
           img: this.imgList()
-        }
+        })
       }else {
         postData[data[i].getAttribute('data-name')] = Trim(data[i].value);
       }
     }
+    postData.westernMedicines = westernMedicines;
     return postData;
   })
 
@@ -46,7 +47,7 @@ class winfo extends React.Component{
               <Col span={24} key={i}>
                 <Divider orientation="left" style={{fontSize:'14px', marginTop:'20px', color:'#1890ff'}}>{m[it]}</Divider>
                 {
-                  it == 'tigejiancha'?'':<Upload ref='upload'/>
+                  it === 'tigejiancha'?'':<Upload ref='upload'/>
                 }
                 <TextArea rows={2} style={{'resize': 'none'}} className='zhTextW' data-name={it}/>
 

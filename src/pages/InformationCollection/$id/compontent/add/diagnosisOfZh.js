@@ -72,7 +72,7 @@ class info extends React.Component{
                 </Col>
                 {
                   Object.keys(temp).map((itt, j) => {
-                    if(j>0)
+                    if(j>0){
                       return (
                         <Col span={temp[itt].name === '舌诊图片'?24:12} key={i*10+j}>
                           {temp[itt].name}:
@@ -82,6 +82,9 @@ class info extends React.Component{
                           <TextArea rows={2} style={{'resize': 'none'}} className='zhTextZ' data-name={itt}/>
                         </Col>
                       )
+                    } else {
+                      return ''
+                    }
                   })
                 }
               </Row>

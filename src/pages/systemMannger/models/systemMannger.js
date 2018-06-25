@@ -1,8 +1,5 @@
 /* global window */
-/* global document */
-/* global location */
-/* eslint no-restricted-globals: ["error", "event"] */
-import { routerRedux } from 'dva/router'
+// import { routerRedux } from 'dva/router'
 import {getSLData} from "../service/systemMannger";
 
 export default {
@@ -10,7 +7,8 @@ export default {
   state: {
     lsitData: [],
     nowType: 'cdm',
-    itemData: '123',
+    itemData: '',
+    cltype: '',
   },
   subscriptions: {
     setUp({dispatch, history}) {
@@ -24,15 +22,15 @@ export default {
   effects: {
     *getData({payload}, {call, put, select}) {
       const {data}  = yield call(getSLData, payload);
-      yield put({type: 'setData', data})
-    }
+      yield put({type: 'setData', payload: {data, type:payload.type}});
+    },
   },
   reducers: {
-    setData (state, {data}) {
-      return {...state, lsitData: data }
+    setData (state,{payload}) {
+      return {...state, lsitData: payload.data, nowType: payload.type }
     },
-    changeItemData (state, {itemData}) {
-      return {...state, itemData: itemData }
+    changeItemData (state, payload) {
+      return {...state, itemData: payload.itemData, cltype: payload.cltype }
     },
   },
 }
