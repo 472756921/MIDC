@@ -1,8 +1,9 @@
 import React from 'react';
-import { connect } from 'dva'
-import PropTypes from 'prop-types'
-import { Row, Col, Input, Button, Divider, Select  } from 'antd';
-import styles from '../index.css'
+import { connect } from 'dva';
+import Confirm from '../../../components/Confirm';
+import PropTypes from 'prop-types';
+import { Row, Col, Input, Button, Divider, Select, message } from 'antd';
+import styles from '../index.css';
 
 
 const { TextArea } = Input;
@@ -19,23 +20,39 @@ const wdm = ({systemMannger, dispatch})=>{
     dispatch({type:'systemMannger/changeItemData', itemData:systemMannger.itemData})
   }
 
-  const classes = systemMannger.lsitData;
+  const classes = systemMannger.lsitData.filter(_=>_.isMenu===1);
 
   const save = ()=>{
-
+    if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '') {
+      message.error('请填写名称和类型');
+    } else {
+      dispatch({type:'systemMannger/saveData'});
+    }
+  }
+  const delItem = ()=>{
+    dispatch({type:'systemMannger/del', itemData: systemMannger.itemData});
   }
   const del = ()=>{
-
+    if(systemMannger.itemData === ''){
+      message.error('请选择要删除的对象');
+    } else {
+      Confirm('确认删除','删除后将无法恢复，若删除的是疾病类型，该类型下的疾病也将被删除', delItem);
+    }
   }
   const add = (e)=>{
-    console.log(e.target['title']);
+    const t = e.target['title'];
+    if(t === 'classes') {
+      dispatch({type:'systemMannger/changeItemData', itemData:{name:'默认疾病类型', sysType: 'wdm', isMenu: 1, type: 1 }});
+    } else if(t === 'jb') {
+      dispatch({type:'systemMannger/changeItemData', itemData:{name:'新的疾病',sysType: 'wdm', isMenu: 0, type: 2 }});
+    }
   }
 
   return (
     <div>
       <Button onClick={add} title='classes'>添加疾病类型</Button>
       <Button onClick={add} title='jb'>添加疾病</Button>
-      <Button onClick={del} title='jb'>删除当前疾病</Button>
+      <Button onClick={del} title='jb'>删除当前疾病/类型</Button>
       <Divider />
       <Row gutter={16} >
         <Col span={12} style={{marginBottom: '10px'}}>
@@ -44,8 +61,8 @@ const wdm = ({systemMannger, dispatch})=>{
         </Col>
         <Col span={12} style={{marginBottom: '10px'}}>
           <div>类别：<span className={styles.redPoint}>*</span></div>
-          <Select value={systemMannger.itemData.fClass} style={{ width: '100%' }}  title='fClass' onChange={changeValue} disabled={systemMannger.itemData.fClass===0?true:false}>
-            <Option key={99991} value={0}  disabled={systemMannger.itemData.fClass!==0?true:false}>西医疾病类型</Option>
+          <Select value={systemMannger.itemData.fClass} style={{ width: '100%' }}  title='fClass' onChange={changeValue}>
+            <Option key={99991} value={0}  disabled={systemMannger.itemData.isMenu!==1?true:false}>西医疾病类型</Option>
             {
               classes.map((it, i) => {
                 return (<Option key={i} value={it.id}>{it.name}</Option>)

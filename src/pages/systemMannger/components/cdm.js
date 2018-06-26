@@ -1,8 +1,9 @@
 import React from 'react';
-import { connect } from 'dva'
-import PropTypes from 'prop-types'
-import { Row, Col, message, Input, Button, Divider, Select  } from 'antd'
-import styles from '../index.css'
+import { connect } from 'dva';
+import Confirm from '../../../components/Confirm';
+import PropTypes from 'prop-types';
+import { Row, Col, message, Input, Button, Divider, Select  } from 'antd';
+import styles from '../index.css';
 
 
 const { TextArea } = Input;
@@ -27,8 +28,15 @@ const cdm = ({systemMannger, dispatch})=>{
       dispatch({type:'systemMannger/saveData'});
     }
   }
+  const delItem = ()=>{
+    dispatch({type:'systemMannger/del', itemData: systemMannger.itemData});
+  }
   const del = ()=>{
-
+    if(systemMannger.itemData === ''){
+      message.error('请选择要删除的对象');
+    } else {
+      Confirm('确认删除','删除后将无法恢复，若删除的是疾病类型，该类型下的疾病也将被删除', delItem);
+    }
   }
   const add = (e)=>{
     const t = e.target['title'];
@@ -43,7 +51,7 @@ const cdm = ({systemMannger, dispatch})=>{
     <div>
       <Button onClick={add} title='classes'>添加疾病类型</Button>
       <Button onClick={add} title='jb'>添加疾病</Button>
-      <Button onClick={del} title='jb'>删除当前疾病/类型</Button>
+      <Button onClick={del}>删除当前疾病/类型</Button>
       <Divider />
       <Row gutter={16} >
         <Col span={12} style={{marginBottom: '10px'}}>

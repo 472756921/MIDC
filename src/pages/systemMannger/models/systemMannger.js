@@ -1,5 +1,5 @@
 /* global window */
-import {getSLData, saveData} from "../service/systemMannger";
+import {getSLData, saveData, del} from "../service/systemMannger";
 import { message } from 'antd';
 
 export default {
@@ -23,6 +23,20 @@ export default {
     *getData({payload}, {call, put, select}) {
       const {data}  = yield call(getSLData, payload);
       yield put({type: 'setData', payload: {data, type:payload.type}});
+    },
+    *del({itemData}, {call, put, select}) {
+      let delData = {
+        id: itemData.id,
+        sysType: itemData.sysType,
+      }
+      const {data}  = yield call(del, delData);
+      if(data.code === 200){
+        message.success('删除成功');
+        const {nowType} = yield select(_=>_.systemMannger);
+        yield put({type: 'getData', payload:{type: nowType}});
+      } else {
+        message.error(data.msg);
+      }
     },
     *saveData({payload}, {call, put, select}) {
       const {itemData} = yield select(_=>_.systemMannger);

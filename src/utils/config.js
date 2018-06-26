@@ -15,5 +15,6 @@ module.exports = {
     getSLData: api_M + '/sys/getListData',
     getSLITData: api_M + '/sys/getSLITData',
     saveData: api_M + '/sys/saveData',
+    del: api_M + '/sys/del',
   }
 }
