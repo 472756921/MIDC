@@ -26,6 +26,9 @@ const wdm = ({systemMannger, dispatch})=>{
     if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '') {
       message.error('请填写名称和类型');
     } else {
+      // type
+      const {type} = systemMannger.lsitData.filter(_=>_.id === systemMannger.itemData.fClass)[0];
+      systemMannger.itemData.type = Number(type+1);
       dispatch({type:'systemMannger/saveData'});
     }
   }
@@ -42,9 +45,9 @@ const wdm = ({systemMannger, dispatch})=>{
   const add = (e)=>{
     const t = e.target['title'];
     if(t === 'classes') {
-      dispatch({type:'systemMannger/changeItemData', itemData:{name:'默认疾病类型', sysType: 'wdm', isMenu: 1, type: 1 }});
+      dispatch({type:'systemMannger/changeItemData', itemData:{name:'默认疾病类型', sysType: 'wdm', isMenu: 1 }});
     } else if(t === 'jb') {
-      dispatch({type:'systemMannger/changeItemData', itemData:{name:'新的疾病',sysType: 'wdm', isMenu: 0, type: 2 }});
+      dispatch({type:'systemMannger/changeItemData', itemData:{name:'新的疾病',sysType: 'wdm', isMenu: 0 }});
     }
   }
 
