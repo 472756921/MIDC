@@ -8,6 +8,9 @@ import YP from './components/yp';
 import ZY from './components/zy';
 import ZZZF from './components/zzzf';
 import MZ from './components/mz';
+import GXLX from './components/gxlx';
+import FJZZ from './components/fjzz';
+import ZZ from './components/zz';
 import styles from './index.css'
 import PropTypes from 'prop-types'
 
@@ -70,6 +73,15 @@ const index = ({loading, systemMannger, dispatch}) => {
     case 'mz':
       showInner = <MZ/>
       break;
+    case 'gxlx':
+      showInner = <GXLX/>
+      break;
+    case 'fjzz':
+      showInner = <FJZZ/>
+      break;
+    case 'zz':
+      showInner = <ZZ/>
+      break;
     default:
       showInner = <CDM/>
       break;
@@ -86,10 +98,10 @@ const index = ({loading, systemMannger, dispatch}) => {
         <Button type={systemMannger.nowType==='zy'?'primary':''} title='zy' onClick={changeType}>中药管理</Button>
         <Button type={systemMannger.nowType==='zzzf'?'primary':''} title='zzzf' onClick={changeType}>治则治法管理</Button>
         <Button type={systemMannger.nowType==='mz'?'primary':''} title='mz' onClick={changeType}>脉诊管理</Button>
-        <Button>功效类型管理</Button>
+        <Button type={systemMannger.nowType==='gxlx'?'primary':''} title='gxlx' onClick={changeType}>功效类型管理</Button>
         <Button>方剂管理</Button>
-        <Button>方剂主治管理</Button>
-        <Button>症状管理</Button>
+        <Button type={systemMannger.nowType==='fjzz'?'primary':''} title='fjzz' onClick={changeType}>方剂主治管理</Button>
+        <Button type={systemMannger.nowType==='zz'?'primary':''} title='zz' onClick={changeType}>症状管理</Button>
         <Button type="dashed">成分管理</Button>
         <Button type="dashed">医案管理</Button>
         <Button type="dashed">病人管理</Button>
