@@ -7,6 +7,7 @@ import styles from '../index.css';
 
 
 const { TextArea } = Input;
+const Search = Input.Search;
 const Option = Select.Option;
 
 const wdm = ({systemMannger, dispatch})=>{
@@ -51,18 +52,39 @@ const wdm = ({systemMannger, dispatch})=>{
     }
   }
 
+  const handleChange = (value)=>{
+    const data = systemMannger.lsitData.filter(_=>_.id === value);
+    if(data.length > 0){
+      dispatch({type:'systemMannger/changeItemData', itemData: data[0]});
+    }
+  }
+
   return (
     <div>
+      <Select
+        showSearch
+        style={{ width: 200 }}
+        placeholder="输入内容搜索"
+        optionFilterProp="children"
+        onChange={handleChange}
+        filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+      >
+        {
+          systemMannger.lsitData.filter(_=>_.isMenu !== 1).map((it, i) => {
+            return (<Option key={i} value={it.id}>{it.name}</Option>)
+          })
+        }
+      </Select>
       <Button onClick={add} title='classes'>添加疾病类型</Button>
       <Button onClick={add} title='jb'>添加疾病</Button>
       <Button onClick={del} title='jb'>删除当前疾病/类型</Button>
       <Divider />
       <Row gutter={16} >
-        <Col span={12} style={{marginBottom: '10px'}}>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>名称：<span className={styles.redPoint}>*</span></div>
           <Input value={systemMannger.itemData.name} title='name' onChange={changeValue} />
         </Col>
-        <Col span={12} style={{marginBottom: '10px'}}>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>类别：<span className={styles.redPoint}>*</span></div>
           <Select value={systemMannger.itemData.fClass} style={{ width: '100%' }}  title='fClass' onChange={changeValue}>
             <Option key={99991} value={0}  disabled={systemMannger.itemData.isMenu!==1?true:false}>西医疾病类型</Option>
@@ -75,35 +97,35 @@ const wdm = ({systemMannger, dispatch})=>{
         </Col>
       </Row>
       <Row gutter={16} hidden={systemMannger.itemData.isMenu===1?true:false}>
-        <Col span={12} style={{marginBottom: '10px'}}>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>疾病概况：</div>
           <TextArea rows={3} value={systemMannger.itemData.gk}title='gk' onChange={changeValue} />
         </Col>
-        <Col span={12} style={{marginBottom: '10px'}}>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>疾病病因：</div>
           <TextArea rows={3} value={systemMannger.itemData.by} title='by' onChange={changeValue} />
         </Col>
-        <Col span={12} style={{marginBottom: '10px'}}>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>发病机制：</div>
           <TextArea rows={3} value={systemMannger.itemData.fbjz} title='fbjz' onChange={changeValue} />
         </Col>
-        <Col span={12} style={{marginBottom: '10px'}}>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>体征：</div>
           <TextArea rows={3} value={systemMannger.itemData.tz} title='tz' onChange={changeValue} />
         </Col>
-        <Col span={12} style={{marginBottom: '10px'}}>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>理化检查：</div>
           <TextArea rows={3} value={systemMannger.itemData.lhjc} title='lhjc' onChange={changeValue} />
         </Col>
-        <Col span={12} style={{marginBottom: '10px'}}>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>鉴别：</div>
           <TextArea rows={3} value={systemMannger.itemData.jb} title='jb' onChange={changeValue} />
         </Col>
-        <Col span={12} style={{marginBottom: '10px'}}>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>鉴别诊断：</div>
           <TextArea rows={3} value={systemMannger.itemData.jbzd} title='jbzd' onChange={changeValue} />
         </Col>
-        <Col span={12} style={{marginBottom: '10px'}}>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>预后：</div>
           <TextArea rows={3} value={systemMannger.itemData.yh} title='yh' onChange={changeValue} />
         </Col>

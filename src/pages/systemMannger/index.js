@@ -73,10 +73,10 @@ const index = ({loading, systemMannger, dispatch}) => {
       </div>
       <Divider />
       <Row gutter={16}>
-        <Col className="gutter-row" span={5}>
+        <Col className="gutter-row" xl={5} xxl={3}>
           <Tree onSelect={onSelect}>{tree}</Tree>
         </Col>
-        <Col span={19}>
+        <Col xl={19} xxl={21}>
           {showInner}
         </Col>
       </Row>
