@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva'
 import PropTypes from 'prop-types'
-import { Row, Col, Input, Button, Divider, Select  } from 'antd';
+import { Row, Col, message, Input, Button, Divider, Select  } from 'antd'
 import styles from '../index.css'
 
 
@@ -15,26 +15,35 @@ const cdm = ({systemMannger, dispatch})=>{
     } else if(typeof data === "number") {
       systemMannger.itemData.fClass = data;
     }
-    dispatch({type:'systemMannger/changeItemData', itemData:systemMannger.itemData})
+    dispatch({type:'systemMannger/changeItemData', itemData:systemMannger.itemData});
   }
 
   const classes = systemMannger.lsitData.filter(_=>_.type < 2);
 
   const save = ()=>{
-
+    if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '') {
+      message.error('请填写名称和类型');
+    } else {
+      dispatch({type:'systemMannger/saveData'});
+    }
   }
   const del = ()=>{
 
   }
   const add = (e)=>{
-    console.log(e.target['title']);
+    const t = e.target['title'];
+    if(t === 'classes') {
+      dispatch({type:'systemMannger/changeItemData', itemData:{name:'默认疾病类型', fClass:0, sysType: 'cdm', isMenu: 1, type: 1 }});
+    } else if(t === 'jb') {
+      dispatch({type:'systemMannger/changeItemData', itemData:{name:'新的疾病',sysType: 'cdm', isMenu: 0, type: 2 }});
+    }
   }
 
   return (
     <div>
       <Button onClick={add} title='classes'>添加疾病类型</Button>
       <Button onClick={add} title='jb'>添加疾病</Button>
-      <Button onClick={del} title='jb'>删除当前疾病</Button>
+      <Button onClick={del} title='jb'>删除当前疾病/类型</Button>
       <Divider />
       <Row gutter={16} >
         <Col span={12} style={{marginBottom: '10px'}}>

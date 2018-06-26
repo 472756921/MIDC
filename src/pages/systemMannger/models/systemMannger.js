@@ -1,6 +1,6 @@
 /* global window */
-// import { routerRedux } from 'dva/router'
-import {getSLData} from "../service/systemMannger";
+import {getSLData, saveData} from "../service/systemMannger";
+import { message } from 'antd';
 
 export default {
   namespace: 'systemMannger',
@@ -24,10 +24,20 @@ export default {
       const {data}  = yield call(getSLData, payload);
       yield put({type: 'setData', payload: {data, type:payload.type}});
     },
+    *saveData({payload}, {call, put, select}) {
+      const {itemData} = yield select(_=>_.systemMannger);
+      const {data}  = yield call(saveData, itemData);
+      console.log(data.code === 200);
+      if(data.code === 200){
+        message.success('保存成功');
+      } else {
+        message.error(data.msg);
+      }
+    },
   },
   reducers: {
     setData (state,{payload}) {
-      return {...state, lsitData: payload.data, nowType: payload.type }
+      return {...state, lsitData: payload.data, nowType: payload.type, itemData: '' }
     },
     changeItemData (state, payload) {
       return {...state, itemData: payload.itemData, cltype: payload.cltype }

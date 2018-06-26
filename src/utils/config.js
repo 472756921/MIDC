@@ -14,5 +14,6 @@ module.exports = {
     addPatient: api_M + '/patient/add',
     getSLData: api_M + '/sys/getListData',
     getSLITData: api_M + '/sys/getSLITData',
+    saveData: api_M + '/sys/saveData',
   }
 }
