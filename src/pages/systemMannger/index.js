@@ -2,6 +2,12 @@ import { connect } from 'dva'
 import { Button, Row, Col, Tree, Divider } from 'antd'
 import CDM from './components/cdm';
 import WDM from './components/wdm';
+import ZH from './components/zh';
+import SZ from './components/sz';
+import YP from './components/yp';
+import ZY from './components/zy';
+import ZZZF from './components/zzzf';
+import MZ from './components/mz';
 import styles from './index.css'
 import PropTypes from 'prop-types'
 
@@ -46,6 +52,24 @@ const index = ({loading, systemMannger, dispatch}) => {
     case 'wdm':
       showInner = <WDM/>
       break;
+    case 'zh':
+      showInner = <ZH/>
+      break;
+    case 'sz':
+      showInner = <SZ/>
+      break;
+    case 'yp':
+      showInner = <YP/>
+      break;
+    case 'zy':
+      showInner = <ZY/>
+      break;
+    case 'zzzf':
+      showInner = <ZZZF/>
+      break;
+    case 'mz':
+      showInner = <MZ/>
+      break;
     default:
       showInner = <CDM/>
       break;
@@ -56,12 +80,12 @@ const index = ({loading, systemMannger, dispatch}) => {
       <div className={styles.navBtns}>
         <Button type={systemMannger.nowType==='cdm'?'primary':''} title='cdm' onClick={changeType}>中医疾病管理</Button>
         <Button type={systemMannger.nowType==='wdm'?'primary':''} title='wdm' onClick={changeType}>西医疾病管理</Button>
-        <Button>证候管理</Button>
-        <Button>舌诊管理</Button>
-        <Button>饮片管理</Button>
-        <Button>中药管理</Button>
-        <Button>治则治法管理</Button>
-        <Button>脉诊管理</Button>
+        <Button type={systemMannger.nowType==='zh'?'primary':''} title='zh' onClick={changeType}>证候管理</Button>
+        <Button type={systemMannger.nowType==='sz'?'primary':''} title='sz' onClick={changeType}>舌诊管理</Button>
+        <Button type={systemMannger.nowType==='yp'?'primary':''} title='yp' onClick={changeType}>饮片管理</Button>
+        <Button type={systemMannger.nowType==='zy'?'primary':''} title='zy' onClick={changeType}>中药管理</Button>
+        <Button type={systemMannger.nowType==='zzzf'?'primary':''} title='zzzf' onClick={changeType}>治则治法管理</Button>
+        <Button type={systemMannger.nowType==='mz'?'primary':''} title='mz' onClick={changeType}>脉诊管理</Button>
         <Button>功效类型管理</Button>
         <Button>方剂管理</Button>
         <Button>方剂主治管理</Button>

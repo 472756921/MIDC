@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { Row, Col, message, Input, Button, Divider, Select  } from 'antd';
 import styles from '../index.css';
 
-const Search = Input.Search;
 const { TextArea } = Input;
 const Option = Select.Option;
 

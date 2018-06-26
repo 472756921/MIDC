@@ -5,11 +5,12 @@ import PropTypes from 'prop-types';
 import { Row, Col, Input, Button, Divider, Select, message } from 'antd';
 import styles from '../index.css';
 
-
 const { TextArea } = Input;
 const Option = Select.Option;
 
-const wdm = ({systemMannger, dispatch})=>{
+// wdm
+
+const yp = ({systemMannger, dispatch})=>{
 
   const changeValue = (data) => {
     if(systemMannger.itemData !== '' && typeof data === "object") {
@@ -26,10 +27,14 @@ const wdm = ({systemMannger, dispatch})=>{
     if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '') {
       message.error('请填写名称和类型');
     } else {
-      // type
-      const {type} = systemMannger.lsitData.filter(_=>_.id === systemMannger.itemData.fClass)[0];
-      systemMannger.itemData.type = Number(type+1);
-      dispatch({type:'systemMannger/saveData'});
+      if(systemMannger.itemData.isMenu === 0 && systemMannger.itemData.zyc === '') {
+        message.error('所属中药材');
+      } else {
+        // type
+        const {type} = systemMannger.lsitData.filter(_=>_.id === systemMannger.itemData.fClass)[0];
+        systemMannger.itemData.type = Number(type+1);
+        dispatch({type:'systemMannger/saveData'});
+      }
     }
   }
   const delItem = ()=>{
@@ -39,15 +44,15 @@ const wdm = ({systemMannger, dispatch})=>{
     if(systemMannger.itemData === ''){
       message.error('请选择要删除的对象');
     } else {
-      Confirm('确认删除','删除后将无法恢复，若删除的是疾病类型，该类型下的疾病也将被删除', delItem);
+      Confirm('确认删除','删除后将无法恢复，若删除的是饮片类型，该类型下的类目也将被删除', delItem);
     }
   }
   const add = (e)=>{
     const t = e.target['title'];
     if(t === 'classes') {
-      dispatch({type:'systemMannger/changeItemData', itemData:{name:'默认疾病类型', sysType: 'wdm', isMenu: 1 }});
+      dispatch({type:'systemMannger/changeItemData', itemData:{name:'默认饮片类型', sysType: 'yp', isMenu: 1 }});
     } else if(t === 'jb') {
-      dispatch({type:'systemMannger/changeItemData', itemData:{name:'新的疾病',sysType: 'wdm', isMenu: 0 }});
+      dispatch({type:'systemMannger/changeItemData', itemData:{name:'新的饮片',sysType: 'yp', isMenu: 0 }});
     }
   }
 
@@ -74,9 +79,9 @@ const wdm = ({systemMannger, dispatch})=>{
           })
         }
       </Select>
-      <Button onClick={add} title='classes'>添加疾病类型</Button>
-      <Button onClick={add} title='jb'>添加疾病</Button>
-      <Button onClick={del} title='jb'>删除当前疾病/类型</Button>
+      <Button onClick={add} title='classes'>添加饮片类型</Button>
+      <Button onClick={add} title='jb'>添加饮片</Button>
+      <Button onClick={del} title='jb'>删除当前饮片/类型</Button>
       <Divider />
       <Row gutter={16} >
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
@@ -86,7 +91,7 @@ const wdm = ({systemMannger, dispatch})=>{
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>类别：<span className={styles.redPoint}>*</span></div>
           <Select value={systemMannger.itemData.fClass} style={{ width: '100%' }}  title='fClass' onChange={changeValue}>
-            <Option key={99991} value={0}  disabled={systemMannger.itemData.isMenu!==1?true:false}>西医疾病类型</Option>
+            <Option key={99991} value={0}  disabled={systemMannger.itemData.isMenu!==1?true:false}>西医饮片类型</Option>
             {
               classes.map((it, i) => {
                 return (<Option key={i} value={it.id}>{it.name}</Option>)
@@ -97,45 +102,29 @@ const wdm = ({systemMannger, dispatch})=>{
       </Row>
       <Row gutter={16} hidden={systemMannger.itemData.isMenu===1?true:false}>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
-          <div>疾病概况：</div>
-          <TextArea rows={3} value={systemMannger.itemData.gk}title='gk' onChange={changeValue} />
+          <div>所属中药材：<span className={styles.redPoint}>*</span></div>
+          <TextArea rows={3} value={systemMannger.itemData.zyc}title='zyc' onChange={changeValue} />
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
-          <div>疾病病因：</div>
-          <TextArea rows={3} value={systemMannger.itemData.by} title='by' onChange={changeValue} />
+          <div>炮制方法：</div>
+          <TextArea rows={3} value={systemMannger.itemData.pzff} title='pzff' onChange={changeValue} />
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
-          <div>发病机制：</div>
-          <TextArea rows={3} value={systemMannger.itemData.fbjz} title='fbjz' onChange={changeValue} />
+          <div>药材部位：</div>
+          <TextArea rows={3} value={systemMannger.itemData.ycbw} title='ycbw' onChange={changeValue} />
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
-          <div>体征：</div>
-          <TextArea rows={3} value={systemMannger.itemData.tz} title='tz' onChange={changeValue} />
-        </Col>
-        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
-          <div>理化检查：</div>
-          <TextArea rows={3} value={systemMannger.itemData.lhjc} title='lhjc' onChange={changeValue} />
-        </Col>
-        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
-          <div>鉴别：</div>
-          <TextArea rows={3} value={systemMannger.itemData.jb} title='jb' onChange={changeValue} />
-        </Col>
-        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
-          <div>鉴别诊断：</div>
-          <TextArea rows={3} value={systemMannger.itemData.jbzd} title='jbzd' onChange={changeValue} />
-        </Col>
-        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
-          <div>预后：</div>
-          <TextArea rows={3} value={systemMannger.itemData.yh} title='yh' onChange={changeValue} />
+          <div>备注：</div>
+          <TextArea rows={3} value={systemMannger.itemData.bz} title='bz' onChange={changeValue} />
         </Col>
       </Row>
       <Button type='primary' onClick={save}>保存</Button>
     </div>
   )
 }
-wdm.propTypes = {
+yp.propTypes = {
   loading: PropTypes.object,
   systemMannger: PropTypes.object,
 }
 
-export default connect(({systemMannger}) => ({systemMannger}))(wdm);
+export default connect(({systemMannger}) => ({systemMannger}))(yp);
