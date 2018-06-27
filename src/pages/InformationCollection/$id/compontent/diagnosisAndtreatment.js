@@ -33,6 +33,7 @@ const info = ({info}) => {
   const item = d.map((it, i)=>{
     if(it !== 'cf'){
       let fvalue = info[it];
+      console.log(m[it]);
       let t = (
         <Col span={24}>
           <Divider orientation="left" style={{fontSize:'18px', marginTop:'20px', color:'#1890ff'}}>{m[it].name}</Divider>

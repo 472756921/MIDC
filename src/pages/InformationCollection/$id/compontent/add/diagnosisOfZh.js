@@ -36,7 +36,7 @@ const m = {
     name: '四诊摘要',
     zhenzhuang: {name: '症状'},
     shezheng: {name: '舌诊'},
-    maizhen: {name: '脉诊'},
+    maizhenSel: {name: '脉诊'},
   },
 };
 

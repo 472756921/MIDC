@@ -15,3 +15,6 @@ export function queryPatient (data) {
 export function addPatient (data) {
   return request(api.addPatient, {method: 'post', headers: JSONS, body: JSON.stringify(data)});
 }
+export function addRec (data) {
+  return request(api.addRec, {method: 'post', headers: JSONS, body: JSON.stringify(data)});
+}

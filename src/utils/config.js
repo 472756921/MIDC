@@ -1,5 +1,5 @@
 const api_M = '/apiM'
-const apiOnline = '/api'
+const apiOnline = 'http://192.168.1.3:8080/apiM'
 
 module.exports = {
   name: '中医传承辅助系统',
@@ -11,7 +11,8 @@ module.exports = {
     login: api_M + '/user/login',
     loginOut: api_M + '/user/loginOut',
     patientList: apiOnline + '/patient/list',
-    queryPatient: api_M + '/patient/info',
+    queryPatient: apiOnline + '/patient/info',
+    addRec: apiOnline + '/patient/addRec',
     addPatient: api_M + '/patient/add',
     getSLData: api_M + '/sys/getListData',
     getSLITData: api_M + '/sys/getSLITData',

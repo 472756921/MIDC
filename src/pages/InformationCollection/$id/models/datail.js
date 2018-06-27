@@ -1,11 +1,14 @@
 import pathToRegexp from 'path-to-regexp'
-import {queryPatient} from "../../services/InformationCollection";
+import {message} from 'antd'
+import {queryPatient, addRec} from "../../services/InformationCollection";
+import { routerRedux } from 'dva/router'
 
 export default {
   namespace: 'Idetail',
   state: {
     visible: false,
     addModel: false,
+    pid: '',
     imgSrc: '',
     index: 0,
     patient: {
@@ -35,12 +38,27 @@ export default {
   effects: {
     * query ({ payload }, { call, put }) {
       const {data} = yield call(queryPatient, payload);
+      data.pid = payload.pid;
       yield put({type: 'querySuccess', payload:data});
+    },
+    * addRec ({ postData }, { call, put, select }) {
+      const {pid} = yield select(_=>_.Idetail);
+      postData.id = pid;
+      const {data} = yield call(addRec, postData);
+      if(data.success) {
+        message.success('添加成功');
+        yield put(routerRedux.push({
+          pathname: '/informationCollection/' + pid,
+        }))
+        yield put({type: 'addModelOp', payload:{f: false}});
+      } else {
+        message.success(data.error);
+      }
     },
   },
   reducers: {
     querySuccess(state, {payload}) {
-      return {...state, patient: payload}
+      return {...state, patient: payload, pid: payload.pid}
     },
     addModelOp(state, {payload}) {
       return {...state, addModel: payload.f}

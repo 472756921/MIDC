@@ -31,8 +31,7 @@ class modalAdd extends React.Component{
       diagnosisAndtreatment: arD,
       orther: orD,
     }
-    console.log(postData);
-    dis({type: 'Idetail/addModelOp', payload:{f: false}});
+    dis({type: 'Idetail/addRec', postData});
   }
   handleCancel() {
     dis({type: 'Idetail/addModelOp',payload:{f: false}});

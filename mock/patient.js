@@ -38,6 +38,10 @@ let patient = {
     let {body} = req;
     res.json({msg: 'ok', id: '14836497910853'});
   },
+  'POST /apiM/patient/addRec': (req, res) => {
+    let {body} = req;
+    res.json({msg: 'ok', id: '14836497910853'});
+  },
   'GET /apiM/patient/info': (req, res) => {
     let {query} = req;
     let nd = patientList.data;
@@ -185,7 +189,6 @@ let patient = {
           },
           }]
       })
-
     }
     res.json(resData);
   },

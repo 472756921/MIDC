@@ -11,21 +11,24 @@ import AddModal from './compontent/add/add';
 
 const TabPane = Tabs.TabPane;
 let _dispatch = '';
-const columns = [{
+const columns = [
+{
   title: '就诊时间',
   dataIndex: 'date',
   key: 'date',
-}, {
+},
+{
   title: '就诊次数',
   dataIndex: 'visitTimes',
   key: 'visitTimes',
-}, {
+},
+{
   title: '操作',
   key: 'action',
   render: (text, record, index) => {
     return (
-      <span>
-      <a href="javascript;" onClick={()=>{datileInVisit(index)}}>详情</a>
+    <span>
+      <span style={{cursor: 'pointer',color: '#3085bf'}} onClick={()=>{datileInVisit(index)}}>详情</span>
     </span>
     )
   },
@@ -38,9 +41,6 @@ const ICD = ({loading, Idetail, dispatch}) => {
   _dispatch = dispatch;
   const handleCancel = () => {dispatch({type: 'Idetail/showImg', payload:{ visible: false, imgSrc: '' }});};
   function imgShow(srcs) {
-    let s = srcs.split('/');
-    s[s.length-1] = '600x900';
-    srcs = s.join('/');
     dispatch({type: 'Idetail/showImg', payload:{ visible: true, imgSrc: srcs }});
   }
   const addModel = ()=>{

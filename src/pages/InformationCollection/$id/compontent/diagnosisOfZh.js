@@ -34,7 +34,7 @@ const info = ({info, imgShow}) => {
       name: '四诊摘要',
       zhenzhuang: {name: '症状'},
       shezheng: {name: '舌诊'},
-      maizhen: {name: '脉诊'},
+      maizhenSel: {name: '脉诊'},
     },
   };
   const d = Object.keys(info);
@@ -57,7 +57,7 @@ const info = ({info, imgShow}) => {
               {
                 fvalue[iit].img.map( (srcs, iii) => {
                 return (
-                  <img src={srcs} key={i*10 + ii*10 + iii} style={{marginLeft:'2em'}} onClick={()=>{imgShow(srcs)}} alt='检查图片' title='点击查看大图'/>
+                  <img src={srcs} width='200em' key={i*10 + ii*10 + iii} style={{marginLeft:'2em'}} onClick={()=>{imgShow(srcs)}} alt='检查图片' title='点击查看大图'/>
                 )
                 })
               }

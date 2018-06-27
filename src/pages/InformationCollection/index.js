@@ -107,7 +107,7 @@ const IC = ({loading, informationCollection, dispatch}) => {
         </Col>
       </Row>
       <br/>
-      <Table columns={columns} dataSource={informationCollection.listData.data} loading={loading.models.informationCollection} pagination={{'total': informationCollection.listData.total, 'pageSize': 30}} onChange={chage}/>
+      <Table columns={columns} dataSource={informationCollection.listData.content} loading={loading.models.informationCollection} pagination={{'total': informationCollection.listData.totalPages, 'pageSize': 30}} onChange={chage}/>
 
       <Modal width={800} title="患者信息" visible={informationCollection.visible} onOk={()=>{handleOk()}} onCancel={()=>{modalControl(false)}}>
         <Row gutter={16}>
