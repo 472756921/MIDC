@@ -2117,6 +2117,19 @@ const zz = [
     "bz": "片出见则次它数目六党引直来手导今。快正片去色传京但经件南结照北。音队规备节或七能完里示须当加划一值。",
   }
 ];
+let cf = Mock.mock({
+  'cf|20-20': [
+    {
+      id: '@pick(1, 50)',
+      name: '@csentence(2, 3)',
+      come: '@cparagraph(1, 1)',
+      fzs: '@cparagraph(1, 1)',
+      CAS: '@cparagraph(1, 1)',
+    },
+  ],
+})
+
+
 
 let systemMannger = {
   'GET /apiM/sys/getListData': (req, res) => {
@@ -2151,6 +2164,9 @@ let systemMannger = {
         break;
       case 'zz':
         res.json(zz);
+        break;
+      case 'cf':
+        res.json(cf.cf);
         break;
       default:
         res.json(cdm);
