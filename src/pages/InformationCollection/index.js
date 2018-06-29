@@ -116,9 +116,9 @@ const IC = ({loading, informationCollection, dispatch}) => {
           </Col>
           <Col span={6}>
             <select style={selectStyle} className='info_data' defaultValue="1" data-name={'sex'}>
-              <option value="1">男</option>
-              <option value="0">女</option>
-              <option value="2">不详</option>
+              <option value="男">男</option>
+              <option value="女">女</option>
+              <option value="不详">不详</option>
             </select>
           </Col>
           <Col span={6}>

@@ -59,7 +59,7 @@ const ICD = ({loading, Idetail, dispatch}) => {
         <Col xxl={{span:16}}>
           <Divider orientation="left">就诊详情</Divider>
           {
-            Idetail.patient.historyData.data?
+            Idetail.patient.historyData.data!==undefined&&Idetail.patient.historyData.data.length!==0?
               <Tabs type="card">
                 <TabPane tab="中医四诊" key="1"><DiagnosisOfZh info={Idetail.patient.historyData.data[Idetail.index].diagnosisOfZh} imgShow={imgShow}/></TabPane>
                 <TabPane tab="西医检查" key="2"><DiagnosisOfWe info={Idetail.patient.historyData.data[Idetail.index].diagnosisOfWe} imgShow={imgShow}/></TabPane>

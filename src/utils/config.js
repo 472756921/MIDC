@@ -13,10 +13,11 @@ module.exports = {
     patientList: apiOnline + '/patient/list',
     queryPatient: apiOnline + '/patient/info',
     addRec: apiOnline + '/patient/addRec',
-    addPatient: api_M + '/patient/add',
+    addPatient: apiOnline + '/patient/add',
     getSLData: api_M + '/sys/getListData',
     getSLITData: api_M + '/sys/getSLITData',
     saveData: api_M + '/sys/saveData',
     del: api_M + '/sys/del',
+    uploadImg: apiOnline + '/upload/uploadImg',
   }
 }

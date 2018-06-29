@@ -41,7 +41,6 @@ export default {
     *saveData({payload}, {call, put, select}) {
       const {itemData} = yield select(_=>_.systemMannger);
       const {data}  = yield call(saveData, itemData);
-      console.log(data.code === 200);
       if(data.code === 200){
         message.success('保存成功');
       } else {

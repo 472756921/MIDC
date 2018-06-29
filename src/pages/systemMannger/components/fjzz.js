@@ -54,7 +54,7 @@ const fjzz = ({systemMannger, dispatch})=>{
   }
 
   return (
-    <div>
+    <div className={styles.navBtns}>
       <Select
         showSearch
         style={{ width: 200 }}

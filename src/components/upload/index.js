@@ -5,16 +5,16 @@ class PicturesWall extends React.Component {
   state = {
     previewVisible: false,
     previewImage: '',
-    fileList: [{
-      uid: -1,
-      name: 'xxx.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    }],
+    fileList: [],
   };
   handleCancel = () => this.setState({ previewVisible: false })
-  handleChange = ({ fileList }) => this.setState({ fileList })
-  getList = () => this.state.fileList;
+  handleChange = ({ file, fileList }) => this.setState({ fileList });
+  getList = () => {
+    let data = this.state.fileList.map((it) => {
+      return {url:it.response.data};
+    });
+    return data;
+  };
   handlePreview = (file) => {
     this.setState({
       previewImage: file.url || file.thumbUrl,
@@ -32,7 +32,7 @@ class PicturesWall extends React.Component {
     return (
       <div className="clearfix">
         <Upload
-          action="//jsonplaceholder.typicode.com/posts/"
+          action="http://192.168.1.3:8080/apiM/upload/uploadImg"
           listType="picture-card"
           fileList={fileList}
           onPreview={this.handlePreview}

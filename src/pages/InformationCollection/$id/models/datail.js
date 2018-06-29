@@ -42,6 +42,7 @@ export default {
       yield put({type: 'querySuccess', payload:data});
     },
     * addRec ({ postData }, { call, put, select }) {
+      console.log(postData);
       const {pid} = yield select(_=>_.Idetail);
       postData.id = pid;
       const {data} = yield call(addRec, postData);

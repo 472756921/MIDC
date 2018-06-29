@@ -9,17 +9,22 @@ const m = {
   xcg: '血常规',
   xdt: '心电图',
   ncg: '尿常规',
-  CT: 'CT',
+  ct: 'CT',
   dbcg: '大便常规',
-  MRI: 'MRI',
+  mri: 'MRI',
   xsh: '血生化',
   cs:'超声',
-  X: 'X光片',
+  x: 'X光片',
   orther: '其他',
 }
 
 class winfo extends React.Component{
-  imgList = ()=> this.refs.upload.getList();
+  imgList = (index)=> {
+    if(index <= 10){
+      let name = 'upload'+index;
+      return this.refs[name].getList();
+    }
+  };
   getData = (()=>{
     const data = document.getElementsByClassName('zhTextW');
     let postData = {}, westernMedicines = [];
@@ -28,7 +33,7 @@ class winfo extends React.Component{
         westernMedicines.push({
           text: Trim(data[i].value),
           name: data[i].getAttribute('data-name'),
-          img: this.imgList()
+          img: this.imgList(Number(i))
         })
       }else {
         postData[data[i].getAttribute('data-name')] = Trim(data[i].value);
@@ -37,7 +42,6 @@ class winfo extends React.Component{
     postData.westernMedicines = westernMedicines;
     return postData;
   })
-
   render() {
     return (
       <Row gutter={16}>
@@ -47,7 +51,7 @@ class winfo extends React.Component{
               <Col span={24} key={i}>
                 <Divider orientation="left" style={{fontSize:'14px', marginTop:'20px', color:'#1890ff'}}>{m[it]}</Divider>
                 {
-                  it === 'tigejiancha'?'':<Upload ref='upload'/>
+                  it === 'tigejiancha'?'':<Upload ref={'upload'+i}/>
                 }
                 <TextArea rows={2} style={{'resize': 'none'}} className='zhTextW' data-name={it}/>
 

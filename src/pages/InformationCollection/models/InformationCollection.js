@@ -38,7 +38,7 @@ export default {
       const {data} = yield call(addPatient, payload)
       yield put({ type: 'modalVisible',payload:{visible:false} });
       yield put(routerRedux.push({
-        pathname: '/informationCollection/' + data.id,
+        pathname: '/informationCollection/' + data.data,
       }))
     }
   },

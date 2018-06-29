@@ -2180,7 +2180,7 @@ let systemMannger = {
   'GET /apiM/sys/del': (req, res) => {
     let type = req.query.sysType;
     let id = req.query.id;
-    res.json({mes:'save', code: 200});
+    res.json({mes:'del', code: 200});
   },
 }
 

@@ -12,7 +12,7 @@ const winfo = ({info, imgShow}) => {
     mri: 'MRI',
     xsh: '血生化',
     cs:'超声',
-    X: 'X光片',
+    x: 'X光片',
     orther: '其他',
   }
   const d = Object.keys(info);
@@ -24,6 +24,7 @@ const winfo = ({info, imgShow}) => {
           typeof info[it] === 'object'
             ?
             <div>
+              {console.log(info[it])}
               {
                 info[it].img.map( (srcs, ii) => {
                   return (

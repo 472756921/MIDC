@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import Confirm from '../../../components/Confirm';
 import PropTypes from 'prop-types';
+import styles from '../index.css';
 import { Table, Input, Select } from 'antd';
 const Option = Select.Option;
 
@@ -42,7 +43,7 @@ const cf = ({systemMannger, dispatch}) => {
   const handleChange = ()=>{}
 
   return (
-    <div>
+    <div className={styles.navBtns}>
       <Select
         showSearch
         style={{ width: 200 }}
