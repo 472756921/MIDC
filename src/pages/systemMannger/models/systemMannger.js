@@ -9,6 +9,8 @@ export default {
     nowType: 'cdm',
     itemData: '',
     cltype: '',
+    tableItem: [],
+    modelShow: false,
   },
   subscriptions: {
     setUp({dispatch, history}) {
@@ -22,7 +24,16 @@ export default {
   effects: {
     *getData({payload}, {call, put, select}) {
       const {data}  = yield call(getSLData, payload);
-      yield put({type: 'setData', payload: {data, type:payload.type}});
+      if(payload.type === 'cf' || payload.type === 'br') {
+        yield put({type: 'setData2', payload: {data, type:payload.type}});
+      } else {
+        yield put({type: 'setData', payload: {data, type:payload.type}});
+      }
+    },
+    *search({vname}, {call, put, select}) {
+      const {lsitData} = yield select(_=>_.systemMannger);
+      const data = lsitData.filter((it) => it.name === vname);
+      yield put({type: 'changeTableData', data});
     },
     *del({itemData}, {call, put, select}) {
       let delData = {
@@ -47,13 +58,31 @@ export default {
         message.error(data.msg);
       }
     },
+    *saveTableData({payload}, {call, put, select}) {
+      const {data}  = yield call(saveData, payload);
+      if(data.code === 200){
+        message.success('保存成功');
+        yield put({type: 'modelShow', payload:{modelShow: false}});
+      } else {
+        message.error(data.msg);
+      }
+    },
   },
   reducers: {
     setData (state,{payload}) {
       return {...state, lsitData: payload.data, nowType: payload.type, itemData: '' }
     },
+    setData2 (state,{payload}) {
+      return {...state, lsitData: payload.data, nowType: payload.type, tableItem: payload.data }
+    },
     changeItemData (state, payload) {
       return {...state, itemData: payload.itemData, cltype: payload.cltype }
+    },
+    changeTableData (state, payload) {
+      return {...state, tableItem: payload.data }
+    },
+    modelShow (state, {payload}) {
+      return {...state, modelShow: payload.modelShow }
     },
   },
 }

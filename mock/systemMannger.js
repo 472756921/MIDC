@@ -2117,18 +2117,30 @@ const zz = [
     "bz": "片出见则次它数目六党引直来手导今。快正片去色传京但经件南结照北。音队规备节或七能完里示须当加划一值。",
   }
 ];
-let cf = Mock.mock({
+const cf = Mock.mock({
   'cf|20-20': [
     {
       id: '@pick(1, 50)',
       name: '@csentence(2, 3)',
       come: '@cparagraph(1, 1)',
       fzs: '@cparagraph(1, 1)',
-      CAS: '@cparagraph(1, 1)',
+      cas: '@cparagraph(1, 1)',
     },
   ],
 })
-
+const br = Mock.mock({
+  'br|20-20': [
+    {
+      id: '@pick(1, 50)',
+      name: '@csentence(2, 3)',
+      sex: '@cword("男女")',
+      age: '@natural(16, 80)',
+      phone: '1' + '@cword("37", 1, 1)' + '@cword("1234567890", 9, 9)',
+      lastDate: '@date("yyyy-MM-dd HH:mm")',
+      fistDate: '@date("yyyy-MM-dd HH:mm")',
+    },
+  ],
+})
 
 
 let systemMannger = {
@@ -2167,6 +2179,9 @@ let systemMannger = {
         break;
       case 'cf':
         res.json(cf.cf);
+        break;
+      case 'br':
+        res.json(br.br);
         break;
       default:
         res.json(cdm);

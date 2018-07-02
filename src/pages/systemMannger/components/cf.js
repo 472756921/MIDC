@@ -3,24 +3,11 @@ import { connect } from 'dva';
 import Confirm from '../../../components/Confirm';
 import PropTypes from 'prop-types';
 import styles from '../index.css';
-import { Table, Input, Select } from 'antd';
+import { Table, Input, Select, Divider, Modal, Button } from 'antd';
 const Option = Select.Option;
 
-const dataSource = [{
-  key: '1',
-  name: '胡彦斌',
-  come: 32,
-  fzs: '西湖区湖底公园1号',
-  CAS: '西湖区湖底公园1号',
-}, {
-  key: '2',
-  name: '胡彦祖',
-  come: 42,
-  CAS: '西湖区湖底公园1号',
-  fzs: '西湖区湖底公园1号'
-}];
-
-const columns = [{
+const columns = [
+{
   title: '化合物名称',
   dataIndex: 'name',
   key: 'name',
@@ -34,13 +21,45 @@ const columns = [{
   key: 'fzs',
 }, {
   title: 'CAS号',
-  dataIndex: 'CAS',
-  key: 'CAS',
-}];
+  dataIndex: 'cas',
+  key: 'cas',
+}, {
+    title: '操作',
+    key: 'action',
+    render: (text, record) => (
+      <span>
+        <span className={styles.href} onClick={chang}>修改</span>
+        <Divider type="vertical" />
+        <span className={styles.href}>删除</span>
+      </span>
+    ),
+  }
+];
+let _dis = '';
+
+const chang = () => {
+  _dis({type: 'systemMannger/modelShow', payload:{modelShow: true}});
+}
 
 const cf = ({systemMannger, dispatch}) => {
-
-  const handleChange = ()=>{}
+  _dis = dispatch;
+  const handleChange = (value)=>{
+    dispatch({type:'systemMannger/search', vname: value});
+  }
+  const handleOk = (value)=>{
+    const listData = document.getElementsByClassName('cf');
+    const data = {
+      name: listData[0].value,
+      come: listData[0].value,
+      fzs: listData[0].value,
+      cas: listData[0].value,
+      type: 'cf'
+    }
+    dispatch({type:'systemMannger/saveTableData', payload: data});
+  }
+  const handleCancel = (value)=>{
+    dispatch({type: 'systemMannger/modelShow', payload:{modelShow: false}});
+  }
 
   return (
     <div className={styles.navBtns}>
@@ -60,7 +79,14 @@ const cf = ({systemMannger, dispatch}) => {
       </Select>
       <br/>
       <br/>
-      <Table dataSource={systemMannger.lsitData} columns={columns} />
+      <Table dataSource={systemMannger.tableItem} columns={columns} />
+
+      <Modal title="成分管理" visible={systemMannger.modelShow} onOk={handleOk} onCancel={handleCancel}>
+        <div><div className={styles.contentBu}>化合物名称：</div><Input title='name' className='cf'/></div>
+        <div><div className={styles.contentBu}>来源：</div><Input title='come' className='cf'/></div>
+        <div><div className={styles.contentBu}>分子式：</div><Input title='fzs' className='cf'/></div>
+        <div><div className={styles.contentBu}>CAS号：</div><Input title='cas' className='cf'/></div>
+      </Modal>
     </div>
   )
 }

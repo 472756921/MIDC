@@ -4,3 +4,13 @@
 .redPoint{
   color: red;
 }
+.href{
+  color: deepskyblue;
+  cursor: pointer;
+}
+.href:hover{
+  color: #dc1400;
+}
+.contentBu{
+  margin: 10px 0;
+}
