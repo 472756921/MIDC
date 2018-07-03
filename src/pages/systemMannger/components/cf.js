@@ -28,19 +28,29 @@ const columns = [
     key: 'action',
     render: (text, record) => (
       <span>
-        <span className={styles.href} onClick={chang}>修改</span>
+        <span className={styles.href} onClick={()=>chang(text)}>修改</span>
         <Divider type="vertical" />
-        <span className={styles.href}>删除</span>
+        <span className={styles.href} onClick={()=>del(text.id)}>删除</span>
       </span>
     ),
   }
 ];
 let _dis = '';
 
-const chang = () => {
-  _dis({type: 'systemMannger/modelShow', payload:{modelShow: true}});
+const chang = (itemData) => {
+  _dis({type: 'systemMannger/modelShow', payload:{modelShow: true, itemData}});
+  setTimeout(()=>{
+    const listData = document.getElementsByClassName('cf');
+    listData[0].value = itemData.name;
+    listData[1].value = itemData.come;
+    listData[2].value = itemData.fzs;
+    listData[3].value = itemData.cas;
+    listData[4].value = itemData.id;
+  }, 500);
 }
-
+const del = (id) => {
+  Confirm('确认删除','删除后将无法恢复', ()=>{_dis({type: 'systemMannger/del', itemData:{id: id, sysType: 'cf'}})});
+}
 const cf = ({systemMannger, dispatch}) => {
   _dis = dispatch;
   const handleChange = (value)=>{
@@ -50,19 +60,23 @@ const cf = ({systemMannger, dispatch}) => {
     const listData = document.getElementsByClassName('cf');
     const data = {
       name: listData[0].value,
-      come: listData[0].value,
-      fzs: listData[0].value,
-      cas: listData[0].value,
+      come: listData[1].value,
+      fzs: listData[2].value,
+      cas: listData[3].value,
+      id: listData[4].value,
       type: 'cf'
     }
     dispatch({type:'systemMannger/saveTableData', payload: data});
   }
   const handleCancel = (value)=>{
-    dispatch({type: 'systemMannger/modelShow', payload:{modelShow: false}});
+    dispatch({type: 'systemMannger/modelShow', payload:{modelShow: false, itemData:''}});
   }
-
+  const add = () => {
+    _dis({type: 'systemMannger/modelShow', payload:{modelShow: true, itemData:{}}});
+  }
   return (
     <div className={styles.navBtns}>
+      <Button type='primary' onClick={add}>添加</Button>
       <Select
         showSearch
         style={{ width: 200 }}
@@ -86,11 +100,11 @@ const cf = ({systemMannger, dispatch}) => {
         <div><div className={styles.contentBu}>来源：</div><Input title='come' className='cf'/></div>
         <div><div className={styles.contentBu}>分子式：</div><Input title='fzs' className='cf'/></div>
         <div><div className={styles.contentBu}>CAS号：</div><Input title='cas' className='cf'/></div>
+        <div><Input title='id' className='cf' type='hidden'/></div>
       </Modal>
     </div>
   )
 }
-
 
 cf.propTypes = {
   loading: PropTypes.object,

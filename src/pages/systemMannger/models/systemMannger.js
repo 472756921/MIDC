@@ -82,7 +82,7 @@ export default {
       return {...state, tableItem: payload.data }
     },
     modelShow (state, {payload}) {
-      return {...state, modelShow: payload.modelShow }
+      return {...state, modelShow: payload.modelShow, itemData: payload.itemData }
     },
   },
 }

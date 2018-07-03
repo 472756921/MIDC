@@ -115,7 +115,7 @@ const IC = ({loading, informationCollection, dispatch}) => {
             <Input placeholder="患者姓名(必填)" className='info_data' data-name={'name'}/>
           </Col>
           <Col span={6}>
-            <select style={selectStyle} className='info_data' defaultValue="1" data-name={'sex'}>
+            <select style={selectStyle} className='info_data' defaultValue="男" data-name={'sex'}>
               <option value="男">男</option>
               <option value="女">女</option>
               <option value="不详">不详</option>
