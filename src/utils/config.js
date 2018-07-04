@@ -1,5 +1,5 @@
 const api_M = '/apiM'
-const apiOnline = 'http://192.168.1.3:8080/apiM'
+const apiOnline = 'http://192.168.0.115:8080/apiM'
 
 module.exports = {
   name: '中医传承辅助系统',
