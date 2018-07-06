@@ -14,13 +14,14 @@ import FJ from './components/fj';
 import ZZ from './components/zz';
 import CF from './components/cf';
 import BR from './components/br';
+import YA from './components/ya';
+import CD from './components/cd';
 import styles from './index.css'
 import PropTypes from 'prop-types'
 
 const TreeNode = Tree.TreeNode;
 
 const index = ({loading, systemMannger, dispatch}) => {
-
   let showInner = '', tree = '';
 
   const onSelect = (selectedKeys, info) => {
@@ -28,7 +29,7 @@ const index = ({loading, systemMannger, dispatch}) => {
     if(selectedKeys.length === 0) {
       return
     }
-    let Sdata = systemMannger.lsitData.filter(it=>Number(it.id) === Number(selectedKeys[0]))
+    const Sdata = systemMannger.lsitData.filter(it=>Number(it.id) === Number(selectedKeys[0]))
     dispatch({type:'systemMannger/changeItemData', itemData:Sdata[0], cltype: info.selectedNodes[0].props.cltype, isMenu: info.selectedNodes[0].props.isMenu})
   }
 
@@ -94,6 +95,12 @@ const index = ({loading, systemMannger, dispatch}) => {
     case 'br':
       showInner = <BR/>
       break;
+    case 'ya':
+      showInner = <YA/>
+      break;
+    case 'cd':
+      showInner = <CD/>
+      break;
     default:
       showInner = <CDM/>
       break;
@@ -115,16 +122,16 @@ const index = ({loading, systemMannger, dispatch}) => {
         <Button type={systemMannger.nowType==='fjzz'?'primary':''} title='fjzz' onClick={changeType}>方剂主治管理</Button>
         <Button type={systemMannger.nowType==='zz'?'primary':''} title='zz' onClick={changeType}>症状管理</Button>
         <Button type={systemMannger.nowType==='cf'?'primary':''} title='cf' onClick={changeType}>成分管理</Button>
-        <Button type="dashed">医案管理</Button>
+        <Button type={systemMannger.nowType==='ya'?'primary':''} title='ya' onClick={changeType}>医案管理</Button>
         <Button type={systemMannger.nowType==='br'?'primary':''} title='br' onClick={changeType}>病人管理</Button>
-        <Button type="dashed">词典管理</Button>
+        <Button type={systemMannger.nowType==='cd'?'primary':''} title='cd' onClick={changeType}>词典管理</Button>
       </div>
       <Divider />
       <Row gutter={16}>
         <Col className="gutter-row" xl={5} xxl={3}>
           <Tree onSelect={onSelect}>{tree}</Tree>
         </Col>
-        <Col xl={(systemMannger.nowType==='cf'||systemMannger.nowType==='br')?24:19} xxl={(systemMannger.nowType==='cf'||systemMannger.nowType==='br')?24:21}>
+        <Col xl={(systemMannger.nowType==='cf'||systemMannger.nowType==='br'||systemMannger.nowType==='ya'||systemMannger.nowType==='cd')?24:19} xxl={(systemMannger.nowType==='cf'||systemMannger.nowType==='br'||systemMannger.nowType==='ya'||systemMannger.nowType==='cd')?24:21}>
           {showInner}
         </Col>
       </Row>

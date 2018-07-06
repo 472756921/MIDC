@@ -11,6 +11,7 @@ const columns = [
   title: '化合物名称',
   dataIndex: 'name',
   key: 'name',
+  width: 120,
 }, {
   title: '来源',
   dataIndex: 'come',
@@ -24,6 +25,7 @@ const columns = [
   dataIndex: 'cas',
   key: 'cas',
 }, {
+    width: 120,
     title: '操作',
     key: 'action',
     render: (text, record) => (

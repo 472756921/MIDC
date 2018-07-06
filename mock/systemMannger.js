@@ -2074,7 +2074,6 @@ const fj = [
     'zyzy': 'asd',
     'zyyf': 'asd',
     'cf':[{
-      id: 1,
       name: 'fdsa',
       yl: 'fdsa',
       zy: 'fdsa',
@@ -2109,7 +2108,6 @@ const fj = [
     'zyzy': 'asd',
     'zyyf': 'asd',
     'cf':[{
-      id: 2,
       name: 'fdsa',
       yl: 'fdsa',
       zy: 'fdsa',
@@ -2144,7 +2142,6 @@ const fj = [
     'zyzy': 'asd',
     'zyyf': 'asd',
     'cf':[{
-      id: 3,
       name: 'fdsa',
       yl: 'fdsa',
       zy: 'fdsa',
@@ -2183,7 +2180,6 @@ const fj = [
       yl: 'fdsa',
       zy: 'fdsa',
       yf: 'fdsa',
-      id: 4,
     }],
   },
   {
@@ -2219,17 +2215,14 @@ const fj = [
         yl: '30',
         zy: 'fdsa',
         yf: 'fdsa',
-        id: 5,
       },
       {
         name: 'aaa',
         yl: '26',
         zy: 'fdsa',
         yf: 'fdsa',
-        id: 9,
       },
       {
-        id: 11,
         name: 'ccc',
         yl: '10',
         zy: 'fdsa',
@@ -2266,22 +2259,19 @@ const fj = [
     'zyyf': 'asd',
     'cf':[
       {
-        name: '111',
+        name: '合欢花',
         yl: '23',
         zy: 'fdsa',
         yf: 'fdsa',
-        id: 11,
       },
       {
-        id: 16,
-        name: '222',
+        name: '盘龙参',
         yl: '10',
         zy: 'fdsa',
         yf: 'fdsa',
       },
       {
-        id: 17,
-        name: 'ddd',
+        name: '玉米须',
         yl: '20',
         zy: 'fdsa',
         yf: 'fdsa',
@@ -2808,6 +2798,157 @@ const br = Mock.mock({
     },
   ],
 })
+const ya = Mock.mock({
+  'ya|20-20': [
+    {
+      name: '@cname',
+      sex:  '@cword("男女")',
+      age: '@natural(16, 80)',
+      weight: '@natural(20, 80)',
+      marriage: '@cword("已未")',
+      visitTimes:  '@natural(1, 20)',
+      profession:  '@csentence(3, 5)',
+      citizenship:  '@tld',
+      ethnic: '@cword("汉满回壮苗藏")',
+      birthplace: '@city',
+      phone:   '1' + '@cword("37", 1, 1)' + '@cword("1234567890", 9, 9)',
+      address:  '@county(true)',
+      zipCode: '@zip()',
+      key: '@id',
+      id: '@id',
+      date: '@date("yyyy-MM-dd HH:mm")',
+      visitTimes: '@natural(1, 20)',
+      diagnosisOfZh: {
+        ask: {
+          zusu: '@csentence(20, 50)',
+          xianbingshi: '@csentence(20, 50)',
+          jiwangshi: '@csentence(20, 50)',
+          guomingshi: '@csentence(20, 50)',
+          hunyushi: '@csentence(20, 50)',
+          gerenshi: '@csentence(20, 50)',
+          jiazhushi: '@csentence(20, 50)',
+        },
+        look: {
+          sehz: '@csentence(20, 50)',
+          shensexingtai: '@csentence(20, 50)',
+          xiongfu: '@csentence(20, 50)',
+          yaobeishizhizhuajia: '@csentence(20, 50)',
+          pifimaofa: '@csentence(20, 50)',
+          toumainwuguanjinxiang: '@csentence(20, 50)',
+          qinahoueryinjipaixiewu: '@csentence(20, 50)',
+          shezhenimg: {
+            'img|0-5':['@image("200x100")'],
+            text: '@csentence(20, 50)'
+          },
+        },
+        wq:{
+          maizhen: '@csentence(20, 50)',
+          wenzhen: '@csentence(20, 50)',
+          qita: '@csentence(20, 50)',
+        },
+        zhaiyao: {
+          zhenzhuang: '@csentence(5, 10)',
+          shezheng: '@csentence(5, 10)',
+          maizhenSel: '@csentence(5, 10)',
+        }
+      },
+      diagnosisOfWe: {
+        tigejiancha: '@csentence(20, 50)',
+        xcg: {
+          'img|0-5':['@image("200x100")'],
+          text: '@csentence(20, 50)',
+        },
+        xdt: {
+          'img|0-5':['@image("200x100")'],
+          text: '@csentence(20, 50)',
+        },
+        ncg: {
+          'img|0-5':['@image("200x100")'],
+          text: '@csentence(20, 50)',
+        },
+        ct: {
+          'img|0-5':['@image("200x100")'],
+          text: '@csentence(20, 50)',
+        },
+        dbcg: {
+          'img|0-5':['@image("200x100")'],
+          text: '@csentence(20, 50)',
+        },
+        mri: {
+          'img|0-5':['@image("200x100")'],
+          text: '@csentence(20, 50)',
+        },
+        xsh: {
+          'img|0-5':['@image("200x100")'],
+          text: '@csentence(20, 50)',
+        },
+        cs: {
+          'img|0-5':['@image("200x100")'],
+          text: '@csentence(20, 50)',
+        },
+        x: {
+          'img|0-5':['@image("200x100")'],
+          text: '@csentence(20, 50)',
+        },
+        orther: {
+          'img|0-5':['@image("200x100")'],
+          text: '@csentence(20, 50)',
+        },
+      },
+      diagnosisAndtreatment: {
+        zdyzl:{
+          zyjb: '@csentence(20, 50)',
+          xyjb: '@csentence(20, 50)',
+          zyzh: '@csentence(20, 50)',
+          zzzf: '@csentence(20, 50)',
+        },
+        cf:{
+          zycf: {
+            zfm: '@csentence(5, 8)',
+            type: '@csentence(5, 8)',
+            number: '@natural(1, 5)',
+            doctor: '@cname',
+            'medicine|1-20':[
+              {name: '@csentence(2, 3)', liang: '@natural(5, 30)', zhuyong: '@cword("君臣佐使")', yongfa: '@cword("煎炸烹卤")'}
+            ],
+          },
+          orther: {
+            medicineC: '@csentence(20, 50)',
+            medicineW: '@csentence(20, 50)',
+            orther: '@csentence(20, 50)',
+          }
+        }
+      },
+      orther: {
+        zhiliaoxiaoguo: {
+          zylxpj: '@csentence(20, 50)',
+          xylxpj: '@csentence(20, 50)',
+        },
+        huifangjilu: {
+          date: '@date("yyyy-MM-dd HH:mm")',
+          huifangren: '@cname',
+          huifangneirong: '@csentence(20, 50)',
+          qita: '@csentence(20, 50)'
+        },
+        anyu:{
+          lsdy: '@csentence(20, 50)',
+          grxd: '@csentence(20, 50)',
+          zjdp: '@csentence(20, 50)',
+          qita: '@csentence(20, 50)'
+        }
+      },
+    },
+  ],
+})
+const cd = Mock.mock({
+  'cd|20-20': [
+    {
+      id: '@id',
+      sysType: "cd",
+      name: '@cname',
+    },
+  ],
+})
 
 
 let systemMannger = {
@@ -2852,6 +2993,12 @@ let systemMannger = {
         break;
       case 'br':
         res.json(br.br);
+        break;
+      case 'ya':
+        res.json(ya.ya);
+        break;
+      case 'cd':
+        res.json(cd.cd);
         break;
       default:
         res.json(cdm);

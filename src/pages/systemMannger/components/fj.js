@@ -10,6 +10,9 @@ const { TextArea } = Input;
 const Option = Select.Option;
 // cdm
 const fj = ({systemMannger, dispatch})=>{
+
+  const classes = systemMannger.lsitData.filter(_=>_.type < 2);
+
   const changeValue = (data) => {
     if(systemMannger.itemData !== '' && typeof data === "object") {
       systemMannger.itemData[data.target['title']] = data.target.value;
@@ -18,13 +21,23 @@ const fj = ({systemMannger, dispatch})=>{
     }
     dispatch({type:'systemMannger/changeItemData', itemData:systemMannger.itemData});
   }
-
-  const classes = systemMannger.lsitData.filter(_=>_.type < 2);
-
   const save = ()=>{
     if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '') {
       message.error('请填写名称和类型');
     } else {
+      let mn = document.getElementsByClassName('midName');
+      let ml = document.getElementsByClassName('midNum');
+      let mz = document.getElementsByClassName('midOption');
+      let mf = document.getElementsByClassName('midType');
+
+      let t = systemMannger.itemData;
+      if(t === ''){
+        return false
+      }
+      t.cf = [];
+      for(let i=0; i<mn.length; i++) {
+        t.cf.push({name: mn[i].children[0].children[0].children[0].innerText, yl: ml[i].value, zy: mz[i].children[0].children[0].children[0].innerText, yf: mf[i].children[0].children[0].children[0].innerText});
+      }
       dispatch({type:'systemMannger/saveData'});
     }
   }
@@ -46,24 +59,23 @@ const fj = ({systemMannger, dispatch})=>{
       dispatch({type:'systemMannger/changeItemData', itemData:{name:'新的方剂',sysType: 'fj', isMenu: 0, type: 2 }});
     }
   }
-
   const handleChange = (value)=>{
     const data = systemMannger.lsitData.filter(_=>_.id === value);
     if(data.length > 0){
       dispatch({type:'systemMannger/changeItemData', itemData: data[0]});
     }
   }
-
   const delItemMid = (name) => {
-    systemMannger.itemData.cf.map((it, index) => {
-      if(it.name === name ) {
-        systemMannger.itemData.cf.splice(index, 1);
+    let t =  Object.assign({}, systemMannger.itemData);
+    let cf = t.cf.slice(0);
+    cf.some((it, i) => {
+      if(it.name === name) {
+        cf.splice(i, 1);
       }
-      return ''
     })
-    dispatch({type:'systemMannger/changeItemData', itemData: systemMannger.itemData});
+    t.cf = cf;
+    dispatch({type:'systemMannger/changeItemData', itemData: t});
   };
-
   const addMid = () =>{
     const data = {
       name: '',
@@ -72,15 +84,13 @@ const fj = ({systemMannger, dispatch})=>{
       yf: '',
     }
     let t = systemMannger.itemData;
+    if(t === ''){
+      return false
+    }
     t.cf.push(data);
-    console.log(t.cf);
     dispatch({type:'systemMannger/changeItemData', itemData: t});
   };
-
-  const changeCf = (data, e) => {
-    console.log(data, e);
-    // let t = systemMannger.itemData;
-    // dispatch({type:'systemMannger/changeItemData', itemData: t});
+  const changeCf = (data) => {
   }
 
   return (
@@ -207,7 +217,7 @@ const fj = ({systemMannger, dispatch})=>{
             return (
               <Col span={24} style={{margin: '6px 0'}} key={i}>
                 <Col span={6}>
-                  <Select style={{ width: 150 }} showSearch className='midName' value={it.name} onChange={changeCf} >
+                  <Select defaultValue="丹参" style={{ width: 150 }} showSearch className='midName'  value={it.name} onChange={changeCf} >
                     <Option value="丹参">丹参</Option>
                     <Option value="西红花">西红花</Option>
                     <Option value="玉米须">玉米须</Option>

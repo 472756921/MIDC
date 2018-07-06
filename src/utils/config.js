@@ -18,6 +18,7 @@ module.exports = {
     getSLITData: api_M + '/sys/getSLITData',
     saveData: api_M + '/sys/saveData',
     del: api_M + '/sys/del',
+    search: api_M + '/sys/search',
     uploadImg: apiOnline + '/upload/uploadImg',
   }
 }

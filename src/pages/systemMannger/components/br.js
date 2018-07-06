@@ -12,8 +12,12 @@ const dateFormat = 'YYYY-MM-DD';
 const columns = [
 {
   title: '病人名',
-  dataIndex: 'name',
-  key: 'name',
+  key: 'asdf',
+  render: (text, record) => (
+    <span>
+        <Link to={`informationCollection/${text.id}`}>{text.name}</Link>
+    </span>
+  ),
 }, {
   title: '性别',
   dataIndex: 'sex',
@@ -39,8 +43,6 @@ const columns = [
     key: 'action',
     render: (text, record) => (
       <span>
-        <Link to={`informationCollection/${text.id}`}>详情</Link>
-        <Divider type="vertical" />
         <span className={styles.href} onClick={()=>chang(text)}>修改</span>
         <Divider type="vertical" />
         <span className={styles.href} onClick={()=>del(text.id)}>删除</span>
@@ -104,23 +106,15 @@ const br = ({systemMannger, dispatch}) => {
   const dateOnChange = (date, dateString) => {
     dates = dateString;
   }
+  const search = () => {
+    let d = document.getElementById('serName').value;
+    dispatch({type:'systemMannger/serchaBR', payload: {sv: d}});
+  }
 
   return (
     <div className={styles.navBtns}>
-      <Select
-        showSearch
-        style={{ width: 200 }}
-        placeholder="输入内容搜索"
-        optionFilterProp="children"
-        onChange={handleChange}
-        filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-      >
-        {
-          systemMannger.lsitData.map((it, i) => {
-            return (<Option key={i} value={it.name}>{it.name}</Option>)
-          })
-        }
-      </Select>
+      <Input id='serName' placeholder='输入患者姓名搜索' style={{width: "200px"}}/>
+      <Button type='primary' onClick={search}>查询</Button>
       <br/>
       <br/>
       <Table dataSource={systemMannger.tableItem} columns={columns} />

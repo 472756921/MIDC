@@ -1,17 +1,29 @@
 import React from 'react';
 import { Upload, Icon, Modal } from 'antd';
 
+
 class PicturesWall extends React.Component {
+  constructor(props){
+    super(props);
+  }
   state = {
     previewVisible: false,
     previewImage: '',
     fileList: [],
   };
+  componentDidMount() {
+    if(this.props.imgListD!=undefined && this.props.imgListD.length !== 0){
+      let imgd = this.props.imgListD.map((it, i) => {
+        return {uid: i, name: it, status:'done', url:it}
+      })
+      this.setState({...this.state, fileList:imgd});
+    }
+  };
   handleCancel = () => this.setState({ previewVisible: false })
   handleChange = ({ file, fileList }) => this.setState({ fileList });
   getList = () => {
     let data = this.state.fileList.map((it) => {
-      return {url:it.response.data};
+      return {url:it.response!=undefined?it.response.data:it.url};
     });
     return data;
   };
