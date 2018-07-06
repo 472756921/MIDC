@@ -2997,11 +2997,11 @@ let systemMannger = {
       case 'ya':
         res.json(ya.ya);
         break;
-      case 'cd':
+      case 'cdd':
         res.json(cd.cd);
         break;
       default:
-        res.json(cdm);
+        res.json('');
         break;
     }
   },

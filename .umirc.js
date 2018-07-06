@@ -1,5 +1,4 @@
 export default {
-  // loading: './src/components/Loader',
   plugins: [
     'umi-plugin-polyfill',
     'umi-plugin-dva',
