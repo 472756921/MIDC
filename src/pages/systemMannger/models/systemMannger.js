@@ -42,24 +42,25 @@ export default {
     *del({itemData}, {call, put, select}) {
       let delData = {
         id: itemData.id,
-        sysType: itemData.sysType,
       }
       const {data}  = yield call(del, delData);
-      if(data.code === 200){
+      if(data.success){
         message.success('删除成功');
         const {nowType} = yield select(_=>_.systemMannger);
         yield put({type: 'getData', payload:{type: nowType}});
       } else {
-        message.error(data.msg);
+        message.error('删除失败');
       }
     },
     *saveData({payload}, {call, put, select}) {
       const {itemData} = yield select(_=>_.systemMannger);
       const {data}  = yield call(saveData, itemData);
-      if(data.code === 200){
+      if(data.success){
         message.success('保存成功');
+        const {nowType} = yield select(_=>_.systemMannger);
+        yield put({type: 'getData', payload:{type: nowType}});
       } else {
-        message.error(data.msg);
+        message.error('保存失败，请稍后再试');
       }
     },
     *saveTableData({payload}, {call, put, select}) {

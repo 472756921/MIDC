@@ -10,7 +10,7 @@ export function getSLData (data) {
 }
 export function del (data) {
   let url = getParmas( api.del, data);
-  return request(url, {method: 'get', headers: JSONS});
+  return request(url, {method: 'delete', headers: JSONS});
 }
 export function saveData (data) {
   return request(api.saveData, {method: 'post', body: JSON.stringify(data), headers: JSONS});

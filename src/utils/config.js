@@ -1,5 +1,5 @@
 const api_M = '/apiM'
-const apiOnline = 'http://192.168.0.115:8080/apiM'
+const apiOnline = 'http://192.168.0.104:8080/apiM'
 
 module.exports = {
   name: '中医传承辅助系统',
@@ -7,6 +7,7 @@ module.exports = {
   logo: '',
   openPages: ['/login', '/404'],
   api: {
+    //信息采集
     getUser: api_M + '/user/getUser',
     login: api_M + '/user/login',
     loginOut: api_M + '/user/loginOut',
@@ -14,10 +15,11 @@ module.exports = {
     queryPatient: apiOnline + '/patient/info',
     addRec: apiOnline + '/patient/addRec',
     addPatient: apiOnline + '/patient/add',
-    getSLData: api_M + '/sys/getListData',
+    //平台管理
+    getSLData: apiOnline + '/platform/getListData',
     getSLITData: api_M + '/sys/getSLITData',
-    saveData: api_M + '/sys/saveData',
-    del: api_M + '/sys/del',
+    saveData: apiOnline + '/platform/save',
+    del: apiOnline + '/platform/delete',
     search: api_M + '/sys/search',
     uploadImg: apiOnline + '/upload/uploadImg',
   }

@@ -3000,6 +3000,9 @@ let systemMannger = {
       case 'cdd':
         res.json(cd.cd);
         break;
+      case 'zz':
+        res.json(zz);
+        break;
       default:
         res.json('');
         break;
