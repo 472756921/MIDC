@@ -109,4 +109,8 @@ const mic = ({loading, knowledge, dispatch}) => {
   )
 }
 
+mic.propTypes = {
+  Idetail: PropTypes.object,
+  loading: PropTypes.object,
+}
 export default connect(({ loading, knowledge }) => ({ loading, knowledge }))(mic)

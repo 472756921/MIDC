@@ -48,7 +48,7 @@ const details = (data) => {
   dis({type:'knowledge/changeVisibleB', payload: {visible: true}})
 }
 
-const mic = ({loading, knowledge, dispatch}) => {
+const fj = ({loading, knowledge, dispatch}) => {
   dis = dispatch;
   const handleOk = (e) => {
     dispatch({type:'knowledge/changeVisibleB', payload: {visible: false}})
@@ -143,4 +143,8 @@ const mic = ({loading, knowledge, dispatch}) => {
   )
 }
 
-export default connect(({ loading, knowledge }) => ({ loading, knowledge }))(mic)
+fj.propTypes = {
+  Idetail: PropTypes.object,
+  loading: PropTypes.object,
+}
+export default connect(({ loading, knowledge }) => ({ loading, knowledge }))(fj)
