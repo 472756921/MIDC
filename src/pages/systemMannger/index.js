@@ -1,5 +1,5 @@
-import { connect } from 'dva'
-import { Button, Row, Col, Tree, Divider } from 'antd'
+import { connect } from 'dva';
+import { Button, Row, Col, Tree, Divider } from 'antd';
 import CDM from './components/cdm';
 import WDM from './components/wdm';
 import ZH from './components/zh';
@@ -16,8 +16,8 @@ import CF from './components/cf';
 import BR from './components/br';
 import YA from './components/ya';
 import CD from './components/cd';
-import styles from './index.css'
-import PropTypes from 'prop-types'
+import styles from './index.css';
+import PropTypes from 'prop-types';
 
 const TreeNode = Tree.TreeNode;
 
@@ -25,7 +25,6 @@ const index = ({loading, systemMannger, dispatch}) => {
   let showInner = '', tree = '';
 
   const onSelect = (selectedKeys, info) => {
-    // console.log('selected', selectedKeys);
     if(selectedKeys.length === 0) {
       return
     }
@@ -35,11 +34,15 @@ const index = ({loading, systemMannger, dispatch}) => {
 
   function createTree(data, fClass){
     let td = [];
-    for(let i=0; i<data.length; i++) {
-      if(data[i].fClass === fClass){
-        td.push(<TreeNode title={data[i].name} key={data[i].id} cltype={data[i].type} isMenu={data[i].isMenu}>
-          {createTree(data, data[i].id)}
-        </TreeNode>);
+    if(data == undefined || data == '' || data == null){
+      return td;
+    } else {
+      for(let i=0; i<data.length; i++) {
+        if(data[i].fClass === fClass){
+          td.push(<TreeNode title={data[i].name} key={data[i].id} cltype={data[i].type} isMenu={data[i].isMenu}>
+            {createTree(data, data[i].id)}
+          </TreeNode>);
+        }
       }
     }
     return td;

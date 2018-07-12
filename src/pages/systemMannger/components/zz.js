@@ -8,7 +8,7 @@ import styles from '../index.css';
 const { TextArea } = Input;
 const Option = Select.Option;
 // cdm
-const zh = ({systemMannger, dispatch})=>{
+const zz = ({systemMannger, dispatch})=>{
   const changeValue = (data) => {
     if(systemMannger.itemData !== '' && typeof data === "object") {
       systemMannger.itemData[data.target['title']] = data.target.value;
@@ -21,7 +21,7 @@ const zh = ({systemMannger, dispatch})=>{
   const classes = systemMannger.lsitData.filter(_=>_.type < 2);
 
   const save = ()=>{
-    if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '') {
+    if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '' || systemMannger.itemData.fClass == undefined) {
       message.error('请填写名称和类型');
     } else {
       dispatch({type:'systemMannger/saveData'});
@@ -40,9 +40,9 @@ const zh = ({systemMannger, dispatch})=>{
   const add = (e)=>{
     const t = e.target['title'];
     if(t === 'classes') {
-      dispatch({type:'systemMannger/changeItemData', itemData:{name:'默认症状类型', fClass:0, sysType: 'zh', isMenu: 1, type: 1 }});
+      dispatch({type:'systemMannger/changeItemData', itemData:{name:'默认症状类型', fClass:0, sysType: 'zz', isMenu: 1, type: 1 }});
     } else if(t === 'jb') {
-      dispatch({type:'systemMannger/changeItemData', itemData:{name:'新的症状',sysType: 'zh', isMenu: 0, type: 2 }});
+      dispatch({type:'systemMannger/changeItemData', itemData:{name:'新的症状',sysType: 'zz', isMenu: 0, type: 2 }});
     }
   }
 
@@ -81,7 +81,7 @@ const zh = ({systemMannger, dispatch})=>{
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>类别：<span className={styles.redPoint}>*</span></div>
           <Select value={systemMannger.itemData.fClass} style={{ width: '100%' }}  title='fClass' onChange={changeValue} disabled={systemMannger.itemData.fClass===0?true:false}>
-            <Option key={99991} value={0}  disabled={systemMannger.itemData.fClass!==0?true:false}>中医症状类型</Option>
+            <Option key={99991} value={0}  disabled={systemMannger.itemData.fClass!==0?true:false}>默认症状类型</Option>
             {
               classes.map((it, i) => {
                 return (<Option key={i} value={it.id}>{it.name}</Option>)
@@ -108,9 +108,9 @@ const zh = ({systemMannger, dispatch})=>{
     </div>
   )
 }
-zh.propTypes = {
+zz.propTypes = {
   loading: PropTypes.object,
   systemMannger: PropTypes.object,
 }
 
-export default connect(({systemMannger}) => ({systemMannger}))(zh);
+export default connect(({systemMannger}) => ({systemMannger}))(zz);

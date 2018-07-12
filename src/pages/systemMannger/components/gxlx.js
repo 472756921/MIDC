@@ -24,11 +24,15 @@ const gxlx = ({systemMannger, dispatch})=>{
   const classes = systemMannger.lsitData.filter(_=>_.isMenu===1);
 
   const save = ()=>{
-    if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '') {
+    if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '' || systemMannger.itemData.fClass == undefined) {
       message.error('请填写名称和类型');
     } else {
-      const {type} = systemMannger.lsitData.filter(_=>_.id === systemMannger.itemData.fClass)[0];
-      systemMannger.itemData.type = Number(type+1);
+      const {type} = systemMannger.lsitData.filter(_=>_.id === systemMannger.itemData.fClass);
+      if(type){
+        systemMannger.itemData.type = Number(type[0]+1);
+      } else {
+        systemMannger.itemData.type = 0;
+      }
       dispatch({type:'systemMannger/saveData'});
     }
   }
@@ -86,7 +90,7 @@ const gxlx = ({systemMannger, dispatch})=>{
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>类别：<span className={styles.redPoint}>*</span></div>
           <Select value={systemMannger.itemData.fClass} style={{ width: '100%' }}  title='fClass' onChange={changeValue}>
-            <Option key={99991} value={0}  disabled={systemMannger.itemData.isMenu!==1?true:false}>西医功效类型分类</Option>
+            <Option key={99991} value={0}  disabled={systemMannger.itemData.isMenu!==1?true:false}>默认功效类型分类</Option>
             {
               classes.map((it, i) => {
                 return (<Option key={i} value={it.id}>{it.name}</Option>)

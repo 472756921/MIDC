@@ -21,7 +21,7 @@ const cdm = ({systemMannger, dispatch})=>{
   const classes = systemMannger.lsitData.filter(_=>_.type < 2);
 
   const save = ()=>{
-    if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '') {
+    if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '' || systemMannger.itemData.fClass == undefined) {
       message.error('请填写名称和类型');
     } else {
       dispatch({type:'systemMannger/saveData'});

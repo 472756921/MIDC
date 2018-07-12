@@ -12,14 +12,14 @@ module.exports = {
       name: '资料管理',
       type: 3,
       icon: 'file',
-      route: '/user',
+      route: '/dataMannger',
     },
     {
       id: '3',
       name: '知识检索',
       type: 1,
       icon: 'search',
-      route: '/user',
+      route: '/knowledge',
     },
     {
       id: '4',

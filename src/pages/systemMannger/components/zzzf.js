@@ -21,7 +21,7 @@ const zzzf = ({systemMannger, dispatch})=>{
   const classes = systemMannger.lsitData.filter(_=>_.type < 2);
 
   const save = ()=>{
-    if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '') {
+    if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '' || systemMannger.itemData.fClass == undefined) {
       message.error('请填写名称和类型');
     } else {
       dispatch({type:'systemMannger/saveData'});
@@ -81,7 +81,7 @@ const zzzf = ({systemMannger, dispatch})=>{
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>类别：<span className={styles.redPoint}>*</span></div>
           <Select value={systemMannger.itemData.fClass} style={{ width: '100%' }}  title='fClass' onChange={changeValue} disabled={systemMannger.itemData.fClass===0?true:false}>
-            <Option key={99991} value={0}  disabled={systemMannger.itemData.fClass!==0?true:false}>中医治则治法类型</Option>
+            <Option key={99991} value={0}  disabled={systemMannger.itemData.fClass!==0?true:false}>默认治则治法类型</Option>
             {
               classes.map((it, i) => {
                 return (<Option key={i} value={it.id}>{it.name}</Option>)

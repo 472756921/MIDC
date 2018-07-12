@@ -1,0 +1,9 @@
+.details {
+  cursor: pointer;
+  color: #1890ff;
+}
+.detail{
+  background: #fafafa;
+  padding: 8px;
+  border-radius: 4px;
+}

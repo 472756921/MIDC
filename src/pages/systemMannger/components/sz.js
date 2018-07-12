@@ -24,11 +24,14 @@ const sz = ({systemMannger, dispatch})=>{
   const classes = systemMannger.lsitData.filter(_=>_.isMenu===1);
 
   const save = ()=>{
-    if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '') {
+    if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '' || systemMannger.itemData.fClass == undefined) {
       message.error('请填写名称和类型');
     } else {
       // type
-      const {type} = systemMannger.lsitData.filter(_=>_.id === systemMannger.itemData.fClass)[0];
+      let {type} = systemMannger.lsitData.filter(_=>_.id === systemMannger.itemData.fClass);
+      if(type == '' || type == undefined) {
+        type = 0;
+      }
       systemMannger.itemData.type = Number(type+1);
       dispatch({type:'systemMannger/saveData'});
     }
@@ -87,7 +90,7 @@ const sz = ({systemMannger, dispatch})=>{
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>类别：<span className={styles.redPoint}>*</span></div>
           <Select value={systemMannger.itemData.fClass} style={{ width: '100%' }}  title='fClass' onChange={changeValue}>
-            <Option key={99991} value={0}  disabled={systemMannger.itemData.isMenu!==1?true:false}>西医舌诊类型</Option>
+            <Option key={99991} value={0}  disabled={systemMannger.itemData.isMenu!==1?true:false}>默认舌诊类型</Option>
             {
               classes.map((it, i) => {
                 return (<Option key={i} value={it.id}>{it.name}</Option>)

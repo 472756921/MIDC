@@ -2952,7 +2952,7 @@ const cd = Mock.mock({
 
 
 let systemMannger = {
-  'GET /apiM/sys/getListData': (req, res) => {
+  'GET /apiM/platform/getListData': (req, res) => {
     let type = req.query.type;
     switch (type){
       case 'cdm':

@@ -6,13 +6,20 @@ import { Row, Col, message, Input, Button, Divider, Select, Icon } from 'antd';
 import styles from '../index.css';
 import info from "../../InformationCollection/$id/compontent/diagnosisAndtreatment";
 
+const selectStyle = {
+  width: '100%',
+  padding: '4px',
+  borderBottomLeftRadius: '4px',
+  borderBottomRightRadius: '4px',
+  borderTopLeftRadius: '4px',
+  borderTopRightRadius: '4px',
+  border: '1px solid #ccc',
+};
 const { TextArea } = Input;
 const Option = Select.Option;
 // cdm
 const fj = ({systemMannger, dispatch})=>{
-
   const classes = systemMannger.lsitData.filter(_=>_.type < 2);
-
   const changeValue = (data) => {
     if(systemMannger.itemData !== '' && typeof data === "object") {
       systemMannger.itemData[data.target['title']] = data.target.value;
@@ -21,8 +28,12 @@ const fj = ({systemMannger, dispatch})=>{
     }
     dispatch({type:'systemMannger/changeItemData', itemData:systemMannger.itemData});
   }
+  const changeValue2 = (e) => {
+    systemMannger.itemData[e.target.attributes.title.value] = e.target.value;
+    dispatch({type:'systemMannger/changeItemData', itemData:systemMannger.itemData});
+  }
   const save = ()=>{
-    if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '') {
+    if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '' || systemMannger.itemData.fClass == undefined) {
       message.error('请填写名称和类型');
     } else {
       let mn = document.getElementsByClassName('midName');
@@ -56,7 +67,7 @@ const fj = ({systemMannger, dispatch})=>{
     if(t === 'classes') {
       dispatch({type:'systemMannger/changeItemData', itemData:{name:'默认方剂类型', fClass:0, sysType: 'fj', isMenu: 1, type: 1 }});
     } else if(t === 'jb') {
-      dispatch({type:'systemMannger/changeItemData', itemData:{name:'新的方剂',sysType: 'fj', isMenu: 0, type: 2 }});
+      dispatch({type:'systemMannger/changeItemData', itemData:{name:'新的方剂', fClass:1, sysType: 'fj', isMenu: 0, type: 2, cf:[], gytj:'', cd: '' }});
     }
   }
   const handleChange = (value)=>{
@@ -90,7 +101,20 @@ const fj = ({systemMannger, dispatch})=>{
     t.cf.push(data);
     dispatch({type:'systemMannger/changeItemData', itemData: t});
   };
-  const changeCf = (data) => {
+  const changeCf = (index, v, type) => {
+    if(type === 'name') {
+      systemMannger.itemData.cf[index].name = v;
+    }
+    if(type === 'yl') {
+      systemMannger.itemData.cf[index].yl = v.target.value;
+    }
+    if(type === 'yf') {
+      systemMannger.itemData.cf[index].yf = v;
+    }
+    if(type === 'zy') {
+      systemMannger.itemData.cf[index].zy = v;
+    }
+    dispatch({type:'systemMannger/changeItemData', itemData:systemMannger.itemData});
   }
 
   return (
@@ -119,13 +143,8 @@ const fj = ({systemMannger, dispatch})=>{
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>类别：<span className={styles.redPoint}>*</span></div>
-          <Select value={systemMannger.itemData.fClass} style={{ width: '100%' }}  title='fClass' onChange={changeValue} disabled={systemMannger.itemData.fClass===0?true:false}>
-            <Option key={99991} value={0}  disabled={systemMannger.itemData.fClass!==0?true:false}>中医方剂类型</Option>
-            {
-              classes.map((it, i) => {
-                return (<Option key={i} value={it.id}>{it.name}</Option>)
-              })
-            }
+          <Select value={systemMannger.itemData.fClass} style={{ width: '100%' }}  title='fClass' onChange={changeValue}>
+            <Option key={99991} value={1}>默认方剂类型</Option>
           </Select>
         </Col>
       </Row>
@@ -133,31 +152,31 @@ const fj = ({systemMannger, dispatch})=>{
       <Row gutter={16} hidden={systemMannger.itemData.fClass===0?true:false}>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>给药途径：<span className={styles.redPoint}>*</span></div>
-          <Select value={systemMannger.itemData.gytj} style={{ width: '100%' }}  title='gytj' onChange={changeValue}>
-            <Option key={1} value='外用'>外用</Option>
-            <Option key={2} value='内服'>内服</Option>
-          </Select>
+          <select value={systemMannger.itemData.gytj} style={selectStyle}  title='gytj' onChange={changeValue2}>
+            <option key={1} value='外用'>外用</option>
+            <option key={2} value='内服'>内服</option>
+          </select>
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>朝代：<span className={styles.redPoint}>*</span></div>
-          <Select value={systemMannger.itemData.cd} style={{ width: '100%' }}  title='fClass' onChange={changeValue}>
-            <Option key={1} value='清'>清</Option>
-            <Option key={2} value='明'>明</Option>
-            <Option key={3} value='元'>元</Option>
-            <Option key={4} value='宋'>宋</Option>
-            <Option key={8} value='五代十国'>五代十国</Option>
-            <Option key={5} value='唐'>唐</Option>
-            <Option key={6} value='隋'>隋</Option>
-            <Option key={7} value='南北'>南北</Option>
-            <Option key={9} value='晋'>晋</Option>
-            <Option key={10} value='三国'>三国</Option>
-            <Option key={11} value='汉'>汉</Option>
-            <Option key={12} value='秦'>秦</Option>
-            <Option key={16} value='春秋战国'>春秋战国</Option>
-            <Option key={13} value='周'>周</Option>
-            <Option key={14} value='商'>商</Option>
-            <Option key={15} value='夏'>夏</Option>
-          </Select>
+          <select value={systemMannger.itemData.cd} style={selectStyle} title='cd' onChange={changeValue2}>
+            <option key={1} value='清'>清</option>
+            <option key={2} value='明'>明</option>
+            <option key={3} value='元'>元</option>
+            <option key={4} value='宋'>宋</option>
+            <option key={8} value='五代十国'>五代十国</option>
+            <option key={5} value='唐'>唐</option>
+            <option key={6} value='隋'>隋</option>
+            <option key={7} value='南北'>南北</option>
+            <option key={9} value='晋'>晋</option>
+            <option key={10} value='三国'>三国</option>
+            <option key={11} value='汉'>汉</option>
+            <option key={12} value='秦'>秦</option>
+            <option key={16} value='春秋战国'>春秋战国</option>
+            <option key={13} value='周'>周</option>
+            <option key={14} value='商'>商</option>
+            <option key={15} value='夏'>夏</option>
+          </select>
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>剂型：<span className={styles.redPoint}>*</span></div>
@@ -217,7 +236,7 @@ const fj = ({systemMannger, dispatch})=>{
             return (
               <Col span={24} style={{margin: '6px 0'}} key={i}>
                 <Col span={6}>
-                  <Select defaultValue="丹参" style={{ width: 150 }} showSearch className='midName'  value={it.name} onChange={changeCf} >
+                  <Select style={{ width: 150 }} showSearch className='midName' value={it.name} onSelect={(value)=>changeCf(i,value, 'name')} >
                     <Option value="丹参">丹参</Option>
                     <Option value="西红花">西红花</Option>
                     <Option value="玉米须">玉米须</Option>
@@ -231,9 +250,12 @@ const fj = ({systemMannger, dispatch})=>{
                     <Option value="蔊菜">蔊菜</Option>
                   </Select>
                 </Col>
-                <Col span={6}><Input placeholder="用量" style={{width: 50}} value={it.yl} className='midNum' onChange={changeCf} /> g</Col>
                 <Col span={6}>
-                  <Select defaultValue="君" style={{ width: 100 }} className='midOption' value={it.zy} onChange={changeCf} >
+                  <Input placeholder="用量" style={{width: 60}} value={it.yl} className='midNum'
+                         onChange ={(value)=>changeCf(i, value, 'yl')}/> g
+                </Col>
+                <Col span={6}>
+                  <Select style={{ width: 100 }} className='midOption' value={it.zy}  onSelect={(value)=>changeCf(i,value, 'zy')} >
                     <Option value="君">君</Option>
                     <Option value="臣">臣</Option>
                     <Option value="佐">佐</Option>
@@ -242,7 +264,7 @@ const fj = ({systemMannger, dispatch})=>{
                   </Select>
                 </Col>
                 <Col span={4}>
-                  <Select defaultValue="先煎" style={{ width: 100 }} value={it.yf} className='midType' onChange={changeCf} >
+                  <Select style={{ width: 100 }} value={it.yf} className='midType' onSelect={(value)=>changeCf(i,value, 'yf')}>
                     <Option value="先煎">先煎</Option>
                     <Option value="后下">后下</Option>
                     <Option value="包煎">包煎</Option>

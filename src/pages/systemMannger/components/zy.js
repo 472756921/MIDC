@@ -23,12 +23,16 @@ const zy = ({systemMannger, dispatch})=>{
   const classes = systemMannger.lsitData.filter(_=>_.isMenu===1);
 
   const save = ()=>{
-    if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '') {
+    if(systemMannger.itemData.name === '' || systemMannger.itemData.fClass === '' || systemMannger.itemData.fClass == undefined) {
       message.error('请填写名称和类型');
     } else {
       // type
-      const {type} = systemMannger.lsitData.filter(_=>_.id === systemMannger.itemData.fClass)[0];
-      systemMannger.itemData.type = Number(type+1);
+      const {type} = systemMannger.lsitData.filter(_=>_.id === systemMannger.itemData.fClass);
+      if(type){
+        systemMannger.itemData.type = Number(type[0]+1);
+      } else {
+        systemMannger.itemData.type = 0;
+      }
       dispatch({type:'systemMannger/saveData'});
     }
   }
@@ -86,7 +90,7 @@ const zy = ({systemMannger, dispatch})=>{
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>类别：<span className={styles.redPoint}>*</span></div>
           <Select value={systemMannger.itemData.fClass} style={{ width: '100%' }}  title='fClass' onChange={changeValue}>
-            <Option key={99991} value={0}  disabled={systemMannger.itemData.isMenu!==1?true:false}>西医中药类型</Option>
+            <Option key={99991} value={0}  disabled={systemMannger.itemData.isMenu!==1?true:false}>默认中药类型</Option>
             {
               classes.map((it, i) => {
                 return (<Option key={i} value={it.id}>{it.name}</Option>)
@@ -97,16 +101,80 @@ const zy = ({systemMannger, dispatch})=>{
       </Row>
       <Row gutter={16} hidden={systemMannger.itemData.isMenu===1?true:false}>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
-          <div>所属中药材：<span className={styles.redPoint}>*</span></div>
-          <TextArea rows={3} value={systemMannger.itemData.zyc}title='zyc' onChange={changeValue} />
+          <div>首字母大写：</div>
+          <Input value={systemMannger.itemData.szmdx} title='szmdx' onChange={changeValue} />
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
-          <div>炮制方法：</div>
-          <TextArea rows={3} value={systemMannger.itemData.pzff} title='pzff' onChange={changeValue} />
+          <div>英文名称：</div>
+          <Input value={systemMannger.itemData.ywmc} title='ywmc' onChange={changeValue} />
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
-          <div>药材部位：</div>
-          <TextArea rows={3} value={systemMannger.itemData.ycbw} title='ycbw' onChange={changeValue} />
+          <div>科：</div>
+          <Input value={systemMannger.itemData.ywmc} title='ywmc' onChange={changeValue} />
+        </Col>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
+          <div>属：</div>
+          <Input value={systemMannger.itemData.ywmc} title='ywmc' onChange={changeValue} />
+        </Col>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
+          <div>拉丁名称：</div>
+          <Input value={systemMannger.itemData.ldmc} title='ldmc' onChange={changeValue} />
+        </Col>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
+          <div>性状：</div>
+          <Input value={systemMannger.itemData.xz} title='xz' onChange={changeValue} />
+        </Col>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
+          <div>基源：</div>
+          <Input value={systemMannger.itemData.jy} title='jy' onChange={changeValue} />
+        </Col>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
+          <div>别名：</div>
+          <Input value={systemMannger.itemData.bm} title='bm' onChange={changeValue} />
+        </Col>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
+          <div>用法用量：</div>
+          <Input value={systemMannger.itemData.yfyl} title='yfyl' onChange={changeValue} />
+        </Col>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
+          <div>药用部位：</div>
+          <Input value={systemMannger.itemData.yybw} title='yybw' onChange={changeValue} />
+        </Col>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
+          <div>四气：</div>
+          <Input value={systemMannger.itemData.sq} title='sq' onChange={changeValue} />
+        </Col>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
+          <div>五味：</div>
+          <Input value={systemMannger.itemData.ww} title='ww' onChange={changeValue} />
+        </Col>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
+          <div>归茎：</div>
+          <Input value={systemMannger.itemData.gj} title='gj' onChange={changeValue} />
+        </Col>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
+          <div>主治疾病：</div>
+          <Input value={systemMannger.itemData.zzjb} title='zzjb' onChange={changeValue} />
+        </Col>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
+          <div>功能主治：</div>
+          <Input value={systemMannger.itemData.glzz} title='glzz' onChange={changeValue} />
+        </Col>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
+          <div>药理作用：</div>
+          <Input value={systemMannger.itemData.ylzz} title='ylzz' onChange={changeValue} />
+        </Col>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
+          <div>化学成分：</div>
+          <Input value={systemMannger.itemData.hxcf} title='hxcf' onChange={changeValue} />
+        </Col>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
+          <div>功能分类：</div>
+          <Input value={systemMannger.itemData.glfl} title='glfl' onChange={changeValue} />
+        </Col>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
+          <div>图片：</div>
+          <Input value={systemMannger.itemData.tp} title='tp' onChange={changeValue} />
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>备注：</div>

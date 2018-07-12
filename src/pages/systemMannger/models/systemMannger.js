@@ -27,7 +27,7 @@ export default {
   },
   effects: {
     *getData({payload}, {call, put, select}) {
-      const {data}  = yield call(getSLData, payload);
+      const {data = []}  = yield call(getSLData, payload);
       if(payload.type === 'cf' || payload.type === 'br' || payload.type === 'ya' || payload.type === 'cd') {
         yield put({type: 'setData2', payload: {data, type:payload.type}});
       } else {
@@ -54,7 +54,7 @@ export default {
     },
     *saveData({payload}, {call, put, select}) {
       const {itemData} = yield select(_=>_.systemMannger);
-      const {data}  = yield call(saveData, itemData);
+      const {data} = yield call(saveData, itemData);
       if(data.success){
         message.success('保存成功');
         const {nowType} = yield select(_=>_.systemMannger);
