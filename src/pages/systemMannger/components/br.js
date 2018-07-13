@@ -32,12 +32,12 @@ const columns = [
   key: 'phone',
 }, {
     title: '末次就诊日期',
-    dataIndex: 'lastDate',
-    key: 'lastDate',
+    dataIndex: 'endDate',
+    key: 'endDate',
 }, {
     title: '首次就诊日期',
-    dataIndex: 'fistDate',
-    key: 'fistDate',
+    dataIndex: 'date',
+    key: 'date',
   },{
     title: '操作',
     key: 'action',
@@ -96,7 +96,8 @@ const br = ({systemMannger, dispatch}) => {
       address: listData[10].value,
       zipCode: listData[11].value,
       fistDate: dates,
-      type: 'br'
+      type: 'br',
+      id: listData[12].value,
     }
     dispatch({type:'systemMannger/saveTableData', payload: data});
   }
@@ -134,9 +135,9 @@ const br = ({systemMannger, dispatch}) => {
         <div>
           <div className={styles.contentBu}>婚姻状况：</div>
           <select style={selectStyle} title='marriage' className='br' defaultValue="2" >
-            <option value="已婚">已婚</option>
-            <option value="未婚">未婚</option>
-            <option value="其他婚姻状况">其他婚姻状况</option>
+            <option value="1">已婚</option>
+            <option value="0">未婚</option>
+            <option value="2">其他婚姻状况</option>
           </select>
         </div>
         <div><div className={styles.contentBu}>职业：</div><Input title='profession' className='br'/></div>
@@ -146,10 +147,6 @@ const br = ({systemMannger, dispatch}) => {
         <div><div className={styles.contentBu}>联系电话：</div><Input title='phone' className='br'/></div>
         <div><div className={styles.contentBu}>家庭地址：</div><Input title='address' className='br'/></div>
         <div><div className={styles.contentBu}>邮政编码：</div><Input title='zipCode' className='br'/></div>
-        <div>
-          <div className={styles.contentBu}>就诊时间：</div>
-          <DatePicker onChange={dateOnChange} style={selectStyle} defaultValue={moment(systemMannger.itemData.fistDate, dateFormat)}/>
-        </div>
         <div><Input title='id' className='br' type='hidden'/></div>
       </Modal>
     </div>

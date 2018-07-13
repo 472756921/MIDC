@@ -1,5 +1,6 @@
 /* global window */
 import {getSLData, saveData, del, getCfData, search, saveCFData, delCFData, brList, yarList, cdList} from "../service/systemMannger";
+import { addPatient } from '../../InformationCollection/services/InformationCollection';
 import { message } from 'antd';
 
 export default {
@@ -49,7 +50,7 @@ export default {
           payload.visitDate = ''
         }
         const d  = yield call(yarList, payload);
-        if(d.data.status !== 200){
+        if(!d.data.content){
           message.error('查询失败，请稍后再试');
           return
         }
@@ -58,7 +59,7 @@ export default {
         yield put({type: 'settotalElements', payload: {totalElements: d.data.totalElements}});
       } else if(payload.type === 'cd') {
         if(!payload.sysType) {
-          payload.sysType = 'cd';
+          payload.sysType = 'cdd';
         }
         const {data = []}  = yield call(cdList, {sysType: payload.sysType});
         yield put({type: 'setData', payload: {data, type:payload.type}});
@@ -110,13 +111,21 @@ export default {
       }
     },
     *saveTableData({payload}, {call, put, select}) {
-      console.log(payload);
+      const {itemData} = yield select(_=>_.systemMannger);
       if(payload.type === 'cf') {
         const {data}  = yield call(saveCFData, payload);
-        const {itemData} = yield select(_=>_.systemMannger);
         if(data.status === 200){
           message.success('保存成功');
           yield put({type: 'modelShow', payload:{modelShow: false, itemData: itemData}});
+        } else {
+          message.error(data.msg);
+        }
+      } else if(payload.type === 'br'){
+        const {data}  = yield call(addPatient, payload);
+        if(data.status === 200){
+          message.success('保存成功');
+          yield put({type: 'modelShow', payload:{modelShow: false, itemData: itemData}});
+          yield put({type: 'getData', payload:{type: 'br'}});
         } else {
           message.error(data.msg);
         }

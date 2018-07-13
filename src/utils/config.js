@@ -22,6 +22,8 @@ module.exports = {
     delCFData: apiOnline + '/platform/deleteComponentManagerById',
     getYaData: apiOnline + '/platform/findPatiendAll',
     getCdData: apiOnline + '/platform/findDictionary',
+    saveCdData: apiOnline + '/platform/addDictionary',
+    delCdData: apiOnline + '/platform/deleteDictionary',
     getSLITData: api_M + '/sys/getSLITData',
     saveData: apiOnline + '/platform/save',
     del: apiOnline + '/platform/delete',

@@ -1,5 +1,5 @@
 /* global window */
-import {getSLData, saveData, del, search} from "../service/systemMannger";
+import {getSLData, saveData, del, search, cdList, cdSave, delCd} from "../service/systemMannger";
 import { message } from 'antd';
 
 export default {
@@ -14,14 +14,17 @@ export default {
   },
   effects: {
     *getData({payload}, {call, put, select}) {
-      const {data}  = yield call(getSLData, payload);
+      const {data = []}  = yield call(cdList, {sysType: payload.type});
       yield put({type: 'setData', payload: {data, type:payload.type}});
     },
     *saveTableData({payload}, {call, put, select}) {
-      const {data}  = yield call(saveData, payload);
-      if(data.code === 200){
+      console.log(payload);
+      const {data}  = yield call(cdSave, payload);
+      if(data.status === 200){
         message.success('保存成功');
         yield put({type: 'modelShow', payload:{modelShow: false, itemData: ''}});
+        const {nowType} = yield select(_=>_.systemMannger_cd)
+        yield put({type: 'getData', payload:{type:nowType}});
       } else {
         message.error(data.msg);
       }
@@ -31,8 +34,8 @@ export default {
         id: itemData.id,
         sysType: itemData.sysType,
       }
-      const {data}  = yield call(del, delData);
-      if(data.code === 200){
+      const {data}  = yield call(delCd, delData);
+      if(data.status === 200){
         message.success('删除成功');
         yield put({type: 'getData', payload:{type: itemData.sysType}});
       } else {

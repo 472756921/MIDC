@@ -42,3 +42,10 @@ export function cdList (data) {
   let url = getParmas( api.getCdData, data);
   return request(url, {method: 'get', headers: JSONS});
 }
+export function cdSave (data) {
+  return request(api.saveCdData, {method: 'post', body: JSON.stringify(data), headers: JSONS});
+}
+export function delCd (data) {
+  let url = getParmas( api.delCdData, data);
+  return request(url, {method: 'delete', headers: JSONS});
+}

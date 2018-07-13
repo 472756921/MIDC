@@ -29,13 +29,12 @@ const columns = [
 let _dis = '', _systemMannger_cd = '';
 
 const chang = (itemData) => {
-  console.log(itemData);
   _dis({type: 'systemMannger_cd/modelShow', payload:{modelShow: true, itemData: itemData}});
   setTimeout(()=>{
     const listData = document.getElementsByClassName('cd');
     listData[0].value = itemData.name;
     listData[1].value = itemData.id;
-  }, 500);
+  }, 100);
 }
 const del = (id) => {
   Confirm('确认删除','删除后将无法恢复', ()=>{_dis({type: 'systemMannger_cd/del', itemData:{id: id, sysType: _systemMannger_cd.nowType}})});
@@ -45,13 +44,18 @@ const cd = ({systemMannger_cd, dispatch}) => {
   _dis = dispatch;
   const handleOk = (value)=>{
     const listData = document.getElementsByClassName('cd');
-    dispatch({type:'systemMannger_cd/saveTableData', payload:{itemData: {id: listData[1].value, name: listData[0].value, sysType: systemMannger_cd.nowType}}});
+    dispatch({type:'systemMannger_cd/saveTableData', payload:{id: listData[1].value, name: listData[0].value, sysType: systemMannger_cd.nowType}});
   }
   const handleCancel = (value)=>{
     dispatch({type: 'systemMannger_cd/modelShow', payload:{modelShow: false, itemData:''}});
   }
   const add = () => {
     _dis({type: 'systemMannger_cd/modelShow', payload:{modelShow: true, itemData:{}}});
+    setTimeout(()=>{
+      let listData = document.getElementsByClassName('cd');
+      listData[0].value = '';
+      listData[1].value = '';
+    }, 100)
   }
 
   const changeType = (e)=>{
@@ -78,7 +82,7 @@ const cd = ({systemMannger_cd, dispatch}) => {
 
       <Table dataSource={systemMannger_cd.tableItem} columns={columns} />
 
-      <Modal title="成分管理" visible={systemMannger_cd.modelShow} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title="添加/修改" visible={systemMannger_cd.modelShow} onOk={handleOk} onCancel={handleCancel}>
         <div><div className={styles.contentBu}>名称：</div><Input  className='cd' title='name'/></div>
         <div><Input title='id' className='cd' type='hidden'/></div>
       </Modal>
