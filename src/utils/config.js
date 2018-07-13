@@ -17,6 +17,11 @@ module.exports = {
     addPatient: apiOnline + '/patient/add',
     //平台管理
     getSLData: apiOnline + '/platform/getListData',
+    getCFData: apiOnline + '/platform/findComponentByName',
+    saveCFData: apiOnline + '/platform/saveComponentManager',
+    delCFData: apiOnline + '/platform/deleteComponentManagerById',
+    getYaData: apiOnline + '/platform/findPatiendAll',
+    getCdData: apiOnline + '/platform/findDictionary',
     getSLITData: api_M + '/sys/getSLITData',
     saveData: apiOnline + '/platform/save',
     del: apiOnline + '/platform/delete',

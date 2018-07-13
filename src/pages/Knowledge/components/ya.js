@@ -2,6 +2,9 @@ import { connect } from 'dva';
 import { Table, Button, Row, Col, Input, Divider, Select, Modal } from 'antd';
 import PropTypes from 'prop-types';
 import Info from '../../InformationCollection/$id/compontent/info';
+import We from '../../InformationCollection/$id/compontent/diagnosisOfWe';
+import Zh from '../../InformationCollection/$id/compontent/diagnosisOfZh';
+import Or from '../../InformationCollection/$id/compontent/ohter';
 import styles from '../index.css';
 const Option = Select.Option;
 
@@ -94,6 +97,9 @@ const ya = ({loading, knowledge, dispatch}) => {
 
       <Modal title="详情" visible={knowledge.visibleC} onOk={handleOk} onCancel={handleCancel}>
         <Info/>
+        <We/>
+        <Zh/>
+        <Or/>
       </Modal>
     </div>
   )

@@ -77,8 +77,8 @@ const del = (id) => {
 
 const br = ({systemMannger, dispatch}) => {
   _dis = dispatch;
-  const handleChange = (value)=>{
-    dispatch({type:'systemMannger/search', vname: value});
+  const chage = (p, f, s) => {
+    dispatch({type:'systemMannger/getData', payload: {type: 'br', page: p.current, pageSize: 30 }})
   }
   const handleOk = (value)=>{
     const listData = document.getElementsByClassName('br');
@@ -108,7 +108,7 @@ const br = ({systemMannger, dispatch}) => {
   }
   const search = () => {
     let d = document.getElementById('serName').value;
-    dispatch({type:'systemMannger/serchaBR', payload: {sv: d}});
+    dispatch({type:'systemMannger/getData', payload: {type: 'br', page:1, pageSize: 30, searchV: d}})
   }
 
   return (
@@ -117,7 +117,7 @@ const br = ({systemMannger, dispatch}) => {
       <Button type='primary' onClick={search}>查询</Button>
       <br/>
       <br/>
-      <Table dataSource={systemMannger.tableItem} columns={columns} />
+      <Table dataSource={systemMannger.tableItem} columns={columns} pagination={{'total': systemMannger.totalElements, 'pageSize': 30}} onChange={chage}/>
 
       <Modal title="病人管理" visible={systemMannger.modelShow} onOk={handleOk} onCancel={handleCancel}>
         <div><div className={styles.contentBu}>姓名：</div><Input title='name' className='br'/></div>

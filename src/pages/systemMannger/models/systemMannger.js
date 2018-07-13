@@ -1,5 +1,5 @@
 /* global window */
-import {getSLData, saveData, del, search} from "../service/systemMannger";
+import {getSLData, saveData, del, getCfData, search, saveCFData, delCFData, brList, yarList, cdList} from "../service/systemMannger";
 import { message } from 'antd';
 
 export default {
@@ -15,6 +15,7 @@ export default {
     tempData: '',
     tempData2: '',
     date: '',
+    totalElements: ''
   },
   subscriptions: {
     setUp({dispatch, history}) {
@@ -27,10 +28,42 @@ export default {
   },
   effects: {
     *getData({payload}, {call, put, select}) {
-      const {data = []}  = yield call(getSLData, payload);
-      if(payload.type === 'cf' || payload.type === 'br' || payload.type === 'ya' || payload.type === 'cd') {
+      if(payload.type === 'cf'){
+        const {data = []}  = yield call(getCfData, {name:''});
         yield put({type: 'setData2', payload: {data, type:payload.type}});
+      } else if(payload.type === 'br') {
+        if(!payload.page) {
+          payload.page = 1;
+          payload.pageSize = 30;
+          payload.searchV = ''
+        }
+        const d  = yield call(brList, payload);
+        let data = d.data.content;
+        yield put({type: 'setData2', payload: {data, type:payload.type}});
+        yield put({type: 'settotalElements', payload: {totalElements: d.data.totalElements}});
+      } else if(payload.type === 'ya') {
+        if(!payload.page) {
+          payload.page = 1;
+          payload.pageSize = 30;
+          payload.name = ''
+          payload.visitDate = ''
+        }
+        const d  = yield call(yarList, payload);
+        if(d.data.status !== 200){
+          message.error('查询失败，请稍后再试');
+          return
+        }
+        let data = d.data.content;
+        yield put({type: 'setData2', payload: {data, type:payload.type}});
+        yield put({type: 'settotalElements', payload: {totalElements: d.data.totalElements}});
+      } else if(payload.type === 'cd') {
+        if(!payload.sysType) {
+          payload.sysType = 'cd';
+        }
+        const {data = []}  = yield call(cdList, {sysType: payload.sysType});
+        yield put({type: 'setData', payload: {data, type:payload.type}});
       } else {
+        const {data = []}  = yield call(getSLData, payload);
         yield put({type: 'setData', payload: {data, type:payload.type}});
       }
     },
@@ -52,6 +85,19 @@ export default {
         message.error('删除失败');
       }
     },
+    *delCFData({itemData}, {call, put, select}) {
+      let delData = {
+        id: itemData.id,
+      }
+      const {data}  = yield call(delCFData, delData);
+      if(data.status === 200){
+        message.success('删除成功');
+        const {nowType} = yield select(_=>_.systemMannger);
+        yield put({type: 'getData', payload:{type: nowType}});
+      } else {
+        message.error('删除失败');
+      }
+    },
     *saveData({payload}, {call, put, select}) {
       const {itemData} = yield select(_=>_.systemMannger);
       const {data} = yield call(saveData, itemData);
@@ -64,13 +110,18 @@ export default {
       }
     },
     *saveTableData({payload}, {call, put, select}) {
-      const {data}  = yield call(saveData, payload);
-      const {itemData} = yield select(_=>_.systemMannger);
-      if(data.code === 200){
-        message.success('保存成功');
-        yield put({type: 'modelShow', payload:{modelShow: false, itemData: itemData}});
+      console.log(payload);
+      if(payload.type === 'cf') {
+        const {data}  = yield call(saveCFData, payload);
+        const {itemData} = yield select(_=>_.systemMannger);
+        if(data.status === 200){
+          message.success('保存成功');
+          yield put({type: 'modelShow', payload:{modelShow: false, itemData: itemData}});
+        } else {
+          message.error(data.msg);
+        }
       } else {
-        message.error(data.msg);
+        const {data}  = yield call(saveData, payload);
       }
     },
     *saveDataYA({payload}, {call, put, select}) {
@@ -99,7 +150,11 @@ export default {
     setData (state,{payload}) {
       return {...state, lsitData: payload.data, nowType: payload.type, itemData: '' }
     },
+    settotalElements (state,{payload}) {
+      return {...state, totalElements: payload.totalElements}
+    },
     setData2 (state,{payload}) {
+      console.log(payload);
       return {...state, lsitData: payload.data, nowType: payload.type, tableItem: payload.data }
     },
     changeItemData (state, payload) {

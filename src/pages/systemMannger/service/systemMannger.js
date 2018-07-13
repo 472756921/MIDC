@@ -8,6 +8,10 @@ export function getSLData (data) {
   let url = getParmas( api.getSLData, data);
   return request(url, {method: 'get', headers: JSONS});
 }
+export function getCfData (data) {
+  let url = getParmas( api.getCFData, data);
+  return request(url, {method: 'get', headers: JSONS});
+}
 export function del (data) {
   let url = getParmas( api.del, data);
   return request(url, {method: 'delete', headers: JSONS});
@@ -15,7 +19,26 @@ export function del (data) {
 export function saveData (data) {
   return request(api.saveData, {method: 'post', body: JSON.stringify(data), headers: JSONS});
 }
+export function saveCFData (data) {
+  return request(api.saveCFData, {method: 'post', body: JSON.stringify(data), headers: JSONS});
+}
+export function delCFData (data) {
+  let url = getParmas( api.delCFData, data);
+  return request(url, {method: 'delete', headers: JSONS});
+}
 export function search (data) {
   let url = getParmas( api.search, data);
+  return request(url, {method: 'get', headers: JSONS});
+}
+export function brList (data) {
+  let url = getParmas( api.patientList, data);
+  return request(url, {method: 'get', headers: JSONS});
+}
+export function yarList (data) {
+  let url = getParmas( api.getYaData, data);
+  return request(url, {method: 'get', headers: JSONS});
+}
+export function cdList (data) {
+  let url = getParmas( api.getCdData, data);
   return request(url, {method: 'get', headers: JSONS});
 }

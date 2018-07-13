@@ -51,7 +51,7 @@ const chang = (itemData) => {
   }, 500);
 }
 const del = (id) => {
-  Confirm('确认删除','删除后将无法恢复', ()=>{_dis({type: 'systemMannger/del', itemData:{id: id, sysType: 'cf'}})});
+  Confirm('确认删除','删除后将无法恢复', ()=>{_dis({type: 'systemMannger/delCFData', itemData:{id: id, sysType: 'cf'}})});
 }
 const cf = ({systemMannger, dispatch}) => {
   _dis = dispatch;
