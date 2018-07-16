@@ -16,7 +16,8 @@ export default {
     tempData: '',
     tempData2: '',
     date: '',
-    totalElements: ''
+    totalElements: '',
+    selectData: [],
   },
   subscriptions: {
     setUp({dispatch, history}) {
@@ -67,6 +68,10 @@ export default {
         const {data = []}  = yield call(getSLData, payload);
         yield put({type: 'setData', payload: {data, type:payload.type}});
       }
+    },
+    *selectData({payload}, {call, put, select}) {
+      const {data = []}  = yield call(getSLData, payload);
+      yield put({type: 'changeSelectData', data});
     },
     *search({vname}, {call, put, select}) {
       const {lsitData} = yield select(_=>_.systemMannger);
@@ -189,6 +194,9 @@ export default {
     },
     changeDate(state, {payload}) {
       return {...state, date: payload.date}
+    },
+    changeSelectData(state, {data}) {
+      return {...state, selectData: data}
     }
   },
 }

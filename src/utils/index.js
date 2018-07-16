@@ -13,7 +13,6 @@ export const getParmas = (url, data) => {
   }
   return sendUrl;
 }
-
 export const Trim = (m) => {
   return m.replace(/\s|\xA0/g,"");
 }
@@ -43,4 +42,7 @@ export const isNumber = (val) =>{
   } else {
     return true;
   }
+}
+export const isType = (data) => {
+  return Object.prototype.toString.call(data);
 }

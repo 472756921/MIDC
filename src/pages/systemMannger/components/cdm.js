@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import Confirm from '../../../components/Confirm';
+import {isType} from "../../../utils";
 import PropTypes from 'prop-types';
 import { Row, Col, message, Input, Button, Divider, Select  } from 'antd';
 import styles from '../index.css';
@@ -9,10 +10,19 @@ const { TextArea } = Input;
 const Option = Select.Option;
 
 const cdm = ({systemMannger, dispatch})=>{
-  const changeValue = (data) => {
+  const changeValue = (data, type) => {
     if(systemMannger.itemData !== '' && typeof data === "object") {
-      systemMannger.itemData[data.target['title']] = data.target.value;
-    } else if(typeof data === "number") {
+      try {
+        if(isType(data) == '[object Array]') {
+          systemMannger.itemData[type] = [];
+          systemMannger.itemData[type] = systemMannger.itemData[type].concat(data);
+        } else {
+          systemMannger.itemData[data.target['title']] = data.target.value;
+        }
+      } catch (e) {
+
+      }
+    } else if(systemMannger.itemData !== '' && typeof data === "number") {
       systemMannger.itemData.fClass = data;
     }
     dispatch({type:'systemMannger/changeItemData', itemData:systemMannger.itemData});
@@ -53,14 +63,19 @@ const cdm = ({systemMannger, dispatch})=>{
     }
   }
 
+  const selectData = (type) => {
+    dispatch({type:'systemMannger/selectData', payload: {type: type}});
+  }
+
   return (
-    <div className={styles.navBtns}>
+    <div className={styles.navBtns} id='area'>
       <Select
         showSearch
         style={{ width: 200 }}
         placeholder="输入内容搜索"
         optionFilterProp="children"
         onChange={handleChange}
+        getPopupContainer={() => document.getElementById('area')}
         filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
       >
         {
@@ -80,7 +95,7 @@ const cdm = ({systemMannger, dispatch})=>{
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>类别：<span className={styles.redPoint}>*</span></div>
-          <Select value={systemMannger.itemData.fClass} style={{ width: '100%' }}  title='fClass' onChange={changeValue} disabled={systemMannger.itemData.fClass===0?true:false}>
+          <Select value={systemMannger.itemData.fClass} style={{ width: '100%' }}  title='fClass' onChange={changeValue} disabled={systemMannger.itemData.fClass===0?true:false} getPopupContainer={() => document.getElementById('area')}>
             <Option key={99991} value={0}  disabled={systemMannger.itemData.fClass!==0?true:false}>中医疾病类型</Option>
             {
               classes.map((it, i) => {
@@ -128,20 +143,47 @@ const cdm = ({systemMannger, dispatch})=>{
           <TextArea rows={3} value={systemMannger.itemData.ldyjls} title='ldyjls' onChange={changeValue} />
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
-          <div>转归预后：</div>
-          <TextArea rows={3} value={systemMannger.itemData.zgyh} title='zgyh' onChange={changeValue} />
-        </Col>
-        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>关联证候：</div>
-          <TextArea rows={3} value={systemMannger.itemData.glzh} title='glzh' onChange={changeValue} />
+          <Select mode="multiple" value={systemMannger.itemData.glzh} style={{ width: '100%' }}  title='glzh' onFocus={()=>selectData('zh')} onChange={(data)=>changeValue(data, 'glzh')} getPopupContainer={() => document.getElementById('area')}>
+            {
+              systemMannger.selectData.map((it, i) => {
+                if(it.isMenu){
+                } else {
+                  return (<Option key={i} value={it.name}>{it.name}</Option>)
+                }
+              })
+            }
+          </Select>
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>关联症状：</div>
-          <TextArea rows={3} value={systemMannger.itemData.glzz} title='glzz' onChange={changeValue} />
+          <Select mode="multiple" value={systemMannger.itemData.glzz} style={{ width: '100%' }}  title='glzz' onFocus={()=>selectData('zz')} onChange={(data)=>changeValue(data, 'glzz')} getPopupContainer={() => document.getElementById('area')}>
+            {
+              systemMannger.selectData.map((it, i) => {
+                if(it.isMenu){
+                } else {
+                  return (<Option key={i} value={it.name}>{it.name}</Option>)
+                }
+              })
+            }
+          </Select>
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>相关西医疾病：</div>
-          <TextArea rows={3} value={systemMannger.itemData.xgyxjb} title='xgyxjb' onChange={changeValue} />
+          <Select mode="multiple" value={systemMannger.itemData.xgyxjb} style={{ width: '100%' }}  title='xgyxjb' onFocus={()=>selectData('wdm')} onChange={(data)=>changeValue(data, 'xgyxjb')} getPopupContainer={() => document.getElementById('area')}>
+            {
+              systemMannger.selectData.map((it, i) => {
+                if(it.isMenu){
+                } else {
+                  return (<Option key={i} value={it.name}>{it.name}</Option>)
+                }
+              })
+            }
+          </Select>
+        </Col>
+        <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
+          <div>转归预后：</div>
+          <TextArea rows={3} value={systemMannger.itemData.zgyh} title='zgyh' onChange={changeValue} />
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>其它：</div>
