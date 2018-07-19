@@ -20,7 +20,6 @@ const cdm = ({systemMannger, dispatch})=>{
           systemMannger.itemData[data.target['title']] = data.target.value;
         }
       } catch (e) {
-
       }
     } else if(systemMannger.itemData !== '' && typeof data === "number") {
       systemMannger.itemData.fClass = data;

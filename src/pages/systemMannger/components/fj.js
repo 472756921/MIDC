@@ -4,7 +4,7 @@ import Confirm from '../../../components/Confirm';
 import PropTypes from 'prop-types';
 import { Row, Col, message, Input, Button, Divider, Select, Icon } from 'antd';
 import styles from '../index.css';
-import info from "../../InformationCollection/$id/compontent/diagnosisAndtreatment";
+import {isType} from "../../../utils";
 
 const selectStyle = {
   width: '100%',
@@ -24,12 +24,24 @@ const fj = ({systemMannger, dispatch})=>{
     if(systemMannger.itemData !== '' && typeof data === "object") {
       systemMannger.itemData[data.target['title']] = data.target.value;
     } else if(typeof data === "number") {
-      systemMannger.itemData.fClass = data;
+      try {
+        systemMannger.itemData.fClass = data;
+      } catch (e) {
+        message.warning('当前无选中对象');
+      }
     }
     dispatch({type:'systemMannger/changeItemData', itemData:systemMannger.itemData});
   }
-  const changeValue2 = (e) => {
-    systemMannger.itemData[e.target.attributes.title.value] = e.target.value;
+  const changeValue2 = (data, type) => {
+    try {
+      if(isType(data) == '[object Array]') {
+        systemMannger.itemData[type] = [];
+        systemMannger.itemData[type] = systemMannger.itemData[type].concat(data);
+      } else {
+        systemMannger.itemData[type] = data;
+      }
+    } catch (e) {
+    }
     dispatch({type:'systemMannger/changeItemData', itemData:systemMannger.itemData});
   }
   const save = ()=>{
@@ -56,6 +68,10 @@ const fj = ({systemMannger, dispatch})=>{
     dispatch({type:'systemMannger/del', itemData: systemMannger.itemData});
   }
   const del = ()=>{
+    if(systemMannger.itemData.id === 1) {
+      message.error('不能删除该菜单');
+      return false
+    }
     if(systemMannger.itemData === '' || systemMannger.itemData.id === undefined){
       message.error('请选择要删除的对象');
     } else {
@@ -116,9 +132,15 @@ const fj = ({systemMannger, dispatch})=>{
     }
     dispatch({type:'systemMannger/changeItemData', itemData:systemMannger.itemData});
   }
+  const selectData = (type) => {
+    dispatch({type:'systemMannger/selectData', payload: {type: type}});
+  }
+  const selectDataByCd = (type) => {
+    dispatch({type:'systemMannger/selectDataByCd', payload: {type: type}});
+  }
 
   return (
-    <div className={styles.navBtns}>
+    <div className={styles.navBtns} id='area'>
       <Select
         showSearch
         style={{ width: 200 }}
@@ -143,7 +165,7 @@ const fj = ({systemMannger, dispatch})=>{
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>类别：<span className={styles.redPoint}>*</span></div>
-          <Select value={systemMannger.itemData.fClass} style={{ width: '100%' }}  title='fClass' onChange={changeValue}>
+          <Select value={systemMannger.itemData.fClass} style={{ width: '100%' }}  title='fClass' onChange={changeValue} disabled={systemMannger.itemData.isMenu===1?true:false}>
             <Option key={99991} value={1}>默认方剂类型</Option>
           </Select>
         </Col>
@@ -152,37 +174,41 @@ const fj = ({systemMannger, dispatch})=>{
       <Row gutter={16} hidden={systemMannger.itemData.fClass===0?true:false}>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>给药途径：<span className={styles.redPoint}>*</span></div>
-          <select value={systemMannger.itemData.gytj} style={selectStyle}  title='gytj' onChange={changeValue2}>
-            <option key={1} value='外用'>外用</option>
-            <option key={2} value='内服'>内服</option>
-          </select>
+          <Select value={systemMannger.itemData.gytj} style={{ width: '100%' }}  title='gytj' onFocus={()=>selectDataByCd('gytj')} onChange={(data)=>changeValue2(data, 'gytj')} getPopupContainer={() => document.getElementById('area')}>
+            {
+              systemMannger.selectData.map((it, i) => {
+                if(it.isMenu){
+                } else {
+                  return (<Option key={i} value={it.name}>{it.name}</Option>)
+                }
+              })
+            }
+          </Select>
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>朝代：<span className={styles.redPoint}>*</span></div>
-          <select value={systemMannger.itemData.cd} style={selectStyle} title='cd' onChange={changeValue2}>
-            <option key={1} value='清'>清</option>
-            <option key={2} value='明'>明</option>
-            <option key={3} value='元'>元</option>
-            <option key={4} value='宋'>宋</option>
-            <option key={8} value='五代十国'>五代十国</option>
-            <option key={5} value='唐'>唐</option>
-            <option key={6} value='隋'>隋</option>
-            <option key={7} value='南北'>南北</option>
-            <option key={9} value='晋'>晋</option>
-            <option key={10} value='三国'>三国</option>
-            <option key={11} value='汉'>汉</option>
-            <option key={12} value='秦'>秦</option>
-            <option key={16} value='春秋战国'>春秋战国</option>
-            <option key={13} value='周'>周</option>
-            <option key={14} value='商'>商</option>
-            <option key={15} value='夏'>夏</option>
-          </select>
+          <Select value={systemMannger.itemData.cd} style={{ width: '100%' }}  title='cd' onFocus={()=>selectDataByCd('cdd')} onChange={(data)=>changeValue2(data, 'cd')} getPopupContainer={() => document.getElementById('area')}>
+            {
+              systemMannger.selectData.map((it, i) => {
+                if(it.isMenu){
+                } else {
+                  return (<Option key={i} value={it.name}>{it.name}</Option>)
+                }
+              })
+            }
+          </Select>
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>剂型：<span className={styles.redPoint}>*</span></div>
-          <Select value={systemMannger.itemData.jx} style={{ width: '100%' }}  title='jx' onChange={changeValue}>
-            <Option key={1} value='丸剂'>丸剂</Option>
-            <Option key={2} value='药膏'>药膏</Option>
+          <Select value={systemMannger.itemData.jx} style={{ width: '100%' }}  title='jx' onFocus={()=>selectDataByCd('jxgl')} onChange={(data)=>changeValue2(data, 'jx')} getPopupContainer={() => document.getElementById('area')}>
+            {
+              systemMannger.selectData.map((it, i) => {
+                if(it.isMenu){
+                } else {
+                  return (<Option key={i} value={it.name}>{it.name}</Option>)
+                }
+              })
+            }
           </Select>
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
@@ -199,27 +225,81 @@ const fj = ({systemMannger, dispatch})=>{
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>中医疾病：</div>
-          <TextArea rows={3} value={systemMannger.itemData.zyjb} title='zyjb' onChange={changeValue} />
+          <Select mode="multiple"  value={systemMannger.itemData.zyjb} style={{ width: '100%' }}  title='zyjb' onFocus={()=>selectData('cdm')} onChange={(data)=>changeValue2(data, 'zyjb')} getPopupContainer={() => document.getElementById('area')}>
+            {
+              systemMannger.selectData.map((it, i) => {
+                if(it.isMenu){
+                } else {
+                  return (<Option key={i} value={it.name}>{it.name}</Option>)
+                }
+              })
+            }
+          </Select>
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>西医疾病：</div>
-          <TextArea rows={3} value={systemMannger.itemData.xyjb}title='xyjb' onChange={changeValue} />
+          <Select mode="multiple"  value={systemMannger.itemData.xyjb} style={{ width: '100%' }}  title='xyjb' onFocus={()=>selectData('wdm')} onChange={(data)=>changeValue2(data, 'xyjb')} getPopupContainer={() => document.getElementById('area')}>
+            {
+              systemMannger.selectData.map((it, i) => {
+                if(it.isMenu){
+                } else {
+                  return (<Option key={i} value={it.name}>{it.name}</Option>)
+                }
+              })
+            }
+          </Select>
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>适宜证候：</div>
-          <TextArea rows={3} value={systemMannger.itemData.syzh} title='syzh' onChange={changeValue} />
+          <Select mode="multiple"  value={systemMannger.itemData.syzh} style={{ width: '100%' }}  title='syzh' onFocus={()=>selectData('zh')} onChange={(data)=>changeValue2(data, 'syzh')} getPopupContainer={() => document.getElementById('area')}>
+            {
+              systemMannger.selectData.map((it, i) => {
+                if(it.isMenu){
+                } else {
+                  return (<Option key={i} value={it.name}>{it.name}</Option>)
+                }
+              })
+            }
+          </Select>
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>方剂功效：</div>
-          <TextArea rows={3} value={systemMannger.itemData.fjgx} title='fjgx' onChange={changeValue} />
+          <Select mode="multiple"  value={systemMannger.itemData.fjgx} style={{ width: '100%' }}  title='fjgx' onFocus={()=>selectData('gxlx')} onChange={(data)=>changeValue2(data, 'fjgx')} getPopupContainer={() => document.getElementById('area')}>
+            {
+              systemMannger.selectData.map((it, i) => {
+                if(it.isMenu){
+                } else {
+                  return (<Option key={i} value={it.name}>{it.name}</Option>)
+                }
+              })
+            }
+          </Select>
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>方剂主治：</div>
-          <TextArea rows={3} value={systemMannger.itemData.fjzz} title='fjzz' onChange={changeValue} />
+          <Select mode="multiple"  value={systemMannger.itemData.fjzz} style={{ width: '100%' }}  title='fjzz' onFocus={()=>selectData('fjzz')} onChange={(data)=>changeValue2(data, 'fjzz')} getPopupContainer={() => document.getElementById('area')}>
+            {
+              systemMannger.selectData.map((it, i) => {
+                if(it.isMenu){
+                } else {
+                  return (<Option key={i} value={it.name}>{it.name}</Option>)
+                }
+              })
+            }
+          </Select>
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>中医症状：</div>
-          <TextArea rows={3} value={systemMannger.itemData.zyzz} title='zyzz' onChange={changeValue} />
+          <Select mode="multiple"  value={systemMannger.itemData.zyzz} style={{ width: '100%' }}  title='zyzz' onFocus={()=>selectData('zz')} onChange={(data)=>changeValue2(data, 'zyzz')} getPopupContainer={() => document.getElementById('area')}>
+            {
+              systemMannger.selectData.map((it, i) => {
+                if(it.isMenu){
+                } else {
+                  return (<Option key={i} value={it.name}>{it.name}</Option>)
+                }
+              })
+            }
+          </Select>
         </Col>
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>备注：</div>

@@ -18,7 +18,6 @@ export default {
       yield put({type: 'setData', payload: {data, type:payload.type}});
     },
     *saveTableData({payload}, {call, put, select}) {
-      console.log(payload);
       const {data}  = yield call(cdSave, payload);
       if(data.status === 200){
         message.success('保存成功');

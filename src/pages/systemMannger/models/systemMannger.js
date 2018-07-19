@@ -73,6 +73,10 @@ export default {
       const {data = []}  = yield call(getSLData, payload);
       yield put({type: 'changeSelectData', data});
     },
+    *selectDataByCd({payload}, {call, put, select}) {
+      const {data = []}  = yield call(cdList, {sysType: payload.type});
+      yield put({type: 'changeSelectData', data});
+    },
     *search({vname}, {call, put, select}) {
       const {lsitData} = yield select(_=>_.systemMannger);
       const data = lsitData.filter((it) => it.name === vname);
