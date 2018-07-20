@@ -54,14 +54,12 @@ const cdm = ({systemMannger, dispatch})=>{
       dispatch({type:'systemMannger/changeItemData', itemData:{name:'新的疾病',sysType: 'cdm', isMenu: 0, type: 2 }});
     }
   }
-
   const handleChange = (value)=>{
     const data = systemMannger.lsitData.filter(_=>_.id === value);
     if(data.length > 0){
       dispatch({type:'systemMannger/changeItemData', itemData: data[0]});
     }
   }
-
   const selectData = (type) => {
     dispatch({type:'systemMannger/selectData', payload: {type: type}});
   }
