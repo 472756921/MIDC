@@ -1,8 +1,11 @@
 import React from 'react';
-import { Row, Col, Divider, Input } from 'antd';
+import { Row, Col, Divider, Input, Select } from 'antd';
 import Upload from '../../../../../components/upload';
-import {Trim} from "../../../../../utils";
+import {getParmas, Trim} from "../../../../../utils";
+import PropTypes from 'prop-types';
+import { api } from '../../../../../utils/config';
 const { TextArea } = Input;
+const Option = Select.Option;
 
 const m = {
   ask: {
@@ -39,9 +42,46 @@ const m = {
     maizhenSel: {name: '脉诊'},
   },
 };
+let _this = '', dis = '';
 
+function selectData(type) {
+  let _type = '';
+  switch(type){
+    case 'zhenzhuang':
+      _type = 'zz';
+      break;
+    case 'shezheng':
+      _type = 'sz';
+      break;
+    case 'maizhenSel':
+      _type = 'mz';
+      break;
+  }
+
+  var xmlhttp;
+  if (window.XMLHttpRequest)  {
+    xmlhttp=new XMLHttpRequest();
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      _this.setState({selectData: JSON.parse(xmlhttp.responseText)})
+    }
+  }
+  let url = getParmas( api.getSLData, {type: _type});
+  xmlhttp.open("GET", url ,true);
+  xmlhttp.send();
+
+}
 
 class info extends React.Component{
+  constructor(props, context){
+    super(props, context);
+    this.state={
+      selectData: [],
+    }
+    _this = this;
+  }
+
   imgList = ()=> this.refs.upload.getList();
   getData = (()=>{
     const data = document.getElementsByClassName('zhTextZ');
@@ -52,8 +92,18 @@ class info extends React.Component{
           text: Trim(data[i].value),
           img: this.imgList()
         }
-      }else {
-        postData[data[i].getAttribute('data-name')] = Trim(data[i].value);
+      } else {
+        if(data[i].getAttribute('data-name')) {
+          postData[data[i].getAttribute('data-name')] = Trim(data[i].value);
+        } else {
+          const name = data[i].className.split(' ')[1];
+          let sd = data[i].children[0].children[0].children[0].getElementsByClassName("ant-select-selection__choice"); //选中的项（总数）
+          let d = [];
+          for(let ii=0; ii<sd.length; ii++){
+            d.push(sd[ii].getAttribute('title'))
+          }
+          postData[name] = d;
+        }
       }
     }
     return postData;
@@ -61,7 +111,7 @@ class info extends React.Component{
 
   render(){
     return(
-      <div>
+      <div id='area'>
         {
           Object.keys(m).map( (it, i) => {
             let temp = m[it];
@@ -73,15 +123,35 @@ class info extends React.Component{
                 {
                   Object.keys(temp).map((itt, j) => {
                     if(j>0){
-                      return (
-                        <Col span={temp[itt].name === '舌诊图片'?24:12} key={i*10+j}>
-                          {temp[itt].name}:
-                          {
-                            temp[itt].name === '舌诊图片'?<Upload ref='upload'/>:''
-                          }
-                          <TextArea rows={2} style={{'resize': 'none'}} className='zhTextZ' data-name={itt}/>
-                        </Col>
-                      )
+                      if((temp[itt].name == '症状' || temp[itt].name == '舌诊' || temp[itt].name == '脉诊') && m[it].name == '四诊摘要' ){
+                        return (
+                          <Col span={12} key={i*10+j}>
+                            {temp[itt].name}:
+                            <Select style={{ width: '100%' }} mode="multiple" title={itt}
+                                    className={['zhTextZ', itt].join(' ')} data-name={itt} onFocus={()=>selectData(itt)}
+                                    getPopupContainer={() => document.getElementById('area')}>
+                              {
+                                _this.state.selectData.map((it, i) => {
+                                  if(it.isMenu){
+                                  } else {
+                                    return (<Option key={i} value={it.name}>{it.name}</Option>)
+                                  }
+                                })
+                              }
+                            </Select>
+                          </Col>
+                        )
+                      } else {
+                        return (
+                          <Col span={temp[itt].name === '舌诊图片'?24:12} key={i*10+j}>
+                            {temp[itt].name}:
+                            {
+                              temp[itt].name === '舌诊图片'?<Upload ref='upload'/>:''
+                            }
+                            <TextArea rows={2} style={{'resize': 'none'}} className='zhTextZ' data-name={itt}/>
+                          </Col>
+                        )
+                      }
                     } else {
                       return ''
                     }
@@ -96,5 +166,8 @@ class info extends React.Component{
   }
 }
 
+info.propTypes = {
+  systemMannger: PropTypes.object,
+}
 
-export default info;
+export default info

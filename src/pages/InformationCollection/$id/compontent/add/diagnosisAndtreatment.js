@@ -1,10 +1,12 @@
 import React from 'react';
-import {Trim} from "../../../../../utils";
+import {getParmas, Trim} from "../../../../../utils";
 import { Row, Col, Divider, Input, Select, Button, Icon } from 'antd';
+import {api} from "../../../../../utils/config";
+import PropTypes from 'prop-types';
 const { TextArea } = Input;
 const Option = Select.Option;
 
-let _this;
+let _this = '';
 const m = {
   zdyzl:{
     name: '诊断与治法',
@@ -31,11 +33,44 @@ const m = {
     },
   },
 };
+
+function selectDataf(type) {
+  let _type = '';
+  switch(type){
+    case 'zyjb':
+      _type = 'cdm';
+      break;
+    case 'xyjb':
+      _type = 'wdm';
+      break;
+    case 'zyzh':
+      _type = 'zh';
+      break;
+    case 'zzzf':
+      _type = 'zzzf';
+      break;
+  }
+
+  var xmlhttp;
+  if (window.XMLHttpRequest)  {
+    xmlhttp=new XMLHttpRequest();
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      _this.setState({..._this.state, selectData: JSON.parse(xmlhttp.responseText)})
+    }
+  }
+  let url = getParmas( api.getSLData, {type: _type});
+  xmlhttp.open("GET", url ,true);
+  xmlhttp.send();
+}
+
 class info extends React.Component{
-  constructor(props){
-    super(props);
+  constructor(props, context){
+    super(props, context);
     this.state={
       midL: [],
+      selectData:[],
     }
     _this = this;
   }
@@ -43,7 +78,17 @@ class info extends React.Component{
     const data = document.getElementsByClassName('zhTextA');
     let postData = {};
     for(let i=0; i<data.length; i++) {
-      postData[data[i].getAttribute('data-name')] = Trim(data[i].value);
+      if(data[i].getAttribute('data-name')) {
+        postData[data[i].getAttribute('data-name')] = Trim(data[i].value);
+      } else {
+        const name = data[i].className.split(' ')[1];
+        let sd = data[i].children[0].children[0].children[0].getElementsByClassName("ant-select-selection__choice"); //选中的项（总数）
+        let d = [];
+        for(let ii=0; ii<sd.length; ii++){
+          d.push(sd[ii].getAttribute('title'))
+        }
+        postData[name] = d;
+      }
     }
     let midName = document.getElementsByClassName('midName');
     let midNum = document.getElementsByClassName('midNum');
@@ -127,7 +172,7 @@ class info extends React.Component{
 
   render() {
     return(
-      <div>
+      <div id='area3'>
         {
           Object.keys(m).map((it, i)=>{
             let temp = m[it];
@@ -142,7 +187,18 @@ class info extends React.Component{
                   return (
                     <Col span={12} key={i * 10 + ii}>
                       {temp[iit].name}:
-                      <TextArea rows={2} style={{'resize': 'none'}} className='zhTextA' data-name={iit}/>
+                      <Select style={{ width: '100%' }} mode="multiple" title={iit}
+                              className={['zhTextA', iit].join(' ')} data-name={iit} onFocus={()=>selectDataf(iit)}
+                              getPopupContainer={() => document.getElementById('area3')}>
+                        {
+                          this.state.selectData.map((it, i) => {
+                            if(it.isMenu){
+                            } else {
+                              return (<Option key={i} value={it.name}>{it.name}</Option>)
+                            }
+                          })
+                        }
+                      </Select>
                     </Col>
                   )
                 } else {
@@ -217,5 +273,8 @@ class info extends React.Component{
   }
 }
 
+info.propTypes = {
+  systemMannger: PropTypes.object,
+}
 
 export default info;
