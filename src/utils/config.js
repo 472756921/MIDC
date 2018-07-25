@@ -7,10 +7,12 @@ module.exports = {
   logo: '',
   openPages: ['/login', '/404'],
   api: {
-    //信息采集
+    uploadImg: apiOnline + '/upload/uploadImg',
+    uploadFile: apiOnline + '/upload/uploadFile',
     getUser: api_M + '/user/getUser',
     login: api_M + '/user/login',
     loginOut: api_M + '/user/loginOut',
+    //信息采集
     patientList: apiOnline + '/patient/list',
     queryPatient: apiOnline + '/patient/info',
     addRec: apiOnline + '/patient/addRec',
@@ -24,10 +26,11 @@ module.exports = {
     getCdData: apiOnline + '/platform/findDictionary',
     saveCdData: apiOnline + '/platform/addDictionary',
     delCdData: apiOnline + '/platform/deleteDictionary',
-    getSLITData: api_M + '/sys/getSLITData',
     saveData: apiOnline + '/platform/save',
     del: apiOnline + '/platform/delete',
-    search: api_M + '/sys/search',
-    uploadImg: apiOnline + '/upload/uploadImg',
+    //资料管理
+    dataList: apiOnline + '/datum/find',
+    addData: apiOnline + '/datum/save',
+    delData: apiOnline + '/datum/delete',
   }
 }

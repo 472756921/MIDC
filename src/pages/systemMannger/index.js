@@ -50,7 +50,6 @@ const index = ({loading, systemMannger, dispatch}) => {
   if(systemMannger !== '') {
     tree = createTree(systemMannger.lsitData, 0);
   }
-
   const changeType = (e)=>{
     dispatch({type:'systemMannger/getData', payload: {type: e.target['title']}})
   }

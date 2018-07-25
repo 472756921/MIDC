@@ -49,6 +49,9 @@ function selectDataf(type) {
     case 'zzzf':
       _type = 'zzzf';
       break;
+    case 'zy':
+      _type = 'zy';
+      break;
   }
 
   var xmlhttp;
@@ -57,7 +60,11 @@ function selectDataf(type) {
   }
   xmlhttp.onreadystatechange=function() {
     if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-      _this.setState({..._this.state, selectData: JSON.parse(xmlhttp.responseText)})
+      if(_type === 'zy'){
+        _this.setState({..._this.state, mdls: JSON.parse(xmlhttp.responseText)})
+      } else {
+        _this.setState({..._this.state, selectData: JSON.parse(xmlhttp.responseText)})
+      }
     }
   }
   let url = getParmas( api.getSLData, {type: _type});
@@ -71,8 +78,10 @@ class info extends React.Component{
     this.state={
       midL: [],
       selectData:[],
+      mdls:[],
     }
     _this = this;
+    selectDataf('zy');
   }
   getData = (()=>{
     const data = document.getElementsByClassName('zhTextA');
@@ -122,17 +131,15 @@ class info extends React.Component{
     let mid =  <Col span={24} style={{margin: '6px 0'}} key={key}>
       <Col span={6}>
         <Select style={{ width: 150 }} showSearch className='midName'>
-          <Option value="丹参">丹参</Option>
-          <Option value="西红花">西红花</Option>
-          <Option value="玉米须">玉米须</Option>
-          <Option value="木棉花">木棉花</Option>
-          <Option value="合欢花">合欢花</Option>
-          <Option value="木槿花">木槿花</Option>
-          <Option value="盘龙参">盘龙参</Option>
-          <Option value="颠茄草">颠茄草</Option>
-          <Option value="醉鱼草">醉鱼草</Option>
-          <Option value="蒲公英">蒲公英</Option>
-          <Option value="蔊菜">蔊菜</Option>
+          {
+            this.state.mdls.map((it, i) => {
+              console.log(it);
+              if(it.isMenu){
+              } else {
+                return (<Option key={i} value={it.name}>{it.name}</Option>)
+              }
+            })
+          }
         </Select>
       </Col>
       <Col span={6}><Input placeholder="用量" style={{width: 50}}  className='midNum'/> g</Col>
