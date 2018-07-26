@@ -172,7 +172,6 @@ export default {
       return {...state, totalElements: payload.totalElements}
     },
     setData2 (state,{payload}) {
-      console.log(payload);
       return {...state, lsitData: payload.data, nowType: payload.type, tableItem: payload.data }
     },
     changeItemData (state, payload) {

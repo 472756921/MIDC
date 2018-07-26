@@ -2,7 +2,7 @@ import { Upload, Button, Icon } from 'antd';
 import React from 'react';
 import {api} from '../../utils/config';
 
-let imgList = '';
+let imgList = [];
 
 let prop = {
   action: api.uploadFile,

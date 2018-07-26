@@ -7,7 +7,8 @@ import FileUp from '../../components/FileUpload/index';
 import {downloadFile} from '../../utils/index';
 
 const index =  ({loading, dataMannger, dispatch}) => {
-  const columns = [{
+  const columns = [
+    {
     title: '标题',
     dataIndex: 'name',
     key: 'name',
@@ -29,6 +30,7 @@ const index =  ({loading, dataMannger, dispatch}) => {
     ),
   }];
   let delID = ''; //待删除ID
+
   const delItem = (id)=>{
     dispatch({type:'dataMannger/del', payload:{delID: delID}});
   }
@@ -37,8 +39,12 @@ const index =  ({loading, dataMannger, dispatch}) => {
     Confirm('确认删除','删除后将无法恢复 '+text.name, delItem);
   }
   const showMore = (data) => {
-    dispatch({type:'dataMannger/settempData', payload:data});
+    let d = JSON.stringify(data);
+    dispatch({type:'dataMannger/settempData', payload:JSON.parse(d)});
     dispatch({type:'dataMannger/visible', payload:{visible: true}});
+  }
+  const changeTemp = (data, type) => {
+    dispatch({type:'dataMannger/changeTemp', payload:{type: type, data: data.target.value}});
   }
   const handleOk = () => {
     dispatch({type:'dataMannger/save'});
@@ -80,10 +86,10 @@ const index =  ({loading, dataMannger, dispatch}) => {
       <Table dataSource={dataMannger.listData.content} columns={columns} pagination={{'total': dataMannger.listData.totalElements, 'pageSize': 30}} onChange={changePage}/>
 
       <Modal title="详情" visible={dataMannger.visible} onOk={handleOk} onCancel={handleCancel}>
-        标题：<Input placeholder="输入标题" style={{width: '300px'}} value={dataMannger.tempData.name}/>
+        标题：<Input placeholder="输入标题" style={{width: '300px'}} value={dataMannger.tempData.name} onChange={(value)=>changeTemp(value, 'name')}/>
         <br/>
         <br/>
-        关键字：<Input placeholder="输入关键字" style={{width: '285px'}}  value={dataMannger.tempData.keyName}/>
+        关键字：<Input placeholder="输入关键字" style={{width: '285px'}}  value={dataMannger.tempData.keyName} onChange={(value)=>changeTemp(value, 'keyName')}/>
         <br/>
         <br/>
         附件：{dataMannger.visible?<FileUp defValue={dataMannger.tempData.attach}/>:''}

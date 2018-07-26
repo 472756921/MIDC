@@ -151,8 +151,8 @@ const ya = ({systemMannger, dispatch, loading}) => {
         <div><div className={styles.contentBu}>家庭地址：</div><Input title='address' className='ya'/></div>
         <div><div className={styles.contentBu}>邮政编码：</div><Input title='zipCode' className='ya'/></div>
         <div>
-          <div className={styles.contentBu}>就诊时间：</div>
-          <DatePicker onChange={dateOnChange} style={selectStyle} defaultValue={moment(systemMannger.itemData.fistDate, dateFormat)}/>
+          <div className={styles.contentBu}>就诊时间：{systemMannger.itemData.fistDate}</div>
+          {/*<DatePicker onChange={dateOnChange} style={selectStyle} defaultValue={moment(systemMannger.itemData.fistDate, dateFormat)}/>*/}
         </div>
         <div><Input title='id' className='ya' type='hidden'/></div>
         <br/>

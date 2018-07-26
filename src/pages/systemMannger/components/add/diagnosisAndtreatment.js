@@ -1,6 +1,7 @@
 import React from 'react';
-import {Trim} from "../../../../utils";
+import {Trim, getParmas} from "../../../../utils";
 import { Row, Col, Divider, Input, Select, Button, Icon } from 'antd';
+import {api} from "../../../../utils/config";
 const { TextArea } = Input;
 const Option = Select.Option;
 
@@ -32,13 +33,55 @@ const m = {
   },
 };
 
+function selectDataf(type) {
+  let _type = '';
+  switch(type){
+    case 'zyjb':
+      _type = 'cdm';
+      break;
+    case 'xyjb':
+      _type = 'wdm';
+      break;
+    case 'zyzh':
+      _type = 'zh';
+      break;
+    case 'zzzf':
+      _type = 'zzzf';
+      break;
+    case 'zy':
+      _type = 'zy';
+      break;
+  }
+
+  var xmlhttp;
+  if (window.XMLHttpRequest)  {
+    xmlhttp=new XMLHttpRequest();
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      if(_type === 'zy'){
+        _this.setState({..._this.state, mdls: JSON.parse(xmlhttp.responseText)})
+      } else {
+        _this.setState({..._this.state, selectData: JSON.parse(xmlhttp.responseText)})
+      }
+    }
+  }
+  let url = getParmas( api.getSLData, {type: _type});
+  xmlhttp.open("GET", url ,true);
+  xmlhttp.send();
+}
+
+
 class info extends React.Component{
   constructor(props){
     super(props);
     this.state={
       midL: [],
+      selectData:[],
+      mdls:[],
     }
     _this = this;
+    selectDataf('zy');
   }
 
   componentDidMount() {

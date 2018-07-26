@@ -25,11 +25,37 @@ export default {
       yield put({type:'setlist', payload:data.data});
     },
     *save({payload}, {call, put, select}) {
-      let d = getList();
-      console.log(d);
-      const {data} = yield call(add, payload)
+      const d = getList();
+      let {tempData} = yield select(_=>_.dataMannger);
+      let isl = '';
+      if(d.length === 0) {
+        isl = tempData.attach.map((it, i) => {
+          return {
+            id: it.uid
+          }
+        })
+      } else {
+        isl = d.map((it, i) => {
+          if(it.response){
+            return {
+              id: it.response.uid
+            }
+          } else {
+            return {
+              id: it.uid
+            }
+          }
+        })
+      }
+      tempData.attachments = isl;
+      const {data} = yield call(add, tempData);
     },
     *del({payload}, {call, put, select}) {
+    },
+    *changeTemp({payload}, {call, put, select}) {
+      let {tempData} = yield select(_=>_.dataMannger);
+      tempData[payload.type] = payload.data;
+      yield put({type: 'settempData', payload: tempData});
     },
   },
   reducers: {

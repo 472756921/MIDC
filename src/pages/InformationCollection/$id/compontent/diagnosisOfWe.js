@@ -24,7 +24,6 @@ const winfo = ({info, imgShow}) => {
           typeof info[it] === 'object'
             ?
             <div>
-              {console.log(info[it])}
               {
                 info[it].img.map( (srcs, ii) => {
                   return (

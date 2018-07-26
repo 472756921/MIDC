@@ -60,14 +60,26 @@ function selectDataf(type) {
   }
   xmlhttp.onreadystatechange=function() {
     if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-      if(_type === 'zy'){
+      if(type === 'zy'){
         _this.setState({..._this.state, mdls: JSON.parse(xmlhttp.responseText)})
+      } else if(type == 'zyyf') {
+        _this.setState({..._this.state, midType: JSON.parse(xmlhttp.responseText)})
+      } else if(type == 'zyzz') {
+        _this.setState({..._this.state, midOption: JSON.parse(xmlhttp.responseText)})
       } else {
         _this.setState({..._this.state, selectData: JSON.parse(xmlhttp.responseText)})
       }
     }
   }
-  let url = getParmas( api.getSLData, {type: _type});
+  let url = '';
+  if(type == 'zyyf' || type == 'zyzz') {
+    //平台类查询
+    url = getParmas( api.getCdData, {sysType: type});
+  } else {
+    //词典查询
+    url = getParmas( api.getSLData, {type: _type});
+  }
+  console.log(url);
   xmlhttp.open("GET", url ,true);
   xmlhttp.send();
 }
@@ -79,9 +91,13 @@ class info extends React.Component{
       midL: [],
       selectData:[],
       mdls:[],
+      midOption:[],
+      midType:[],
     }
     _this = this;
     selectDataf('zy');
+    selectDataf('zyzz');
+    selectDataf('zyyf');
   }
   getData = (()=>{
     const data = document.getElementsByClassName('zhTextA');
@@ -133,7 +149,6 @@ class info extends React.Component{
         <Select style={{ width: 150 }} showSearch className='midName'>
           {
             this.state.mdls.map((it, i) => {
-              console.log(it);
               if(it.isMenu){
               } else {
                 return (<Option key={i} value={it.name}>{it.name}</Option>)
@@ -144,21 +159,21 @@ class info extends React.Component{
       </Col>
       <Col span={6}><Input placeholder="用量" style={{width: 50}}  className='midNum'/> g</Col>
       <Col span={6}>
-        <Select defaultValue="君" style={{ width: 100 }} className='midOption'>
-          <Option value="君">君</Option>
-          <Option value="臣">臣</Option>
-          <Option value="佐">佐</Option>
-          <Option value="使">使</Option>
-          <Option value="其他">其他</Option>
+        <Select style={{ width: 100 }} className='midOption'>
+          {
+            this.state.midOption.map((it, i) => {
+              return (<Option key={i} value={it.name}>{it.name}</Option>)
+            })
+          }
         </Select>
       </Col>
       <Col span={4}>
-        <Select defaultValue="先煎" style={{ width: 100 }}  className='midType'>
-          <Option value="先煎">先煎</Option>
-          <Option value="后下">后下</Option>
-          <Option value="包煎">包煎</Option>
-          <Option value="捣碎">捣碎</Option>
-          <Option value="烊化">烊化</Option>
+        <Select style={{ width: 100 }} className='midType'>
+          {
+            this.state.midType.map((it, i) => {
+              return (<Option key={i} value={it.name}>{it.name}</Option>)
+            })
+          }
         </Select>
       </Col>
       <Col span={2}>
