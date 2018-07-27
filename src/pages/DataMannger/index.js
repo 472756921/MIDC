@@ -97,11 +97,11 @@ const index =  ({loading, dataMannger, dispatch}) => {
 
       <Modal title="下载" visible={dataMannger.visibleDown} onOk={handleOk2} onCancel={handleCancel2}>
         {
-          dataMannger.tempData.attach?dataMannger.tempData.attach.map((it, i) => {
+          (dataMannger.tempData.attach && dataMannger.tempData.attach.length !== 0)?dataMannger.tempData.attach.map((it, i) => {
           return (
-            <span key={i} title='点击下载' style={{cursor:'pointer', color: '#1890ff'}} onClick={()=>downloadFile(it.name, it.url)}>{it.name}</span>
+            <span key={i} title='点击下载' style={{cursor:'pointer', color: '#1890ff'}} onClick={()=>downloadFile(it.name, it.url)}>{it.name}, {it.url}</span>
           )
-        }):''
+        }):'暂无附件'
       }
       </Modal>
     </div>

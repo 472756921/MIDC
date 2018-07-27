@@ -49,7 +49,7 @@ export const isType = (data) => {
 //文件下载 -----------------
 export const downloadFile = (fileName, url) => {
   if (isIE()) {
-    ieDown(url)
+    ieDown('http://localhost:8000/'+url)
   } else {
     const aLink = document.createElement('a');
     const evt = document.createEvent('MouseEvents');
