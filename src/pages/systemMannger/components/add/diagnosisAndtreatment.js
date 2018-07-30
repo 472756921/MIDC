@@ -33,6 +33,7 @@ const m = {
   },
 };
 
+
 function selectDataf(type) {
   let _type = '';
   switch(type){
@@ -59,14 +60,25 @@ function selectDataf(type) {
   }
   xmlhttp.onreadystatechange=function() {
     if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-      if(_type === 'zy'){
+      if(type === 'zy'){
         _this.setState({..._this.state, mdls: JSON.parse(xmlhttp.responseText)})
+      } else if(type == 'zyyf') {
+        _this.setState({..._this.state, midType: JSON.parse(xmlhttp.responseText)})
+      } else if(type == 'zyzz') {
+        _this.setState({..._this.state, midOption: JSON.parse(xmlhttp.responseText)})
       } else {
         _this.setState({..._this.state, selectData: JSON.parse(xmlhttp.responseText)})
       }
     }
   }
-  let url = getParmas( api.getSLData, {type: _type});
+  let url = '';
+  if(type == 'zyyf' || type == 'zyzz') {
+    //平台类查询
+    url = getParmas( api.getCdData, {sysType: type});
+  } else {
+    //词典查询
+    url = getParmas( api.getSLData, {type: _type});
+  }
   xmlhttp.open("GET", url ,true);
   xmlhttp.send();
 }
@@ -79,9 +91,13 @@ class info extends React.Component{
       midL: [],
       selectData:[],
       mdls:[],
+      midOption:[],
+      midType:[],
     }
     _this = this;
     selectDataf('zy');
+    selectDataf('zyzz');
+    selectDataf('zyyf');
   }
 
   componentDidMount() {
@@ -98,7 +114,17 @@ class info extends React.Component{
     const data = document.getElementsByClassName('zhTextA');
     let postData = {};
     for(let i=0; i<data.length; i++) {
-      postData[data[i].getAttribute('data-name')] = Trim(data[i].value);
+      if(data[i].getAttribute('data-name')) {
+        postData[data[i].getAttribute('data-name')] = Trim(data[i].value);
+      } else {
+        const name = data[i].className.split(' ')[1];
+        let sd = data[i].children[0].children[0].children[0].getElementsByClassName("ant-select-selection__choice"); //选中的项（总数）
+        let d = [];
+        for(let ii=0; ii<sd.length; ii++){
+          d.push(sd[ii].getAttribute('title'))
+        }
+        postData[name] = d;
+      }
     }
     let midName = document.getElementsByClassName('midName');
     let midNum = document.getElementsByClassName('midNum');
@@ -121,36 +147,33 @@ class info extends React.Component{
     let mid =  <Col span={24} style={{margin: '6px 0'}} key={key}>
       <Col span={6}>
         <Select style={{ width: 150 }} showSearch className='midName' defaultValue={data?data.name:''}>
-          <Option value="丹参">丹参</Option>
-          <Option value="西红花">西红花</Option>
-          <Option value="玉米须">玉米须</Option>
-          <Option value="木棉花">木棉花</Option>
-          <Option value="合欢花">合欢花</Option>
-          <Option value="木槿花">木槿花</Option>
-          <Option value="盘龙参">盘龙参</Option>
-          <Option value="颠茄草">颠茄草</Option>
-          <Option value="醉鱼草">醉鱼草</Option>
-          <Option value="蒲公英">蒲公英</Option>
-          <Option value="蔊菜">蔊菜</Option>
+          {
+            this.state.mdls.map((it, i) => {
+              if(it.isMenu){
+              } else {
+                return (<Option key={i} value={it.name}>{it.name}</Option>)
+              }
+            })
+          }
         </Select>
       </Col>
       <Col span={6}><Input placeholder="用量" style={{width: 50}}  className='midNum' defaultValue={data?data.liang:''}/> g</Col>
       <Col span={6}>
-        <Select defaultValue="君" style={{ width: 100 }} className='midOption' defaultValue={data?data.zhuyong:''}>
-          <Option value="君">君</Option>
-          <Option value="臣">臣</Option>
-          <Option value="佐">佐</Option>
-          <Option value="使">使</Option>
-          <Option value="其他">其他</Option>
+        <Select style={{ width: 100 }} className='midOption' defaultValue={data?data.zhuyong:''}>
+          {
+            this.state.midOption.map((it, i) => {
+              return (<Option key={i} value={it.name}>{it.name}</Option>)
+            })
+          }
         </Select>
       </Col>
       <Col span={4}>
-        <Select defaultValue="先煎" style={{ width: 100 }}  className='midType' defaultValue={data?data.yongfa:''}>
-          <Option value="先煎">先煎</Option>
-          <Option value="后下">后下</Option>
-          <Option value="包煎">包煎</Option>
-          <Option value="捣碎">捣碎</Option>
-          <Option value="烊化">烊化</Option>
+        <Select style={{ width: 100 }} className='midType' defaultValue={data?data.yongfa:''}>
+          {
+            this.state.midType.map((it, i) => {
+              return (<Option key={i} value={it.name}>{it.name}</Option>)
+            })
+          }
         </Select>
       </Col>
       <Col span={2}>
@@ -182,7 +205,7 @@ class info extends React.Component{
 
   render() {
     return(
-      <div>
+      <div id='area3'>
         {
           Object.keys(m).map((it, i)=>{
             let temp = m[it], tempV = this.props.data[it];
@@ -197,7 +220,18 @@ class info extends React.Component{
                   return (
                     <Col span={12} key={i * 10 + ii}>
                       {temp[iit].name}:
-                      <TextArea rows={2} style={{'resize': 'none'}} className='zhTextA' data-name={iit} defaultValue={tempV[iit]}/>
+                      <Select style={{ width: '100%' }} mode="multiple" title={iit}
+                              className={['zhTextA', iit].join(' ')} data-name={iit} onFocus={()=>selectDataf(iit)}
+                              getPopupContainer={() => document.getElementById('area3')}>
+                        {
+                          this.state.selectData.map((it, i) => {
+                            if(it.isMenu){
+                            } else {
+                              return (<Option key={i} value={it.name}>{it.name}</Option>)
+                            }
+                          })
+                        }
+                      </Select>
                     </Col>
                   )
                 } else {

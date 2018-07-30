@@ -70,7 +70,6 @@ function selectData(type) {
   let url = getParmas( api.getSLData, {type: _type});
   xmlhttp.open("GET", url ,true);
   xmlhttp.send();
-
 }
 
 class info extends React.Component{

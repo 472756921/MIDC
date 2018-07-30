@@ -1,5 +1,5 @@
 /* global window */
-import {query, add} from '../service';
+import {query, add, downloadFile} from '../service';
 import {getList} from '../../../components/FileUpload/index';
 
 export default {
@@ -51,6 +51,9 @@ export default {
       const {data} = yield call(add, tempData);
     },
     *del({payload}, {call, put, select}) {
+    },
+    *downloadFile({payload}, {call, put, select}) {
+      const {data} = yield call(downloadFile, payload);
     },
     *changeTemp({payload}, {call, put, select}) {
       let {tempData} = yield select(_=>_.dataMannger);

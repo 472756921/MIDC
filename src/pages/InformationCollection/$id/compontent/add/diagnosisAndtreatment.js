@@ -79,7 +79,6 @@ function selectDataf(type) {
     //词典查询
     url = getParmas( api.getSLData, {type: _type});
   }
-  console.log(url);
   xmlhttp.open("GET", url ,true);
   xmlhttp.send();
 }

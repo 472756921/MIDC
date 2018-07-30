@@ -9,6 +9,7 @@ module.exports = {
   api: {
     uploadImg: apiOnline + '/upload/uploadImg',
     uploadFile: apiOnline + '/upload/uploadFile',
+    downloadFlie: apiOnline + '/upload/download',
     getUser: api_M + '/user/getUser',
     login: api_M + '/user/login',
     loginOut: api_M + '/user/loginOut',

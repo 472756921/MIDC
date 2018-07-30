@@ -8,6 +8,10 @@ export function query (data) {
   let url = getParmas( api.dataList, data);
   return request(url, {method: 'get', headers: JSONS});
 }
+export function downloadFile (data) {
+  let url = getParmas( api.downloadFlie, data);
+  return request(url, {method: 'get', headers: JSONS});
+}
 export function add (data) {
   return request(api.addData, {method: 'post', headers: JSONS, body: JSON.stringify(data)});
 }

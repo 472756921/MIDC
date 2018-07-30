@@ -1,3 +1,4 @@
+import {api} from './config';
 //拼接get方法参数
 // @data 参数（必须是对象）
 export const getParmas = (url, data) => {
@@ -47,7 +48,8 @@ export const isType = (data) => {
   return Object.prototype.toString.call(data);
 }
 //文件下载 -----------------
-export const downloadFile = (fileName, url) => {
+export const downloadFile = (fileName) => {
+  let url = api.downloadFlie;
   if (isIE()) {
     ieDown('http://localhost:8000/'+url)
   } else {

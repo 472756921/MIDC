@@ -30,6 +30,7 @@ class modalAdd extends React.Component{
       diagnosisAndtreatment: arD,
       orther: orD,
     }
+    postData.id = this.props.systemMannger.itemData.id;
     dis({type: 'systemMannger/tempData', postData});
   }
 
