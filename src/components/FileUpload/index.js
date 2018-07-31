@@ -3,13 +3,12 @@ import React from 'react';
 import {api} from '../../utils/config';
 
 let imgList = [];
-
+let change = false;
 let prop = {
   action: api.uploadFile,
   onChange({ file, fileList }) {
-    if (file.status !== 'uploading') {
-      imgList = fileList;
-    }
+    imgList = fileList;
+    change = true;
   },
   defaultFileList: [
     // {
@@ -40,5 +39,5 @@ class fu extends React.Component {
 
 export default fu;
 export function getList() {
-  return imgList
+  return {imgList:imgList, change: change}
 };

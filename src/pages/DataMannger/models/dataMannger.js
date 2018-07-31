@@ -1,5 +1,5 @@
 /* global window */
-import {query, add, downloadFile} from '../service';
+import {query, add} from '../service';
 import {getList} from '../../../components/FileUpload/index';
 
 export default {
@@ -25,17 +25,19 @@ export default {
       yield put({type:'setlist', payload:data.data});
     },
     *save({payload}, {call, put, select}) {
-      const d = getList();
+      const {imgList, change} = getList();
       let {tempData} = yield select(_=>_.dataMannger);
       let isl = '';
-      if(d.length === 0) {
+      if(imgList.length === 0 && change) {
+        return []
+      } else if (imgList.length === 0 && !change) {
         isl = tempData.attach.map((it, i) => {
           return {
             id: it.uid
           }
         })
       } else {
-        isl = d.map((it, i) => {
+        isl = imgList.map((it, i) => {
           if(it.response){
             return {
               id: it.response.uid
@@ -51,9 +53,6 @@ export default {
       const {data} = yield call(add, tempData);
     },
     *del({payload}, {call, put, select}) {
-    },
-    *downloadFile({payload}, {call, put, select}) {
-      const {data} = yield call(downloadFile, payload);
     },
     *changeTemp({payload}, {call, put, select}) {
       let {tempData} = yield select(_=>_.dataMannger);

@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './styles.css';
 import Confirm from "../../components/Confirm";
 import FileUp from '../../components/FileUpload/index';
-import {downloadFile} from "../../utils";
-// import {downloadFile} from '../../utils/index';
+import {downloadFile} from '../../utils/index';
 
 const index =  ({loading, dataMannger, dispatch}) => {
   const columns = [
@@ -72,10 +71,6 @@ const index =  ({loading, dataMannger, dispatch}) => {
   const handleCancel2 = () => {
     dispatch({type:'dataMannger/visibleDown', payload:{visibleDown: false}});
   }
-  const downloadFile = (uid) => {
-    dispatch({type:'dataMannger/downloadFile', payload:{id: uid}});
-  }
-
   return (
     <div>
       <div>
@@ -104,7 +99,7 @@ const index =  ({loading, dataMannger, dispatch}) => {
         {
           (dataMannger.tempData.attach && dataMannger.tempData.attach.length !== 0)?dataMannger.tempData.attach.map((it, i) => {
           return (
-            <span key={i} title='点击下载' style={{cursor:'pointer', color: '#1890ff'}} onClick={()=>downloadFile(it.uid)}>{it.name}</span>
+            <div key={i} title='点击下载' style={{cursor:'pointer', color: '#1890ff'}} onClick={()=>downloadFile(it.name, it.url)}>{it.name}</div>
           )
         }):'暂无附件'
       }

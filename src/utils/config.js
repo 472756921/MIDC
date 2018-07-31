@@ -2,6 +2,7 @@ const api_M = '/apiM'
 const apiOnline = 'http://192.168.0.104:8080/apiM'
 
 module.exports = {
+  apiOnline: apiOnline,
   name: '中医传承辅助系统',
   footerText: ' Admin © 2018 Benson',
   logo: '',
