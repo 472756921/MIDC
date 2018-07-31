@@ -78,7 +78,7 @@ const index =  ({loading, dataMannger, dispatch}) => {
           <Col span={4}><Input placeholder="输入标题" /></Col>
           <Col span={4}><Input placeholder="输入关键字" /></Col>
           <Col span={4}><Button type="primary">查询</Button></Col>
-          <Col span={2} offset={10}><Button onClick={add}>添加附件</Button></Col>
+          <Col span={2} offset={10}><Button onClick={add}>新建附件</Button></Col>
         </Row>
       </div>
       <br/>

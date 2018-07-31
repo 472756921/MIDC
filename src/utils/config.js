@@ -1,8 +1,9 @@
 const api_M = '/apiM'
-const apiOnline = 'http://192.168.0.104:8080/apiM'
+const serviceIP = 'http://192.168.0.104:8080'
+const apiOnline = serviceIP + '/apiM'
 
 module.exports = {
-  apiOnline: apiOnline,
+  serviceIP: serviceIP,
   name: '中医传承辅助系统',
   footerText: ' Admin © 2018 Benson',
   logo: '',
@@ -34,5 +35,7 @@ module.exports = {
     dataList: apiOnline + '/datum/find',
     addData: apiOnline + '/datum/save',
     delData: apiOnline + '/datum/delete',
+    //
+    searchData: api_M + '/k/searchData',
   }
 }

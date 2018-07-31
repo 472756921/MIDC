@@ -1,4 +1,4 @@
-import {apiOnline} from './config';
+import {serviceIP} from './config';
 //拼接get方法参数
 // @data 参数（必须是对象）
 export const getParmas = (url, data) => {
@@ -50,14 +50,14 @@ export const isType = (data) => {
 //文件下载 -----------------
 export const downloadFile = (fileName, url) => {
   if (isIE()) {
-    ieDown(apiOnline + url)
+    ieDown(serviceIP + url)
   } else {
     const aLink = document.createElement('a');
     const evt = document.createEvent('MouseEvents');
     // var evt = document.createEvent("HTMLEvents")
     evt.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
     aLink.download = fileName;
-    aLink.href = url;
+    aLink.href = serviceIP + url;
     aLink.dispatchEvent(evt)
   }
 };
