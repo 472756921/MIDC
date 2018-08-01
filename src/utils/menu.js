@@ -30,10 +30,10 @@ module.exports = {
     },
     {
       id: '5',
-      name: '报表',
+      name: '统计报表',
       type: 2,
       icon: 'area-chart',
-      route: '/user',
+      route: '/report',
     },
     {
       id: '6',

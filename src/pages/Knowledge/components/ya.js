@@ -66,6 +66,29 @@ const ya = ({loading, knowledge, dispatch}) => {
     dispatch({type:'knowledge/changeVisibleC', payload: {visible: false}})
   }
 
+  const reset = (e) => {
+    dispatch({type: 'knowledge/reset', payload: {searchV: {}, tableList: []}});
+  }
+  const changeSeV = (data) => {
+    let searchV = knowledge.searchV;
+    searchV[data.target.title] = data.target.value;
+    dispatch({type: 'knowledge/setSearchV', payload: {searchV: searchV}});
+  }
+  const changeSeVInSel = (data, type) => {
+    let searchV = knowledge.searchV;
+    searchV[type] = data;
+    dispatch({type: 'knowledge/setSearchV', payload: {searchV: searchV}});
+  }
+  const selectData = (data) => {
+    dispatch({type: 'knowledge/selectData', payload: {type: data}});
+  }
+  const selectDataByCd = (data) => {
+    dispatch({type: 'knowledge/selectDataByCd', payload: {sysType: data}});
+  }
+  const searchData = () => {
+    dispatch({type: 'knowledge/searchData', payload: {type: 'fj'}});
+  }
+
   return (
     <div>
       <Row>

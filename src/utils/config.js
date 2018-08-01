@@ -5,7 +5,7 @@ const apiOnline = serviceIP + '/apiM'
 module.exports = {
   serviceIP: serviceIP,
   name: '中医传承辅助系统',
-  footerText: ' Admin © 2018 Benson',
+  footerText: ' Admin © 2018 优医汇 - Benson',
   logo: '',
   openPages: ['/login', '/404'],
   api: {
@@ -31,6 +31,7 @@ module.exports = {
     delCdData: apiOnline + '/platform/deleteDictionary',
     saveData: apiOnline + '/platform/save',
     del: apiOnline + '/platform/delete',
+    saveYa : apiOnline + '/platform/save/patiend',
     //资料管理
     dataList: apiOnline + '/datum/find',
     addData: apiOnline + '/datum/save',

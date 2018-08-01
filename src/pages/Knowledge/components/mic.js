@@ -63,7 +63,7 @@ const mic = ({loading, knowledge, dispatch}) => {
     dispatch({type:'knowledge/selectData', payload: {type: data}});
   }
   const searchData = () => {
-    dispatch({type:'knowledge/searchData', payload: {page:1, pageSize: 30, type:'zy'}});
+    dispatch({type:'knowledge/searchData', payload: {type:'zy'}});
   }
 
   return (

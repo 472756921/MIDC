@@ -1,5 +1,5 @@
 /* global window */
-import {getSLData, saveData, del, getCfData, search, saveCFData, delCFData, brList, yarList, cdList} from "../service/systemMannger";
+import {getSLData, saveData, del, getCfData, saveYa, saveCFData, delCFData, brList, yarList, cdList, search} from "../service/systemMannger";
 import { addPatient } from '../../InformationCollection/services/InformationCollection';
 import { message } from 'antd';
 
@@ -139,7 +139,7 @@ export default {
           message.error(data.msg);
         }
       } else {
-        const {data}  = yield call(saveData, payload);
+        yield call(saveData, payload);
       }
     },
     *saveDataYA({payload}, {call, put, select}) {
@@ -147,7 +147,8 @@ export default {
       const {tempData} = yield select(_=>_.systemMannger);
       const {tempData2} = yield select(_=>_.systemMannger);
       let Sdata = Object.assign(tempData, tempData2);
-      const {data}  = yield call(saveData, Sdata);
+      Sdata.visitId = itemData.visitId
+      const data  = yield call(saveYa, Sdata);
       if(data.code === 200){
         message.success('保存成功');
         yield put({type: 'modelShow', payload:{modelShow: false, itemData: itemData}});
@@ -158,10 +159,10 @@ export default {
     *serchaYA({payload}, {call, put, select}){
       const {date} = yield select(_=>_.systemMannger);
       payload.date = date;
-      const {data}  = yield call(search, payload);
+      yield call(search, payload);
     },
     *serchaBR({payload}, {call, put, select}){
-      const {data}  = yield call(search, payload);
+      yield call(search, payload);
     },
   },
   reducers: {

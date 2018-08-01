@@ -79,7 +79,7 @@ const fj = ({loading, knowledge, dispatch}) => {
     dispatch({type: 'knowledge/selectDataByCd', payload: {sysType: data}});
   }
   const searchData = () => {
-    dispatch({type: 'knowledge/searchData', payload: {page: 1, pageSize: 30, type: 'fj'}});
+    dispatch({type: 'knowledge/searchData', payload: {type: 'fj'}});
   }
 
   return (

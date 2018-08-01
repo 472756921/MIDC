@@ -221,6 +221,7 @@ class info extends React.Component{
                     <Col span={12} key={i * 10 + ii}>
                       {temp[iit].name}:
                       <Select style={{ width: '100%' }} mode="multiple" title={iit}
+                              defaultValue={tempV[iit]===''?[]:tempV[iit].split(',')}
                               className={['zhTextA', iit].join(' ')} data-name={iit} onFocus={()=>selectDataf(iit)}
                               getPopupContainer={() => document.getElementById('area3')}>
                         {

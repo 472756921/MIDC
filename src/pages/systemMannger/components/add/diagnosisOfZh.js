@@ -124,6 +124,7 @@ class info extends React.Component{
                           <Col span={12} key={i*10+j}>
                             {temp[itt].name}:
                             <Select style={{ width: '100%' }} mode="multiple" title={itt}
+                                    defaultValue={tempV[itt]===''?[]:tempV[itt].split(',')}
                                     className={['zhTextZ', itt].join(' ')} data-name={itt} onFocus={()=>selectData(itt)}
                                     getPopupContainer={() => document.getElementById('areaya')}>
                               {
@@ -144,7 +145,12 @@ class info extends React.Component{
                             {
                               temp[itt].name === '舌诊图片'?<Upload ref='upload'/>:''
                             }
-                            <TextArea rows={2} style={{'resize': 'none'}} className='zhTextZ' data-name={itt}/>
+                            {typeof tempV[itt] != 'string'
+                              ?
+                              <TextArea rows={2} style={{'resize': 'none'}} className='zhTextZ' data-name={itt} defaultValue={tempV[itt].text}/>
+                              :
+                              <TextArea rows={2} style={{'resize': 'none'}} className='zhTextZ' data-name={itt} defaultValue={tempV[itt]}/>
+                            }
                           </Col>
                         )
                       }

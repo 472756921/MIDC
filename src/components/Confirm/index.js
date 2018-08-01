@@ -1,5 +1,4 @@
-import { Modal, Button } from 'antd';
-import Loader from "../Loader";
+import { Modal } from 'antd';
 const confirm = Modal.confirm;
 
 const showConfirm = (title, message, onOKCallBack) => {

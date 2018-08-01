@@ -145,6 +145,7 @@ const cdm = ({systemMannger, dispatch})=>{
             {
               systemMannger.selectData.map((it, i) => {
                 if(it.isMenu){
+                  return ''
                 } else {
                   return (<Option key={i} value={it.name}>{it.name}</Option>)
                 }
@@ -158,6 +159,7 @@ const cdm = ({systemMannger, dispatch})=>{
             {
               systemMannger.selectData.map((it, i) => {
                 if(it.isMenu){
+                  return ''
                 } else {
                   return (<Option key={i} value={it.name}>{it.name}</Option>)
                 }
@@ -171,6 +173,7 @@ const cdm = ({systemMannger, dispatch})=>{
             {
               systemMannger.selectData.map((it, i) => {
                 if(it.isMenu){
+                  return ''
                 } else {
                   return (<Option key={i} value={it.name}>{it.name}</Option>)
                 }

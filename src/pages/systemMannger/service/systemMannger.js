@@ -22,6 +22,9 @@ export function saveData (data) {
 export function saveCFData (data) {
   return request(api.saveCFData, {method: 'post', body: JSON.stringify(data), headers: JSONS});
 }
+export function saveYa (data) {
+  return request(api.saveYa, {method: 'post', body: JSON.stringify(data), headers: JSONS});
+}
 export function delCFData (data) {
   let url = getParmas( api.delCFData, data);
   return request(url, {method: 'delete', headers: JSONS});
