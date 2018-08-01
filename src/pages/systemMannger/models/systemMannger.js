@@ -148,8 +148,8 @@ export default {
       const {tempData2} = yield select(_=>_.systemMannger);
       let Sdata = Object.assign(tempData, tempData2);
       Sdata.visitId = itemData.visitId
-      const data  = yield call(saveYa, Sdata);
-      if(data.code === 200){
+      const {data}  = yield call(saveYa, Sdata);
+      if(data.status === 200){
         message.success('保存成功');
         yield put({type: 'modelShow', payload:{modelShow: false, itemData: itemData}});
       } else {

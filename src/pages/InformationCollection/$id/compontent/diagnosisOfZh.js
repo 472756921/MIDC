@@ -1,4 +1,5 @@
 import { Row, Col, Divider } from 'antd';
+import {serviceIP} from '../../../../utils/config';
 import styles from './styles.css';
 
 const info = ({info, imgShow}) => {
@@ -57,7 +58,7 @@ const info = ({info, imgShow}) => {
               {
                 fvalue[iit].img.map( (srcs, iii) => {
                 return (
-                  <img src={srcs} width='200em' key={i*10 + ii*10 + iii} style={{marginLeft:'2em'}} onClick={()=>{imgShow(srcs)}} alt='检查图片' title='点击查看大图'/>
+                  <img src={serviceIP + srcs} width='200em' key={i*10 + ii*10 + iii} style={{marginLeft:'2em'}} onClick={()=>{imgShow(srcs)}} alt='检查图片' title='点击查看大图'/>
                 )
                 })
               }

@@ -1,10 +1,13 @@
 import React from 'react';
 import { Upload, Icon, Modal } from 'antd';
-
+import {api} from '../../utils/config';
 
 class PicturesWall extends React.Component {
   constructor(props){
     super(props);
+    if(props.listdata){
+
+    }
   }
   state = {
     previewVisible: false,
@@ -44,7 +47,7 @@ class PicturesWall extends React.Component {
     return (
       <div className="clearfix">
         <Upload
-          action="http://192.168.1.3:8080/apiM/upload/uploadImg"
+          action={api.uploadImg}
           listType="picture-card"
           fileList={fileList}
           onPreview={this.handlePreview}

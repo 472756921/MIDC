@@ -143,7 +143,7 @@ class info extends React.Component{
                           <Col span={temp[itt].name === '舌诊图片'?24:12} key={i*10+j}>
                             {temp[itt].name}:
                             {
-                              temp[itt].name === '舌诊图片'?<Upload ref='upload'/>:''
+                              temp[itt].name === '舌诊图片'?<Upload ref='upload' listdata={tempV[itt].img}/>:''
                             }
                             {typeof tempV[itt] != 'string'
                               ?
