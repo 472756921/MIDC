@@ -82,11 +82,13 @@ class info extends React.Component{
   getData = (()=>{
     const data = document.getElementsByClassName('zhTextZ');
     let postData = {};
+    postData.id = this.props.data.id;
     for(let i=0; i<data.length; i++) {
       if(data[i].getAttribute('data-name') === 'shezhenimg') {
         postData[data[i].getAttribute('data-name')] = {
           text: Trim(data[i].value),
-          img: this.imgList()
+          img: this.imgList(),
+          id: this.props.data.look.shezhenimg.id,
         }
       }else {
         if(data[i].getAttribute('data-name')) {
@@ -143,7 +145,7 @@ class info extends React.Component{
                           <Col span={temp[itt].name === '舌诊图片'?24:12} key={i*10+j}>
                             {temp[itt].name}:
                             {
-                              temp[itt].name === '舌诊图片'?<Upload ref='upload' listdata={tempV[itt].img}/>:''
+                              temp[itt].name === '舌诊图片'?<Upload ref='upload' imgListD={tempV[itt].img}/>:''
                             }
                             {typeof tempV[itt] != 'string'
                               ?

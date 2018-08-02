@@ -152,6 +152,7 @@ export default {
       if(data.status === 200){
         message.success('保存成功');
         yield put({type: 'modelShow', payload:{modelShow: false, itemData: itemData}});
+        yield put({type: 'getData', payload:{type: 'ya'}});
       } else {
         message.error(data.msg);
       }

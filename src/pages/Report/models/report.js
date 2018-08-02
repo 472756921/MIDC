@@ -30,7 +30,6 @@ export default {
   },
   reducers: {
     changeVisibleA (state, {payload}) {
-      console.log(payload);
       return {...state, visibleA: payload.visible}
     },
     reset (state, {payload}) {

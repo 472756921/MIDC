@@ -113,6 +113,7 @@ class info extends React.Component{
   getData = (()=>{
     const data = document.getElementsByClassName('zhTextA');
     let postData = {};
+    postData.id = this.props.data.id;
     for(let i=0; i<data.length; i++) {
       if(data[i].getAttribute('data-name')) {
         postData[data[i].getAttribute('data-name')] = Trim(data[i].value);
@@ -143,7 +144,7 @@ class info extends React.Component{
     return postData;
   });
   createdMid(data) {
-    let key = parseInt(Math.random()*100000);
+    let key = parseInt(Math.random()*10000000);
     let mid =  <Col span={24} style={{margin: '6px 0'}} key={key}>
       <Col span={6}>
         <Select style={{ width: 150 }} showSearch className='midName' defaultValue={data?data.name:''}>
@@ -151,7 +152,7 @@ class info extends React.Component{
             this.state.mdls.map((it, i) => {
               if(it.isMenu){
               } else {
-                return (<Option key={i} value={it.name}>{it.name}</Option>)
+                return (<Option key={'a' + i} value={it.name}>{it.name}</Option>)
               }
             })
           }
@@ -162,7 +163,7 @@ class info extends React.Component{
         <Select style={{ width: 100 }} className='midOption' defaultValue={data?data.zhuyong:''}>
           {
             this.state.midOption.map((it, i) => {
-              return (<Option key={i} value={it.name}>{it.name}</Option>)
+              return (<Option key={'b' + i} value={it.name}>{it.name}</Option>)
             })
           }
         </Select>
@@ -171,7 +172,7 @@ class info extends React.Component{
         <Select style={{ width: 100 }} className='midType' defaultValue={data?data.yongfa:''}>
           {
             this.state.midType.map((it, i) => {
-              return (<Option key={i} value={it.name}>{it.name}</Option>)
+              return (<Option key={'c' + i} value={it.name}>{it.name}</Option>)
             })
           }
         </Select>
@@ -211,14 +212,14 @@ class info extends React.Component{
             let temp = m[it], tempV = this.props.data[it];
             if(it !== 'cf'){
               let t = (
-                <Col span={24}  key={i}>
+                <Col span={24}  key={'d' + i}>
                   <Divider orientation="left" style={{fontSize:'14px', marginTop:'20px', color:'#1890ff'}}>{m[it].name}</Divider>
                 </Col>
               )
               let c = Object.keys(temp).map((iit, ii) => {
                 if(ii>0) {
                   return (
-                    <Col span={12} key={i * 10 + ii}>
+                    <Col span={12} key={'f' + i * 10 + ii}>
                       {temp[iit].name}:
                       <Select style={{ width: '100%' }} mode="multiple" title={iit}
                               defaultValue={tempV[iit]===''?[]:tempV[iit].split(',')}
@@ -228,7 +229,7 @@ class info extends React.Component{
                           this.state.selectData.map((it, i) => {
                             if(it.isMenu){
                             } else {
-                              return (<Option key={i} value={it.name}>{it.name}</Option>)
+                              return (<Option key={'eb' + i} value={it.name}>{it.name}</Option>)
                             }
                           })
                         }
@@ -240,7 +241,7 @@ class info extends React.Component{
                 }
               })
               return (
-                <Row gutter={16} key={i}>
+                <Row gutter={16} key={'g' + i}>
                   {t}
                   {c}
                 </Row>
@@ -262,7 +263,7 @@ class info extends React.Component{
               let tempv = this.props.data.cf.zycf[it];
               if(i !== 0) {
                 return (
-                  <Col span={12} style={{margin: '5px 0'}} key={i}>
+                  <Col span={12} style={{margin: '5px 0'}} key={'h' + i}>
                     {m.cf.zycf[it].name}:
                     <Input placeholder={m.cf.zycf[it].name} data-name={it} className='zhTextA' defaultValue={tempv}/>
                   </Col>
@@ -293,7 +294,7 @@ class info extends React.Component{
               if(i !== 0){
                 let tempv = this.props.data.cf.orther[it];
                 return(
-                  <Col span={8} key={i}>
+                  <Col span={8} key={'i' + i}>
                     {m.cf.orther[it].name}:
                     <TextArea rows={2} style={{'resize': 'none'}} className='zhTextA' data-name={it} defaultValue={tempv}/>
                   </Col>

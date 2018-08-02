@@ -1,5 +1,6 @@
 import {connect} from 'dva';
 import {Table, Button, Row, Col, Input, Divider, Select, Modal} from 'antd';
+import Chart_H from '../../components/Chart/Histogram';
 import PropTypes from 'prop-types';
 import styles from '../index.css';
 
@@ -27,6 +28,7 @@ const columns = [
 let dis = '';
 
 const fj = ({loading, report, dispatch}) => {
+
   dis = dispatch;
   const handleOk = (e) => {
     dis({type: 'report/changeVisibleA', payload: {visible: false}})
@@ -155,7 +157,8 @@ const fj = ({loading, report, dispatch}) => {
       <br/>
       <Table dataSource={report.tableList} columns={columns}/>
 
-      <Modal title="详情" visible={report.visibleA} onOk={handleOk} onCancel={handleCancel}>
+      <Modal width={1000} title="详情" visible={report.visibleA} onOk={handleOk} onCancel={handleCancel}>
+        <Chart_H/>
       </Modal>
     </div>
   )

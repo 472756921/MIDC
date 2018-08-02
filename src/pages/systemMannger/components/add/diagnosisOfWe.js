@@ -32,12 +32,14 @@ class winfo extends React.Component{
   getData = (()=>{
     const data = document.getElementsByClassName('zhTextW');
     let postData = {}, westernMedicines = [];
+    postData.id = this.props.data.id;
     for(let i=0; i<data.length; i++) {
       if(data[i].getAttribute('data-name') !== 'tigejiancha') {
         westernMedicines.push({
           text: Trim(data[i].value),
           name: data[i].getAttribute('data-name'),
-          img: this.imgList(Number(i))
+          img: this.imgList(Number(i)),
+          id: this.props.data[data[i].getAttribute('data-name')].id
         })
       }else {
         postData[data[i].getAttribute('data-name')] = Trim(data[i].value);

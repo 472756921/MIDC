@@ -31,6 +31,7 @@ class info extends React.Component{
   getData = (()=>{
     const data = document.getElementsByClassName('zhTextO');
     let postData = {};
+    postData.id = this.props.data.id;
     for(let i = 2; i<data.length; i++) {
       postData[data[i].getAttribute('data-name')] = Trim(data[i].value);
     }

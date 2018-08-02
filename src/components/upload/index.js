@@ -1,12 +1,11 @@
 import React from 'react';
 import { Upload, Icon, Modal } from 'antd';
-import {api} from '../../utils/config';
+import {api, serviceIP} from '../../utils/config';
 
 class PicturesWall extends React.Component {
   constructor(props){
     super(props);
     if(props.listdata){
-
     }
   }
   state = {
@@ -17,7 +16,7 @@ class PicturesWall extends React.Component {
   componentDidMount() {
     if(this.props.imgListD!=undefined && this.props.imgListD.length !== 0){
       let imgd = this.props.imgListD.map((it, i) => {
-        return {uid: i, name: it, status:'done', url:it}
+        return {uid: it.uid, name: it.uid, status:'done', url: serviceIP + it.url}
       })
       this.setState({...this.state, fileList:imgd});
     }
@@ -26,7 +25,7 @@ class PicturesWall extends React.Component {
   handleChange = ({ file, fileList }) => this.setState({ fileList });
   getList = () => {
     let data = this.state.fileList.map((it) => {
-      return {url:it.response!=undefined?it.response.data:it.url};
+      return {url:it.response!=undefined?it.response.data.url:'/img' + it.url.split('/img')[1], id: it.response!=undefined?it.response.data.uid:it.uid};
     });
     return data;
   };
