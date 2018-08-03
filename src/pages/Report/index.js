@@ -1,6 +1,7 @@
 import {connect} from 'dva';
 import {Table, Button, Row, Col, Input, Divider, Select, Modal} from 'antd';
 import Chart_H from '../../components/Chart/Histogram';
+import Chart_P from '../../components/Chart/Pie';
 import PropTypes from 'prop-types';
 import styles from '../index.css';
 
@@ -35,7 +36,7 @@ const fj = ({loading, report, dispatch}) => {
   }
 
   const handleCancel = (e) => {
-    dispatch({type: 'report/changevisibleA', payload: {visible: false}})
+    dis({type: 'report/changeVisibleA', payload: {visible: false}})
   }
 
   const reset = (e) => {
@@ -60,8 +61,9 @@ const fj = ({loading, report, dispatch}) => {
   const searchData = () => {
     dispatch({type: 'report/searchData', payload: {type: 'fj'}});
   }
-  const showChat = (type) => {
+  const showChat = (charType, type) => {
     dis({type: 'report/changeVisibleA', payload: {visible: true}})
+    dis({type: 'report/setCharType', payload: {charType: charType, dataType: type}})
   }
 
   return (
@@ -147,18 +149,21 @@ const fj = ({loading, report, dispatch}) => {
       <Button style={{marginLeft: '2px', float: 'right'}} type='primary' onClick={searchData}>查询</Button>
       <br/>
       <Divider/>
-      <Button style={{marginLeft: '6px'}} onClick={()=>showChat('zh')}>证候统计</Button>
-      <Button style={{marginLeft: '6px'}} onClick={()=>showChat('pc')}>药物频次</Button>
-      <Button style={{marginLeft: '6px'}} onClick={()=>showChat('gl')}>归类统计</Button>
-      <Button style={{marginLeft: '6px'}} onClick={()=>showChat('sq')}>四气统计</Button>
-      <Button style={{marginLeft: '6px'}} onClick={()=>showChat('ww')}>五味统计</Button>
-      <Button style={{marginLeft: '6px'}} onClick={()=>showChat('gj')}>归经统计</Button>
+      <Button style={{marginLeft: '6px'}} onClick={()=>showChat('h','zh')} disabled={report.tableList.length===0?true:false}>证候统计</Button>
+      <Button style={{marginLeft: '6px'}} onClick={()=>showChat('h','pc')} disabled={report.tableList.length===0?true:false}>药物频次</Button>
+      <Button style={{marginLeft: '6px'}} onClick={()=>showChat('h','gj')} disabled={report.tableList.length===0?true:false}>归经统计</Button>
+      <Button style={{marginLeft: '6px'}} onClick={()=>showChat('p','gl')} disabled={report.tableList.length===0?true:false}>归类统计</Button>
+      <Button style={{marginLeft: '6px'}} onClick={()=>showChat('p','sq')} disabled={report.tableList.length===0?true:false}>四气统计</Button>
+      <Button style={{marginLeft: '6px'}} onClick={()=>showChat('p','ww')} disabled={report.tableList.length===0?true:false}>五味统计</Button>
       <br/>
       <br/>
       <Table dataSource={report.tableList} columns={columns}/>
 
       <Modal width={1000} title="详情" visible={report.visibleA} onOk={handleOk} onCancel={handleCancel}>
-        <Chart_H/>
+        {
+          report.visibleA?
+          report.charType === 'h'?<Chart_H/>:<Chart_P/>:''
+        }
       </Modal>
     </div>
   )

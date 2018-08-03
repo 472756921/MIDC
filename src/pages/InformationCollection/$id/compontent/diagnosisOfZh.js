@@ -40,6 +40,9 @@ const info = ({info, imgShow}) => {
   };
   const d = Object.keys(info);
   const item = d.map((it, i)=>{
+    if(it === 'id') {
+      return ''
+    }
     let fvalue = info[it];
     let t = (
       <Col span={24}>

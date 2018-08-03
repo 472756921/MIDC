@@ -31,7 +31,7 @@ const info = ({info}) => {
   };
   const d = Object.keys(info);
   const item = d.map((it, i)=>{
-    if(it !== 'cf'){
+    if(it !== 'cf' && it !== 'id'){
       let fvalue = info[it];
       let t = (
         <Col span={24}>

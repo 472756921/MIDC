@@ -9,6 +9,7 @@ export default {
     searchV: {},
     temp: {},
     selectData: [],
+    charType: '',
   },
   subscriptions: {
   },
@@ -46,6 +47,9 @@ export default {
     },
     setTempData (state, {payload}) {
       return {...state, temp: payload.data}
+    },
+    setCharType (state, {payload}) {
+      return {...state, charType: payload.charType}
     },
   },
 }

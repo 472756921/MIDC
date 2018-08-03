@@ -35,6 +35,9 @@ class PicturesWall extends React.Component {
       previewVisible: true,
     });
   }
+  remove = (file) => {
+    // console.log(file);
+  }
   render() {
     const { previewVisible, previewImage, fileList } = this.state;
     const uploadButton = (
@@ -51,6 +54,7 @@ class PicturesWall extends React.Component {
           fileList={fileList}
           onPreview={this.handlePreview}
           onChange={this.handleChange}
+          onRemove={this.remove}
         >
           {fileList.length >= 5 ? null : uploadButton}
         </Upload>
