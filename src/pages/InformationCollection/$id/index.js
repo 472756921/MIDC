@@ -8,6 +8,7 @@ import DiagnosisOfWe from './compontent/diagnosisOfWe';
 import OhterInfo from './compontent/ohter';
 import DagnosisAndtreatment from './compontent/diagnosisAndtreatment';
 import AddModal from './compontent/add/add';
+import Confirm from '../../../components/Confirm';
 
 const TabPane = Tabs.TabPane;
 let _dispatch = '';
@@ -28,7 +29,9 @@ const columns = [
   render: (text, record, index) => {
     return (
     <span>
-      <span style={{cursor: 'pointer',color: '#3085bf'}} onClick={()=>{datileInVisit(index)}}>详情</span>
+      <span style={{cursor: 'pointer',color: '#3085bf'}} onClick={()=>{datileInVisit(index)}}>详情 </span>
+      <span> | </span>
+      <span style={{cursor: 'pointer',color: '#3085bf'}} onClick={()=>{saveYaf(text.id)}}> 保存为医案</span>
     </span>
     )
   },
@@ -36,6 +39,15 @@ const columns = [
 function datileInVisit(index) {
   _dispatch({type: 'Idetail/changIndex', payload:{index: index}});
 }
+function saveYaf(dId) {
+  _dispatch({type: 'Idetail/setTempData', payload:{temp: dId}});
+  Confirm('确认保存为医案','确认将该就诊记录保存为医案？', saveYaO);
+}
+const saveYaO = () => {
+  _dispatch({type: 'Idetail/saveYan'});
+}
+
+
 
 const ICD = ({loading, Idetail, dispatch}) => {
   _dispatch = dispatch;

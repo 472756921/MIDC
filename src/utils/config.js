@@ -20,6 +20,7 @@ module.exports = {
     queryPatient: apiOnline + '/patient/info',
     addRec: apiOnline + '/patient/addRec',
     addPatient: apiOnline + '/patient/add',
+    setYiyan: apiOnline + '/patient/setYiyan',
     //平台管理
     getSLData: apiOnline + '/platform/getListData',
     getCFData: apiOnline + '/platform/findComponentByName',

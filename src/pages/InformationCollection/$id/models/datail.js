@@ -1,11 +1,12 @@
 import pathToRegexp from 'path-to-regexp'
 import {message} from 'antd'
-import {queryPatient, addRec} from "../../services/InformationCollection";
+import {queryPatient, addRec, saveYan} from "../../services/InformationCollection";
 import { routerRedux } from 'dva/router'
 
 export default {
   namespace: 'Idetail',
   state: {
+    temp: '',
     visible: false,
     addModel: false,
     pid: '',
@@ -41,6 +42,15 @@ export default {
       data.pid = payload.pid;
       yield put({type: 'querySuccess', payload:data});
     },
+    * saveYan ({ payload }, { call, put, select }) {
+      const {temp} = yield select(_=>_.Idetail);
+      const {data} = yield call(saveYan, {id: temp});
+      if(data.status === 200) {
+        message.success('已成功保存为医案');
+      } else {
+        message.error('添加失败，请稍后再试');
+      }
+    },
     * addRec ({ postData }, { call, put, select }) {
       const {pid} = yield select(_=>_.Idetail);
       postData.id = pid;
@@ -68,6 +78,9 @@ export default {
     },
     changIndex(state, {payload}) {
       return {...state, index: payload.index}
+    },
+    setTempData(state, {payload}) {
+      return {...state, temp: payload.temp}
     },
   }
 }

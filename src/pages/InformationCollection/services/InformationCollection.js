@@ -18,3 +18,7 @@ export function addPatient (data) {
 export function addRec (data) {
   return request(api.addRec, {method: 'post', headers: JSONS, body: JSON.stringify(data)});
 }
+export function saveYan (data) {
+  let url = getParmas( api.setYiyan, data);
+  return request(url, {method: 'get', headers: JSONS});
+}

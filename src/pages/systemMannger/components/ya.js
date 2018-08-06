@@ -138,9 +138,9 @@ const ya = ({systemMannger, dispatch, loading}) => {
         <div>
           <div className={styles.contentBu}>婚姻状况：</div>
           <select style={selectStyle} title='marriage' className='ya' defaultValue="2" >
-            <option value="已婚">已婚</option>
-            <option value="未婚">未婚</option>
-            <option value="其他婚姻状况">其他婚姻状况</option>
+            <option value="1">已婚</option>
+            <option value="0">未婚</option>
+            <option value="3">其他婚姻状况</option>
           </select>
         </div>
         <div><div className={styles.contentBu}>职业：</div><Input title='profession' className='ya'/></div>
@@ -151,7 +151,7 @@ const ya = ({systemMannger, dispatch, loading}) => {
         <div><div className={styles.contentBu}>家庭地址：</div><Input title='address' className='ya'/></div>
         <div><div className={styles.contentBu}>邮政编码：</div><Input title='zipCode' className='ya'/></div>
         <div>
-          <div className={styles.contentBu}>就诊时间：{systemMannger.itemData.fistDate}</div>
+          {/*<div className={styles.contentBu}>就诊时间：{systemMannger.itemData.fistDate}</div>*/}
           {/*<DatePicker onChange={dateOnChange} style={selectStyle} defaultValue={moment(systemMannger.itemData.fistDate, dateFormat)}/>*/}
         </div>
         <div><Input title='id' className='ya' type='hidden'/></div>

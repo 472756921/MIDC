@@ -26,7 +26,7 @@ module.exports = {
       name: '数据分析',
       type: 2,
       icon: 'database',
-      route: '/user',
+      route: '/data',
     },
     {
       id: '5',
@@ -47,7 +47,7 @@ module.exports = {
       name: '用户管理',
       type: 2,
       icon: 'user',
-      route: '/admin',
+      route: '/user',
     },
   ]
 }
