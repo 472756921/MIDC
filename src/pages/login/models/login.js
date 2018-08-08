@@ -15,19 +15,19 @@ export default {
   },
   effects: {
     * login ({payload}, { put, call, select }) {
-      const data = yield call(login, payload)
-      if(data.err) {
-        if(data.err.response.status === 400) {
-          message.error('账号密码错误');
-        } else {
-          message.error(data.err.response.statusText);
-        }
-        return false
-      } else {
-        yield put({type: 'loginScuess', payload: data});
+      const {data} = yield call(login, payload)
+
+      console.log(data);
+
+      if(data.status === 400) {
+        message.error('账号密码错误');
+      } else if (data.status === 200){
+        yield put({type: 'loginScuess', payload: data.user});
         yield put(routerRedux.push({
           pathname: '/InformationCollection',
         }))
+      } else {
+        message.error(data.error);
       }
     },
   },

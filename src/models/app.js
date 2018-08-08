@@ -11,7 +11,7 @@ export default {
   subscriptions: {
     setupHistory ({ dispatch, history }) {
       history.listen((location) => {
-        if(location.pathname!=='/login'){
+        if(location.pathname!=='/login' && location.pathname!=='/404'){
           dispatch({ type: 'query' });
         }
       })
@@ -20,13 +20,13 @@ export default {
   effects: {
     * query( {payload}, {call, put, select} ) {
       const {data}  = yield call(getUser);
-      const {user} = data;
-      if(user === undefined) {
+      console.log(data);
+      if(data.status === 403) {
         yield put(routerRedux.push({
           pathname: '/login',
         }))
       } else {
-        let utype = user.permissions==='admin'?3:user.permissions==='dev'?2:1;
+        let utype = data.roleId===0?3:data.roleId===2?2:1;
         const m = meuns.filter((it) => {if(utype>=it.type){return it}else {return false}});
         yield put({type: 'userInfo', payload: {data, m}});
       }

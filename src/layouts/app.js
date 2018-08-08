@@ -10,17 +10,6 @@ import { Link } from 'react-router-dom'
 import { Layout, Menu, Icon, Avatar, Row, Col, Dropdown } from 'antd';
 const { Header, Sider, Content, Footer } = Layout;
 
-const menu = (
-  <Menu>
-    <Menu.Item key="0">
-      <a href="http://www.alipay.com/">个人资料</a>
-    </Menu.Item>
-    <Menu.Item key="1">
-      <a href="http://www.taobao.com/">退出登录</a>
-    </Menu.Item>
-  </Menu>
-);
-
 const App = ({children, dispatch, app, loading, location}) => {
   let { pathname } = location;
   const getMuensTree = (data)=>{
@@ -55,12 +44,8 @@ const App = ({children, dispatch, app, loading, location}) => {
               <Row type="flex" justify="space-between">
                 <Col span={4}><div style={{fontSize: 18 }}>{name}</div></Col>
                 <Col span={3} style={{textAlign:'right'}}>
-                  <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>{app.user!==''?app.user.user.username:''}</Avatar>
-                  <Dropdown overlay={menu} trigger={['click']}>
-                    <a className="ant-dropdown-link" href="" style={{marginLeft: '10px'}}>
-                      个人中心 <Icon type="down" />
-                    </a>
-                  </Dropdown>
+                  <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>{app.user!==''?app.user.userName:''}</Avatar>
+                  <span style={{padding: '0 10px', color: '#4da6ff', cursor: 'pointer'}}>注销</span>
                 </Col>
               </Row>
             </Header>

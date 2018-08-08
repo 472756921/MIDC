@@ -12,8 +12,8 @@ module.exports = {
     uploadImg: apiOnline + '/upload/uploadImg',
     uploadFile: apiOnline + '/upload/uploadFile',
     downloadFlie: apiOnline + '/upload/download',
-    getUser: api_M + '/user/getUser',
-    login: api_M + '/user/login',
+    getUser: apiOnline + '/user/getUser',
+    login: apiOnline + '/user/login',
     loginOut: api_M + '/user/loginOut',
     //信息采集
     patientList: apiOnline + '/patient/list',

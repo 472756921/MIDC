@@ -3,14 +3,14 @@ module.exports = {
     {
       id: '1',
       name: '信息采集',
-      type: 3,
+      type: 1,
       icon: 'desktop',
       route: '/InformationCollection',
     },
     {
       id: '2',
       name: '资料管理',
-      type: 3,
+      type: 2,
       icon: 'file',
       route: '/dataMannger',
     },
@@ -45,7 +45,7 @@ module.exports = {
     {
       id: '7',
       name: '用户管理',
-      type: 2,
+      type: 3,
       icon: 'user',
       route: '/user',
     },
