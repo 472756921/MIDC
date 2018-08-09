@@ -11,3 +11,7 @@ export function query (data) {
 export function add (data) {
   return request(api.addData, {method: 'post', headers: JSONS, body: JSON.stringify(data)});
 }
+export function delData (data) {
+  let url = getParmas(api.delData, data);
+  return request(url, {method: 'DELETE', headers: JSONS});
+}

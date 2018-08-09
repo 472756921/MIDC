@@ -1,5 +1,5 @@
 /* global window */
-import {query, add} from '../service';
+import {query, add, delData} from '../service';
 import {getList} from '../../../components/FileUpload/index';
 
 export default {
@@ -51,13 +51,17 @@ export default {
       }
       tempData.attachments = isl;
       const {data} = yield call(add, tempData);
+      if(data.status === 200) {
+        yield put({type:'getData', payload:{pageSize:30, page: 1, title: '', key: ''}});
+      }
     },
     *del({payload}, {call, put, select}) {
+      const {data} = yield call(delData, payload);
+      yield put({type:'getData', payload:{pageSize:30, page: 1, title: '', key: ''}});
     },
     *changeTemp({payload}, {call, put, select}) {
       let {tempData} = yield select(_=>_.dataMannger);
       tempData[payload.type] = payload.data;
-      yield put({type: 'settempData', payload: tempData});
     },
   },
   reducers: {

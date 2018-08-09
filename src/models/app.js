@@ -1,5 +1,5 @@
 import { routerRedux } from 'dva/router'
-import { getUser } from '../services/app';
+import { getUser, loginOut } from '../services/app';
 import { meuns } from '../utils/menu';
 
 export default {
@@ -18,9 +18,8 @@ export default {
     },
   },
   effects: {
-    * query( {payload}, {call, put, select} ) {
+    * query( {payload}, {call, put} ) {
       const {data}  = yield call(getUser);
-      console.log(data);
       if(data.status === 403) {
         yield put(routerRedux.push({
           pathname: '/login',
@@ -31,6 +30,14 @@ export default {
         yield put({type: 'userInfo', payload: {data, m}});
       }
     },
+    *loginOut({payload}, {call, put}) {
+      const {data}  = yield call(loginOut);
+      if(data.status === 200) {
+        yield put(routerRedux.push({
+          pathname: '/login',
+        }))
+      }
+    }
   },
   reducers: {
     userInfo(state, {payload}) {

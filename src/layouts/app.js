@@ -21,6 +21,10 @@ const App = ({children, dispatch, app, loading, location}) => {
       )
     })
   }
+  const logout = ()=>{
+    dispatch({type: 'app/loginOut'});
+  }
+
   let menus = getMuensTree(app.menu);
   if(openPages && openPages.includes(pathname)){
     return (
@@ -45,7 +49,7 @@ const App = ({children, dispatch, app, loading, location}) => {
                 <Col span={4}><div style={{fontSize: 18 }}>{name}</div></Col>
                 <Col span={3} style={{textAlign:'right'}}>
                   <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>{app.user!==''?app.user.userName:''}</Avatar>
-                  <span style={{padding: '0 10px', color: '#4da6ff', cursor: 'pointer'}}>注销</span>
+                  <span style={{padding: '0 10px', color: '#4da6ff', cursor: 'pointer'}} onClick={logout}>注销</span>
                 </Col>
               </Row>
             </Header>

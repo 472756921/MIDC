@@ -31,8 +31,8 @@ const index =  ({loading, dataMannger, dispatch}) => {
   }];
   let delID = ''; //待删除ID
 
-  const delItem = (id)=>{
-    dispatch({type:'dataMannger/del', payload:{delID: delID}});
+  const delItem = ()=>{
+    dispatch({type:'dataMannger/del', payload:{id: delID}});
   }
   const del = (text)=>{
     delID = text.id;

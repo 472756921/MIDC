@@ -14,7 +14,7 @@ module.exports = {
     downloadFlie: apiOnline + '/upload/download',
     getUser: apiOnline + '/user/getUser',
     login: apiOnline + '/user/login',
-    loginOut: api_M + '/user/loginOut',
+    loginOut: apiOnline + '/user/logout',
     //信息采集
     patientList: apiOnline + '/patient/list',
     queryPatient: apiOnline + '/patient/info',
