@@ -16,9 +16,6 @@ export default {
   effects: {
     * login ({payload}, { put, call, select }) {
       const {data} = yield call(login, payload)
-
-      console.log(data);
-
       if(data.status === 400) {
         message.error('账号密码错误');
       } else if (data.status === 200){
@@ -29,6 +26,11 @@ export default {
       } else {
         message.error(data.error);
       }
+    },
+    test({payload}, { put, call, select, fork }) {
+      setInterval(()=>{
+        fork(login, payload);
+      }, 5000)
     },
   },
   reducers: {
