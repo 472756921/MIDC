@@ -27,11 +27,6 @@ export default {
         message.error(data.error);
       }
     },
-    test({payload}, { put, call, select, fork }) {
-      setInterval(()=>{
-        fork(login, payload);
-      }, 5000)
-    },
   },
   reducers: {
     loginScuess (state, {payload} ) {

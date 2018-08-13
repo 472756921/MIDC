@@ -1,6 +1,6 @@
 const api_M = '/apiM'
-// const serviceIP = 'http://192.168.0.104:8080'  //测试
-const serviceIP = 'http://116.62.201.135'  //生产
+const serviceIP = 'http://192.168.0.104:8088'  //测试
+// const serviceIP = 'http://116.62.201.135'  //生产
 const apiOnline = serviceIP + '/apiM'
 
 module.exports = {
@@ -40,5 +40,9 @@ module.exports = {
     delData: apiOnline + '/datum/delete',
     //
     searchData: api_M + '/k/searchData',
+    //用户管理
+    userList: apiOnline + '/user/findAll',
+    userSave: apiOnline + '/user/save',
+    userDel: apiOnline + '/user/delete',
   }
 }

@@ -25,7 +25,7 @@ export default {
           pathname: '/login',
         }))
       } else {
-        let utype = data.roleId===0?3:data.roleId===2?2:1;
+        let utype = data.roleId===0?3:data.roleId===2?1:2;
         const m = meuns.filter((it) => {if(utype>=it.type){return it}else {return false}});
         yield put({type: 'userInfo', payload: {data, m}});
       }

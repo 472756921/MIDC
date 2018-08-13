@@ -1,6 +1,8 @@
 /* global window */
-import {query, add, delData} from '../service';
+import {query, add, delData, search} from '../service';
+import { message } from 'antd';
 import {getList} from '../../../components/FileUpload/index';
+const JSONS = {'Content-type': 'application/json;charset=UTF-8'};
 
 export default {
   namespace: 'dataMannger',
@@ -50,8 +52,13 @@ export default {
         })
       }
       tempData.attachments = isl;
+      if(tempData.name === '' || tempData.keyName === '') {
+        message.warning('请填写名称和关键字');
+        return false;
+      }
       const {data} = yield call(add, tempData);
       if(data.status === 200) {
+        yield put({type:'dataMannger/visible', payload:{visible: false}});
         yield put({type:'getData', payload:{pageSize:30, page: 1, title: '', key: ''}});
       }
     },
@@ -62,6 +69,10 @@ export default {
     *changeTemp({payload}, {call, put, select}) {
       let {tempData} = yield select(_=>_.dataMannger);
       tempData[payload.type] = payload.data;
+    },
+    *search({payload}, {call, put}) {
+      const {data} = yield call(query, payload);
+      yield put({type:'setlist', payload:data.data});
     },
   },
   reducers: {

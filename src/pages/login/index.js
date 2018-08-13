@@ -16,10 +16,6 @@ const Login = ({loading, dispatch, form: {getFieldDecorator, validateFieldsAndSc
     });
   }
 
-  const test = () => {
-    dispatch({ type: 'login/test'})
-  }
-
   return (
     <div className={styles.bk}>
       <div className={styles.form}>
@@ -44,7 +40,6 @@ const Login = ({loading, dispatch, form: {getFieldDecorator, validateFieldsAndSc
           </FormItem>
         </Form>
       </div>
-      <Button type="primary" onClick={test}>test</Button>
     </div>
   )
 }

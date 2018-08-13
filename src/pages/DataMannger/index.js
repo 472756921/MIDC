@@ -48,7 +48,6 @@ const index =  ({loading, dataMannger, dispatch}) => {
   }
   const handleOk = () => {
     dispatch({type:'dataMannger/save'});
-    dispatch({type:'dataMannger/visible', payload:{visible: false}});
   }
   const handleCancel = () => {
     dispatch({type:'dataMannger/visible', payload:{visible: false}});
@@ -71,19 +70,24 @@ const index =  ({loading, dataMannger, dispatch}) => {
   const handleCancel2 = () => {
     dispatch({type:'dataMannger/visibleDown', payload:{visibleDown: false}});
   }
+  const search = () => {
+    const sn = document.getElementById('sn').value;
+    const sk = document.getElementById('sk').value;
+    dispatch({type:'dataMannger/search', payload:{title: sn, key: sk}});
+  }
   return (
     <div>
       <div>
         <Row gutter={6}>
-          <Col span={4}><Input placeholder="输入标题" /></Col>
-          <Col span={4}><Input placeholder="输入关键字" /></Col>
-          <Col span={4}><Button type="primary">查询</Button></Col>
+          <Col span={4}><Input placeholder="输入标题" id='sn'/></Col>
+          <Col span={4}><Input placeholder="输入关键字" id='sk'/></Col>
+          <Col span={4}><Button type="primary" onClick={search}>查询</Button></Col>
           <Col span={2} offset={10}><Button onClick={add}>新建附件</Button></Col>
         </Row>
       </div>
       <br/>
       <br/>
-      <Table dataSource={dataMannger.listData.content} columns={columns} pagination={{'total': dataMannger.listData.totalElements, 'pageSize': 30}} onChange={changePage}/>
+      <Table dataSource={dataMannger.listData.content} columns={columns} pagination={{'total': dataMannger.listData.totalElements, 'pageSize': 30}} onChange={changePage}  loading={loading.models.dataMannger} />
 
       <Modal title="详情" visible={dataMannger.visible} onOk={handleOk} onCancel={handleCancel}>
         标题：<Input placeholder="输入标题" style={{width: '300px'}} value={dataMannger.tempData.name} onChange={(value)=>changeTemp(value, 'name')}/>
