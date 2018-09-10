@@ -48,7 +48,7 @@ const App = ({children, dispatch, app, loading, location}) => {
               <Row type="flex" justify="space-between">
                 <Col span={4}><div style={{fontSize: 18 }}>{name}</div></Col>
                 <Col span={3} style={{textAlign:'right'}}>
-                  <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>{app.user!==''?app.user.userName:''}</Avatar>
+                  <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>{app.user!==''?app.user.account:''}</Avatar>
                   <span style={{padding: '0 10px', color: '#4da6ff', cursor: 'pointer'}} onClick={logout}>注销</span>
                 </Col>
               </Row>

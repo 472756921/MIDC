@@ -15,7 +15,6 @@ let _dis = '', dates = '';
 const columns = [
   {
     title: '病人名',
-    width: 100,
     key: 'asdf',
     render: (text, record) => (
       <span>
@@ -33,7 +32,6 @@ const columns = [
     title: '就诊次数',
     dataIndex: 'visitTimes',
     key: 'visitTimes',
-    width: 100,
   },
   {
     title: '中医疾病',
