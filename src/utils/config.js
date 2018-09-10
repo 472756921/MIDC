@@ -38,8 +38,10 @@ module.exports = {
     dataList: apiOnline + '/datum/find',
     addData: apiOnline + '/datum/save',
     delData: apiOnline + '/datum/delete',
-    //
-    searchData: api_M + '/k/searchData',
+    //知识检索-药材查询
+    searchData: apiOnline + '/knowledge/getListData',
+    //医案查询
+    searchData2: apiOnline + '/knowledge/getListData',
     //用户管理
     userList: apiOnline + '/user/findAll',
     userSave: apiOnline + '/user/save',

@@ -8,7 +8,14 @@ export default {
     visibleB: false,
     visibleC: false,
     tableList: [],
-    searchV: {},
+    searchV: {
+      glzz: "",
+      jy: "",
+      name: "",
+      type: "",
+      xwgj: "",
+      xz: ""
+    },
     temp: {},
     selectData: [],
   },
@@ -27,7 +34,8 @@ export default {
       const {searchV} = yield select(_=>_.knowledge);
       payload = Object.assign(payload, searchV);
       const {data}  = yield call(searchData, payload);
-      yield put({type: 'tableListChange', payload: data});
+      console.log(data.rows);
+      yield put({type: 'tableListChange', payload: data.rows});
     },
   },
   reducers: {

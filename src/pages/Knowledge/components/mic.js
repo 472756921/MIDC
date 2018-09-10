@@ -15,8 +15,18 @@ const columns = [
     key: 'glzz',
   }, {
     title: '性味归经',
-    dataIndex: 'xwgj',
     key: 'xwgj',
+    render: (text, record) => {
+      const regA = /\[(.+?)\]/g;
+      const regB = /\[(.+?)\]/g;
+      const regC = /\[(.+?)\]/g;
+      let sq = regA.exec(text.sq)[1];
+      let ww = regB.exec(text.ww)[1];
+      let gj = regC.exec(text.gj)[1];
+      return(
+        <span> {sq} {ww} {gj} </span>
+      )
+    },
   }, {
     title: '用法用量',
     dataIndex: 'yfyl',
@@ -47,7 +57,7 @@ const mic = ({loading, knowledge, dispatch}) => {
     dispatch({type:'knowledge/changeVisibleA', payload: {visible: false}});
   }
   const reset = (e) => {
-    dispatch({type:'knowledge/reset', payload: {searchV: {}, tableList: []}});
+    dispatch({type:'knowledge/reset', payload: {searchV: {glzz: "",jy: "",name: "",type: "",xwgj: "",xz: ""}, tableList: []}});
   }
   const changeSeV = (data) => {
     let searchV = knowledge.searchV;
@@ -63,6 +73,7 @@ const mic = ({loading, knowledge, dispatch}) => {
     dispatch({type:'knowledge/selectData', payload: {type: data}});
   }
   const searchData = () => {
+
     dispatch({type:'knowledge/searchData', payload: {type:'zy'}});
   }
 
@@ -109,6 +120,7 @@ const mic = ({loading, knowledge, dispatch}) => {
           <Input style={{width:'200px'}} value={knowledge.searchV.xz} onChange={changeSeV} title='xz'/>
         </Col>
       </Row>
+      <br/>
       <Button style={{marginLeft: '2px', float: 'right', marginRight: '120px'}} onClick={reset}>重置</Button>
       <Button style={{marginLeft: '2px', float: 'right'}} type='primary' onClick={searchData}>查询</Button>
       <br/>
