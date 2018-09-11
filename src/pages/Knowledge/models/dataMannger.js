@@ -1,6 +1,6 @@
 /* global window */
 import {getSLData, cdList} from "../../systemMannger/service/systemMannger";
-import {searchData} from '../service/index';
+import {searchData, searchData2} from '../service/index';
 export default {
   namespace: 'knowledge',
   state: {
@@ -16,6 +16,7 @@ export default {
       xwgj: "",
       xz: ""
     },
+    searchV2: {doctor: "", name: "", xyjb: "", zfm: "", zhenzhuang: "", zyjb: "", zyzh: ""},
     temp: {},
     selectData: [],
   },
@@ -31,10 +32,18 @@ export default {
       yield put({type: 'setSelectValue', payload: data});
     },
     *searchData({payload}, {call, put, select}) {
-      const {searchV} = yield select(_=>_.knowledge);
-      payload = Object.assign(payload, searchV);
-      const {data}  = yield call(searchData, payload);
-      console.log(data.rows);
+      let searchV = '';
+      let url = searchData;
+      if(payload.type === 'zy'){
+        url = searchData;
+        let t = yield select(_=>_.knowledge);
+        searchV = t.searchV;
+      } else if(payload.type === 'ya'){
+        url = searchData2;
+        let t = yield select(_=>_.knowledge);
+        searchV = t.searchV2
+      }
+      const {data}  = yield call(url, searchV);
       yield put({type: 'tableListChange', payload: data.rows});
     },
   },
@@ -60,6 +69,9 @@ export default {
     },
     tableListChange (state, {payload}) {
       return {...state, tableList: payload}
+    },
+    tableListClear (state, {payload}) {
+      return {...state, tableList: []}
     },
     setTempData (state, {payload}) {
       return {...state, temp: payload.data}

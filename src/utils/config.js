@@ -41,7 +41,7 @@ module.exports = {
     //知识检索-药材查询
     searchData: apiOnline + '/knowledge/getListData',
     //医案查询
-    searchData2: apiOnline + '/knowledge/getListData',
+    searchData2: apiOnline + '/knowledge/getYiAnData',
     //用户管理
     userList: apiOnline + '/user/findAll',
     userSave: apiOnline + '/user/save',

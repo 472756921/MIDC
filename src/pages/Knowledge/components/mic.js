@@ -20,9 +20,16 @@ const columns = [
       const regA = /\[(.+?)\]/g;
       const regB = /\[(.+?)\]/g;
       const regC = /\[(.+?)\]/g;
-      let sq = regA.exec(text.sq)[1];
-      let ww = regB.exec(text.ww)[1];
-      let gj = regC.exec(text.gj)[1];
+      let sq='', ww='', gj='';
+      if(text.sq){
+        sq = regA.exec(text.sq)[1];
+      }
+      if(text.gj){
+        gj = regB.exec(text.gj)[1];
+      }
+      if(text.ww){
+        ww = regC.exec(text.ww)[1];
+      }
       return(
         <span> {sq} {ww} {gj} </span>
       )
@@ -73,7 +80,6 @@ const mic = ({loading, knowledge, dispatch}) => {
     dispatch({type:'knowledge/selectData', payload: {type: data}});
   }
   const searchData = () => {
-
     dispatch({type:'knowledge/searchData', payload: {type:'zy'}});
   }
 

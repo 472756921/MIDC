@@ -8,39 +8,27 @@ import Or from '../../InformationCollection/$id/compontent/ohter';
 import styles from '../index.css';
 
 const Option = Select.Option;
-
-const dataSource = [
-  {
-    key: '1',
-    name: '胡彦斌',
-    age: 32,
-    address: '西湖区湖底公园1号'
-  }, {
-    key: '2',
-    name: '胡彦祖',
-    age: 42,
-    address: '西湖区湖底公园1号'
-  }];
+let dis = '';
 const columns = [
   {
     title: '病人姓名',
-    dataIndex: 'name',
+    dataIndex: 'patient.name',
     key: 'name',
   }, {
     title: '就诊次数',
-    dataIndex: 'jzcs',
-    key: 'jzcs',
+    dataIndex: 'visitTimes',
+    key: 'visitTimes',
   }, {
     title: '中医疾病',
-    dataIndex: 'zyjb',
+    dataIndex: 'diagnosisAndtreatment.zyjb',
     key: 'zyjb',
   }, {
     title: '西医疾病',
-    dataIndex: 'xyjb',
+    dataIndex: 'diagnosisAndtreatment.xyjb',
     key: 'xyjb',
   }, {
     title: '中医证候',
-    dataIndex: 'zyzh',
+    dataIndex: 'diagnosisAndtreatment.zyzh',
     key: 'zyzh',
   }, {
     title: '操作',
@@ -52,7 +40,6 @@ const columns = [
     ),
   }
 ];
-let dis = '';
 const details = (data) => {
   dis({type: 'knowledge/changeVisibleC', payload: {visible: true}})
 }
@@ -66,7 +53,6 @@ const ya = ({loading, knowledge, dispatch}) => {
   const handleCancel = (e) => {
     dispatch({type: 'knowledge/changeVisibleC', payload: {visible: false}})
   }
-
   const reset = (e) => {
     dispatch({
       type: 'knowledge/reset',
@@ -74,7 +60,7 @@ const ya = ({loading, knowledge, dispatch}) => {
     });
   }
   const changeSeV = (data) => {
-    let searchV = knowledge.searchV;
+    let searchV = knowledge.searchV2;
     searchV[data.target.title] = data.target.value;
     dispatch({type: 'knowledge/setSearchV', payload: {searchV: searchV}});
   }
@@ -90,9 +76,8 @@ const ya = ({loading, knowledge, dispatch}) => {
     dispatch({type: 'knowledge/selectDataByCd', payload: {sysType: data}});
   }
   const searchData = () => {
-    dispatch({type: 'knowledge/searchData', payload: {type: 'fj'}});
+    dispatch({type: 'knowledge/searchData', payload: {type: 'ya'}});
   }
-
   return (
     <div>
       <Row>
@@ -137,11 +122,11 @@ const ya = ({loading, knowledge, dispatch}) => {
           {/*</Select>*/}
         {/*</Col>*/}
       </Row>
-      <Button style={{marginLeft: '2px', float: 'right', marginRight: '120px'}}>重置</Button>
-      <Button style={{marginLeft: '2px', float: 'right'}} type='primary'>查询</Button>
+      <Button style={{marginLeft: '2px', float: 'right', marginRight: '120px'}} onClick={reset}>重置</Button>
+      <Button style={{marginLeft: '2px', float: 'right'}} type='primary' onClick={searchData}>查询</Button>
       <br/>
       <Divider/>
-      <Table dataSource={dataSource} columns={columns}/>
+      <Table dataSource={knowledge.tableList} columns={columns}/>
 
       <Modal title="详情" visible={knowledge.visibleC} onOk={handleOk} onCancel={handleCancel}>
         <Info/>
