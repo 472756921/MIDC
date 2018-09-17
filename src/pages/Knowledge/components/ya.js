@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Info from '../../InformationCollection/$id/compontent/info';
 import We from '../../InformationCollection/$id/compontent/diagnosisOfWe';
 import Zh from '../../InformationCollection/$id/compontent/diagnosisOfZh';
+import Zz from '../../InformationCollection/$id/compontent/diagnosisAndtreatment';
 import Or from '../../InformationCollection/$id/compontent/ohter';
 import styles from '../index.css';
 
@@ -41,7 +42,7 @@ const columns = [
   }
 ];
 const details = (data) => {
-  dis({type: 'knowledge/changeVisibleC', payload: {visible: true}})
+  dis({type: 'knowledge/showYa', payload: {visible: true, data: data}})
 }
 
 const ya = ({loading, knowledge, dispatch}) => {
@@ -129,10 +130,11 @@ const ya = ({loading, knowledge, dispatch}) => {
       <Table dataSource={knowledge.tableList} columns={columns}/>
 
       <Modal title="详情" visible={knowledge.visibleC} onOk={handleOk} onCancel={handleCancel}>
-        <Info/>
-        <We/>
-        <Zh/>
-        <Or/>
+        {/*<Info/>*/}
+        <We info={knowledge.yaShowData.diagnosisOfWe}/>
+        <Zh info={knowledge.yaShowData.diagnosisOfZh}/>
+        <Zz info={knowledge.yaShowData.diagnosisAndtreatment}/>
+        <Or info={knowledge.yaShowData.otherMessage}/>
       </Modal>
     </div>
   )

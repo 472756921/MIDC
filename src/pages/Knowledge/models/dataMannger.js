@@ -19,6 +19,7 @@ export default {
     searchV2: {doctor: "", name: "", xyjb: "", zfm: "", zhenzhuang: "", zyjb: "", zyzh: ""},
     temp: {},
     selectData: [],
+    yaShowData: '',
   },
   subscriptions: {
   },
@@ -57,7 +58,10 @@ export default {
     changeVisibleC (state, {payload}) {
       return {...state, visibleC: payload.visible}
     },
-
+    showYa (state, {payload}) {
+      console.log(payload.data);
+      return {...state, visibleC: payload.visible, yaShowData: payload.data}
+    },
     reset (state, {payload}) {
       return {...state, tableList: payload.tableList, searchV: payload.searchV}
     },
