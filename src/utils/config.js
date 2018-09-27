@@ -49,6 +49,6 @@ module.exports = {
     userSave: apiOnline + '/user/save',
     userDel: apiOnline + '/user/delete',
     // 统计报表
-    userDel: api_M + '/report/data',
+    report: api_M + '/report/data',
   }
 }

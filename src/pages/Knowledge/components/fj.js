@@ -5,18 +5,6 @@ import styles from '../index.css';
 
 const Option = Select.Option;
 
-const dataSource = [
-  {
-    key: '1',
-    name: '胡彦斌',
-    age: 32,
-    address: '西湖区湖底公园1号'
-  }, {
-    key: '2',
-    name: '胡彦祖',
-    age: 42,
-    address: '西湖区湖底公园1号'
-  }];
 const columns = [
   {
     title: '方剂名称',
@@ -60,7 +48,7 @@ const fj = ({loading, knowledge, dispatch}) => {
   }
 
   const reset = (e) => {
-    dispatch({type: 'knowledge/reset', payload: {searchV: {}, tableList: []}});
+    dispatch({type: 'knowledge/reset', payload: {searchV: { cfName: "", cfly: "", cfys: "", fjgx: "", fjzz: "", gytj: "", isYiAn: 0, name: "", zyzh: "", zyzz: "", zzxyjb: "", zzzyjb: ""}, tableList: []}});
   }
   const changeSeV = (data) => {
     let searchV = knowledge.searchV3;
@@ -164,7 +152,7 @@ const fj = ({loading, knowledge, dispatch}) => {
       <Button style={{marginLeft: '2px', float: 'right'}} type='primary' onClick={searchData}>查询</Button>
       <br/>
       <Divider/>
-      <Table dataSource={knowledge.tableList} columns={columns}/>
+      <Table dataSource={knowledge.tableList} columns={columns} rowKey="id"/>
 
       <Modal title="详情" visible={knowledge.visibleB} onOk={handleOk} onCancel={handleCancel}>
         <div>处方名称：</div>

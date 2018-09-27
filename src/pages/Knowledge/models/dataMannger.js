@@ -55,6 +55,7 @@ export default {
         let t = yield select(_=>_.knowledge);
         searchV = t.searchV3
       }
+      console.log(searchV);
       const {data}  = yield call(url, searchV);
       yield put({type: 'tableListChange', payload: data.rows});
     },
@@ -85,7 +86,7 @@ export default {
       return {...state, tableList: payload}
     },
     tableListClear (state, {payload}) {
-      return {...state, tableList: []}
+      return {...state, tableList: [], visibleA:false, visibleB:false, visibleC:false}
     },
     setTempData (state, {payload}) {
       return {...state, temp: payload.data}

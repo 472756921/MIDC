@@ -13,7 +13,7 @@ let dis = '';
 const columns = [
   {
     title: '病人姓名',
-    dataIndex: 'patient.name',
+    dataIndex: 'name',
     key: 'name',
   }, {
     title: '就诊次数',
@@ -21,15 +21,15 @@ const columns = [
     key: 'visitTimes',
   }, {
     title: '中医疾病',
-    dataIndex: 'diagnosisAndtreatment.zyjb',
+    dataIndex: 'diagnosisAndtreatment.zdyzl.zyjb',
     key: 'zyjb',
   }, {
     title: '西医疾病',
-    dataIndex: 'diagnosisAndtreatment.xyjb',
+    dataIndex: 'diagnosisAndtreatment.zdyzl.xyjb',
     key: 'xyjb',
   }, {
     title: '中医证候',
-    dataIndex: 'diagnosisAndtreatment.zyzh',
+    dataIndex: 'diagnosisAndtreatment.zdyzl.zyzh',
     key: 'zyzh',
   }, {
     title: '操作',
@@ -120,8 +120,8 @@ const ya = ({loading, knowledge, dispatch}) => {
 
       <Modal title="详情" visible={knowledge.visibleC} onOk={handleOk} onCancel={handleCancel} width={700}>
         {/*<Info/>*/}
-        <We info={knowledge.yaShowData.diagnosisOfWe}/>
         <Zh info={knowledge.yaShowData.diagnosisOfZh}/>
+        <We info={knowledge.yaShowData.diagnosisOfWe}/>
         <Zz info={knowledge.yaShowData.diagnosisAndtreatment}/>
         <Or info={knowledge.yaShowData.orther}/>
       </Modal>

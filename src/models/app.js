@@ -24,7 +24,7 @@ export default {
         yield put(routerRedux.push({
           pathname: '/login',
         }))
-      }  else if(!data.success) {
+      }  else if(data && data.success === false) {
         yield put(routerRedux.push({
           pathname: '/404',
         }))

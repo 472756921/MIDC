@@ -18,6 +18,9 @@ const winfo = ({info, imgShow}) => {
   }
   const d = Object.keys(info);
   let item = d.map((it, i)=>{
+    if(it === 'id') {
+      return ''
+    }
     return (
       <Col span={24} key={i}>
         <Divider orientation="left" style={{fontSize:'18px', marginTop:'20px', color:'#1890ff'}}>{m[it]}</Divider>
