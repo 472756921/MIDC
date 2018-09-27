@@ -24,6 +24,10 @@ export default {
         yield put(routerRedux.push({
           pathname: '/login',
         }))
+      }  else if(!data.success) {
+        yield put(routerRedux.push({
+          pathname: '/404',
+        }))
       } else {
         let utype = data.roleId===0?3:data.roleId===2?1:2;
         const m = meuns.filter((it) => {if(utype>=it.type){return it}else {return false}});

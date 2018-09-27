@@ -9,7 +9,7 @@ const TabPane = Tabs.TabPane;
 
 const index =  ({loading, knowledge, dispatch}) => {
   const changePage = () => {
-    dispatch({type:'tableListClear'})
+    dispatch({type:'knowledge/tableListClear'})
   }
   return (
     <div>

@@ -1,6 +1,6 @@
 /* global window */
 import {getSLData, cdList} from "../../systemMannger/service/systemMannger";
-import {searchData, searchData2} from '../service/index';
+import {searchData, searchData2, searchData3} from '../service/index';
 export default {
   namespace: 'knowledge',
   state: {
@@ -8,15 +8,22 @@ export default {
     visibleB: false,
     visibleC: false,
     tableList: [],
-    searchV: {
-      glzz: "",
-      jy: "",
-      name: "",
-      type: "",
-      xwgj: "",
-      xz: ""
-    },
+    searchV: { glzz: "", jy: "", name: "", type: "", xwgj: "", xz: "" },
     searchV2: {doctor: "", name: "", xyjb: "", zfm: "", zhenzhuang: "", zyjb: "", zyzh: ""},
+    searchV3: {
+      cfName: "",
+      cfly: "",
+      cfys: "",
+      fjgx: "",
+      fjzz: "",
+      gytj: "",
+      isYiAn: 0,
+      name: "",
+      zyzh: "",
+      zyzz: "",
+      zzxyjb: "",
+      zzzyjb: ""
+    },
     temp: {},
     selectData: [],
     yaShowData: '',
@@ -43,6 +50,10 @@ export default {
         url = searchData2;
         let t = yield select(_=>_.knowledge);
         searchV = t.searchV2
+      } else if(payload.type === 'fj'){
+        url = searchData3;
+        let t = yield select(_=>_.knowledge);
+        searchV = t.searchV3
       }
       const {data}  = yield call(url, searchV);
       yield put({type: 'tableListChange', payload: data.rows});
@@ -59,7 +70,6 @@ export default {
       return {...state, visibleC: payload.visible}
     },
     showYa (state, {payload}) {
-      console.log(payload.data);
       return {...state, visibleC: payload.visible, yaShowData: payload.data}
     },
     reset (state, {payload}) {

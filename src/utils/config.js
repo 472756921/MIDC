@@ -40,8 +40,10 @@ module.exports = {
     delData: apiOnline + '/datum/delete',
     //知识检索-药材查询
     searchData: apiOnline + '/knowledge/getListData',
-    //医案查询
+    //知识检索-医案查询
     searchData2: apiOnline + '/knowledge/getYiAnData',
+    //知识检索-方剂查询
+    searchData3: apiOnline + '/knowledge/getFjData',
     //用户管理
     userList: apiOnline + '/user/findAll',
     userSave: apiOnline + '/user/save',

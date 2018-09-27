@@ -22,7 +22,7 @@ const winfo = ({info, imgShow}) => {
       <Col span={24} key={i}>
         <Divider orientation="left" style={{fontSize:'18px', marginTop:'20px', color:'#1890ff'}}>{m[it]}</Divider>
         {
-          typeof info[it] === 'object'
+          typeof info[it] === 'object' && info[it] !== null
             ?
             <div>
               {

@@ -63,12 +63,12 @@ const fj = ({loading, knowledge, dispatch}) => {
     dispatch({type: 'knowledge/reset', payload: {searchV: {}, tableList: []}});
   }
   const changeSeV = (data) => {
-    let searchV = knowledge.searchV;
+    let searchV = knowledge.searchV3;
     searchV[data.target.title] = data.target.value;
     dispatch({type: 'knowledge/setSearchV', payload: {searchV: searchV}});
   }
   const changeSeVInSel = (data, type) => {
-    let searchV = knowledge.searchV;
+    let searchV = knowledge.searchV3;
     searchV[type] = data;
     dispatch({type: 'knowledge/setSearchV', payload: {searchV: searchV}});
   }

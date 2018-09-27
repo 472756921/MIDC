@@ -24,7 +24,7 @@ export default {
           pathname: '/InformationCollection',
         }))
       } else {
-        message.error(data.error);
+        message.error(data.error?data.error:'网络出现错误，请稍后再试');
       }
     },
   },

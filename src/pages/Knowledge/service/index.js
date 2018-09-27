@@ -12,3 +12,6 @@ export function searchData (data) {
 export function searchData2 (data) {
   return request(api.searchData2, {method: 'post', body: JSON.stringify(data), headers: JSONS});
 }
+export function searchData3 (data) {
+  return request(api.searchData3, {method: 'post', body: JSON.stringify(data), headers: JSONS});
+}

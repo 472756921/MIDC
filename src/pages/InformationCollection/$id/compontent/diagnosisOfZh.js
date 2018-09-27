@@ -55,7 +55,7 @@ const info = ({info, imgShow}) => {
         <Col span={24} key={i*10 + ii}>
           <Divider dashed orientation="left" style={{fontSize:'16px', color:'#265fa9'}}>{Ntemp[iit].name}</Divider>
           {
-            typeof fvalue[iit] === 'object'
+            typeof fvalue[iit] === 'object' && fvalue[iit] !== null
             ?
             <div>
               {

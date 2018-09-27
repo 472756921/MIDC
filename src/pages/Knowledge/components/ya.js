@@ -65,17 +65,6 @@ const ya = ({loading, knowledge, dispatch}) => {
     searchV[data.target.title] = data.target.value;
     dispatch({type: 'knowledge/setSearchV', payload: {searchV: searchV}});
   }
-  const changeSeVInSel = (data, type) => {
-    let searchV = knowledge.searchV;
-    searchV[type] = data;
-    dispatch({type: 'knowledge/setSearchV', payload: {searchV: searchV}});
-  }
-  const selectData = (data) => {
-    dispatch({type: 'knowledge/selectData', payload: {type: data}});
-  }
-  const selectDataByCd = (data) => {
-    dispatch({type: 'knowledge/selectDataByCd', payload: {sysType: data}});
-  }
   const searchData = () => {
     dispatch({type: 'knowledge/searchData', payload: {type: 'ya'}});
   }
@@ -129,12 +118,12 @@ const ya = ({loading, knowledge, dispatch}) => {
       <Divider/>
       <Table dataSource={knowledge.tableList} columns={columns}/>
 
-      <Modal title="详情" visible={knowledge.visibleC} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title="详情" visible={knowledge.visibleC} onOk={handleOk} onCancel={handleCancel} width={700}>
         {/*<Info/>*/}
         <We info={knowledge.yaShowData.diagnosisOfWe}/>
         <Zh info={knowledge.yaShowData.diagnosisOfZh}/>
         <Zz info={knowledge.yaShowData.diagnosisAndtreatment}/>
-        <Or info={knowledge.yaShowData.otherMessage}/>
+        <Or info={knowledge.yaShowData.orther}/>
       </Modal>
     </div>
   )
