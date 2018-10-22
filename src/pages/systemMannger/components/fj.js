@@ -19,7 +19,6 @@ const { TextArea } = Input;
 const Option = Select.Option;
 // cdm
 const fj = ({systemMannger, dispatch})=>{
-  const classes = systemMannger.lsitData.filter(_=>_.type < 2);
   const changeValue = (data) => {
     if(systemMannger.itemData !== '' && typeof data === "object") {
       systemMannger.itemData[data.target['title']] = data.target.value;

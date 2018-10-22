@@ -7,5 +7,5 @@ const JSONS = {'Content-type': 'application/json;charset=UTF-8'};
 //   return request(url, {method: 'get', headers: JSONS});
 // }
 export function searchData (data) {
-  return request(api.searchData, {method: 'post', body: JSON.stringify(data), headers: JSONS});
+  return request(api.searchData3, {method: 'post', body: JSON.stringify(data), headers: JSONS});
 }

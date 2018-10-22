@@ -12,16 +12,16 @@ const columns = [
     key: 'name',
   }, {
     title: '主治疾病',
-    dataIndex: 'zzjb',
-    key: 'zzjb',
+    dataIndex: 'zzzyjb',
+    key: 'zzzyjb',
   }, {
     title: '适宜症候',
     dataIndex: 'syzh',
     key: 'syzh',
   }, {
     title: '方剂组成',
-    dataIndex: 'fjzc',
-    key: 'fjzc',
+    dataIndex: 'cf',
+    key: 'cf',
   }, {
     title: '操作',
     key: 'action',
@@ -48,7 +48,7 @@ const fj = ({loading, knowledge, dispatch}) => {
   }
 
   const reset = (e) => {
-    dispatch({type: 'knowledge/reset', payload: {searchV: { cfName: "", cfly: "", cfys: "", fjgx: "", fjzz: "", gytj: "", isYiAn: 0, name: "", zyzh: "", zyzz: "", zzxyjb: "", zzzyjb: ""}, tableList: []}});
+    dispatch({type: 'knowledge/reset', payload: {searchV: { lyya: "", cfName: "", cfly: "", cfys: "", fjgx: "", fjzz: "", gytj: "", name: "", zyzh: "", zyzz: "", zzxyjb: "", zzzyjb: ""}, tableList: []}});
   }
   const changeSeV = (data) => {
     let searchV = knowledge.searchV3;
@@ -145,6 +145,7 @@ const fj = ({loading, knowledge, dispatch}) => {
           >
             <Option value="1">是</Option>
             <Option value="0">否</Option>
+            <Option value="">全部</Option>
           </Select>
         </Col>
       </Row>

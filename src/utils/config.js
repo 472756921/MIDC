@@ -1,5 +1,5 @@
 const api_M = '/apiM'
-const serviceIP = 'http://192.168.0.104:8088'  //测试
+const serviceIP = 'http://192.168.0.108:8088'  //测试
 // const serviceIP = 'http://116.62.201.135'  //生产
 const apiOnline = serviceIP + '/apiM'
 

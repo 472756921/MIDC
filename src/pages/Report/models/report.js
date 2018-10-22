@@ -26,7 +26,7 @@ export default {
       const {searchV} = yield select(_=>_.report);
       payload = Object.assign(payload, searchV);
       const {data}  = yield call(searchData, payload);
-      yield put({type: 'tableListChange', payload: data});
+      yield put({type: 'tableListChange', payload: data.rows});
     },
   },
   reducers: {

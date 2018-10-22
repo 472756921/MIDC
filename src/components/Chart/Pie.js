@@ -32,7 +32,7 @@ export default class App extends React.Component {
         <Tooltip showTitle={false} />
         <Coord type="theta" />
         <Axis />
-        <Legend dataKey="item" />
+        <Legend dataKey="item" offsetY={24}/>
         <Pie
           position="percent"
           color="item"

@@ -62,10 +62,16 @@ export default {
         if(!payload.sysType) {
           payload.sysType = 'cdd';
         }
-        const {data = []}  = yield call(cdList, {sysType: payload.sysType});
+        let {data = []}  = yield call(cdList, {sysType: payload.sysType});
+        if(data && data.success === false) {
+          data = [];
+        }
         yield put({type: 'setData', payload: {data, type:payload.type}});
       } else {
-        const {data = []}  = yield call(getSLData, payload);
+        let {data = []}  = yield call(getSLData, payload);
+        if(data && data.success === false) {
+          data = [];
+        }
         yield put({type: 'setData', payload: {data, type:payload.type}});
       }
     },

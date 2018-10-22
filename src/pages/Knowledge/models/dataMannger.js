@@ -8,7 +8,7 @@ export default {
     visibleB: false,
     visibleC: false,
     tableList: [],
-    searchV: { glzz: "", jy: "", name: "", type: "", xwgj: "", xz: "" },
+    searchV: { glzz: "", jy: "", name: "", type: "", xwgj: "", xz: "", lyya: "" },
     searchV2: {doctor: "", name: "", xyjb: "", zfm: "", zhenzhuang: "", zyjb: "", zyzh: ""},
     searchV3: {
       cfName: "",
@@ -17,8 +17,8 @@ export default {
       fjgx: "",
       fjzz: "",
       gytj: "",
-      isYiAn: 0,
       name: "",
+      lyya: "",
       zyzh: "",
       zyzz: "",
       zzxyjb: "",
