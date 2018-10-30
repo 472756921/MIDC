@@ -315,18 +315,15 @@ const fj = ({systemMannger, dispatch})=>{
             return (
               <Col span={24} style={{margin: '6px 0'}} key={i}>
                 <Col span={6}>
-                  <Select style={{ width: 150 }} showSearch className='midName' value={it.name} onSelect={(value)=>changeCf(i,value, 'name')} >
-                    <Option value="丹参">丹参</Option>
-                    <Option value="西红花">西红花</Option>
-                    <Option value="玉米须">玉米须</Option>
-                    <Option value="木棉花">木棉花</Option>
-                    <Option value="合欢花">合欢花</Option>
-                    <Option value="木槿花">木槿花</Option>
-                    <Option value="盘龙参">盘龙参</Option>
-                    <Option value="颠茄草">颠茄草</Option>
-                    <Option value="醉鱼草">醉鱼草</Option>
-                    <Option value="蒲公英">蒲公英</Option>
-                    <Option value="蔊菜">蔊菜</Option>
+                  <Select style={{ width: 150 }} showSearch className='midName' value={it.name}  onFocus={()=>selectData('zy')} onSelect={(value)=>changeCf(i,value, 'name')} >
+                    {
+                      systemMannger.selectData.map((it, i) => {
+                        if(it.isMenu){
+                        } else {
+                          return (<Option key={i} value={it.name}>{it.name}</Option>)
+                        }
+                      })
+                    }
                   </Select>
                 </Col>
                 <Col span={6}>
@@ -334,21 +331,27 @@ const fj = ({systemMannger, dispatch})=>{
                          onChange ={(value)=>changeCf(i, value, 'yl')}/> g
                 </Col>
                 <Col span={6}>
-                  <Select style={{ width: 100 }} className='midOption' value={it.zy}  onSelect={(value)=>changeCf(i,value, 'zy')} >
-                    <Option value="君">君</Option>
-                    <Option value="臣">臣</Option>
-                    <Option value="佐">佐</Option>
-                    <Option value="使">使</Option>
-                    <Option value="其他">其他</Option>
+                  <Select style={{ width: 100 }} className='midOption' value={it.zy} onFocus={()=>selectDataByCd('zyzz')}  onSelect={(value)=>changeCf(i,value, 'zy')} >
+                    {
+                      systemMannger.selectData.map((it, i) => {
+                        if(it.isMenu){
+                        } else {
+                          return (<Option key={i} value={it.name}>{it.name}</Option>)
+                        }
+                      })
+                    }
                   </Select>
                 </Col>
                 <Col span={4}>
-                  <Select style={{ width: 100 }} value={it.yf} className='midType' onSelect={(value)=>changeCf(i,value, 'yf')}>
-                    <Option value="先煎">先煎</Option>
-                    <Option value="后下">后下</Option>
-                    <Option value="包煎">包煎</Option>
-                    <Option value="捣碎">捣碎</Option>
-                    <Option value="烊化">烊化</Option>
+                  <Select style={{ width: 100 }} value={it.yf} className='midType' onFocus={()=>selectDataByCd('zyyf')} onSelect={(value)=>changeCf(i,value, 'yf')}>
+                    {
+                      systemMannger.selectData.map((it, i) => {
+                        if(it.isMenu){
+                        } else {
+                          return (<Option key={i} value={it.name}>{it.name}</Option>)
+                        }
+                      })
+                    }
                   </Select>
                 </Col>
                 <Col span={2}>

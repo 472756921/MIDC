@@ -1,6 +1,6 @@
 /* global window */
 import {getSLData, cdList} from "../../systemMannger/service/systemMannger";
-import {searchData} from '../service/report';
+import {searchData, queryCount} from '../service/report';
 export default {
   namespace: 'report',
   state: {
@@ -10,6 +10,7 @@ export default {
     temp: {},
     selectData: [],
     charType: '',
+    charData: '',
   },
   subscriptions: {
   },
@@ -21,6 +22,15 @@ export default {
     *selectDataByCd({payload}, {call, put, select}) {
       const {data}  = yield call(cdList, payload);
       yield put({type: 'setSelectValue', payload: data});
+    },
+    *queryCount({payload}, {call, put, select}) {
+      const {searchV} = yield select(_=>_.report);
+      const typesList = ['zh','pc','gj','sq','ww'];
+      const type = typesList.indexOf(payload.type);
+      const {data}  = yield call(queryCount, searchV, type);
+      yield put({type: 'setChartData', payload: data});
+      yield put({type: 'setCharType', payload: {charType: payload.charType, dataType: type}});
+      yield put({type: 'changeVisibleA', payload: {visible: true}});
     },
     *searchData({payload}, {call, put, select}) {
       const {searchV} = yield select(_=>_.report);
@@ -50,6 +60,9 @@ export default {
     },
     setCharType (state, {payload}) {
       return {...state, charType: payload.charType}
+    },
+    setChartData (state, {payload}) {
+      return {...state, charData: payload}
     },
   },
 }

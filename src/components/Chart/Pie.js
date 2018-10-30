@@ -3,11 +3,11 @@ import * as React from 'react';
 const DataSet = require('@antv/data-set');
 
 const sourceData = [
-  { item: '事例一', count: 40 },
-  { item: '事例二', count: 21 },
-  { item: '事例三', count: 17 },
-  { item: '事例四', count: 13 },
-  { item: '事例五', count: 9 }
+  { name: '事例一', count: 40 },
+  { name: '事例二', count: 21 },
+  { name: '事例三', count: 17 },
+  { name: '事例四', count: 13 },
+  { name: '事例五', count: 9 }
 ];
 
 const scale = [{
@@ -16,30 +16,38 @@ const scale = [{
   formatter: '.0%',
 }];
 
-const dv = new DataSet.View().source(sourceData);
-dv.transform({
-  type: 'percent',
-  field: 'count',
-  dimension: 'item',
-  as: 'percent'
-});
-const data = dv.rows;
 
 export default class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      data:props.data
+    }
+  }
+
   render() {
+    const dv = new DataSet.View().source(this.state.data);
+    dv.transform({
+      type: 'percent',
+      field: 'count',
+      dimension: 'name',
+      as: 'percent'
+    });
+    const data = dv.rows;
     return (
       <Chart forceFit height={400} data={data} scale={scale}>
         <Tooltip showTitle={false} />
         <Coord type="theta" />
         <Axis />
-        <Legend dataKey="item" offsetY={24}/>
+        <Legend dataKey="name" />
         <Pie
           position="percent"
-          color="item"
+          color="name"
+          offset={130}
           style={{ stroke: '#fff', lineWidth: 1 }}
           label={['percent', {
             formatter: (val, item) => {
-              return item.point.item + ': ' + val;
+              return item.point.name + ': ' + val;
             }
           }]}
         />

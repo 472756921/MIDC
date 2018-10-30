@@ -62,8 +62,7 @@ const fj = ({loading, report, dispatch}) => {
     dispatch({type: 'report/searchData', payload: {type: 'fj'}});
   }
   const showChat = (charType, type) => {
-    dis({type: 'report/changeVisibleA', payload: {visible: true}})
-    dis({type: 'report/setCharType', payload: {charType: charType, dataType: type}})
+    dis({type: 'report/queryCount', payload:{type:type, charType:charType} })
   }
 
   return (
@@ -85,7 +84,7 @@ const fj = ({loading, report, dispatch}) => {
           中医疾病：<Input style={{width: '200px'}} title='zyjb' value={report.searchV.zyjb} onChange={changeSeV}/>
         </Col>
         <Col xl={8} xxl={4} style={{marginBottom: '5px'}}>
-          西医疾病：<Input style={{width: '200px'}} title='xyjb' value={report.searchV.xjyb} onChange={changeSeV}/>
+          西医疾病：<Input style={{width: '200px'}} title='xyjb' value={report.searchV.xyjb} onChange={changeSeV}/>
         </Col>
         <Col xl={8} xxl={4} style={{marginBottom: '5px'}}>
           中医证候：<Input style={{width: '200px'}} title='zyzh' value={report.searchV.zyzh} onChange={changeSeV}/>
@@ -162,7 +161,7 @@ const fj = ({loading, report, dispatch}) => {
       <Modal width={1000} title="详情" visible={report.visibleA} onOk={handleOk} onCancel={handleCancel}>
         {
           report.visibleA?
-          report.charType === 'h'?<Chart_H/>:<Chart_P/>:''
+          report.charType === 'h'?<Chart_H {...report.charData}/>:<Chart_P {...report.charData}/>:''
         }
       </Modal>
     </div>

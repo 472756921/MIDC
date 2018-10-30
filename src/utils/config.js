@@ -49,6 +49,6 @@ module.exports = {
     userSave: apiOnline + '/user/save',
     userDel: apiOnline + '/user/delete',
     // 统计报表
-    report: api_M + '/report/data',
+    reportChart: apiOnline + '/count/getFjData',
   }
 }
