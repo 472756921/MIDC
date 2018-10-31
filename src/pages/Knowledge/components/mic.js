@@ -17,21 +17,21 @@ const columns = [
     title: '性味归经',
     key: 'xwgj',
     render: (text, record) => {
-      const regA = /\[(.+?)\]/g;
-      const regB = /\[(.+?)\]/g;
-      const regC = /\[(.+?)\]/g;
-      let sq='', ww='', gj='';
-      if(text.sq){
-        sq = regA.exec(text.sq)[1];
-      }
-      if(text.gj){
-        gj = regB.exec(text.gj)[1];
-      }
-      if(text.ww){
-        ww = regC.exec(text.ww)[1];
-      }
+      // const regA = /\[(.+?)\]/g;
+      // const regB = /\[(.+?)\]/g;
+      // const regC = /\[(.+?)\]/g;
+      // let sq='', ww='', gj='';
+      // if(text.sq){
+      //   sq = regA.exec(text.sq)[1];
+      // }
+      // if(text.gj){
+      //   gj = regB.exec(text.gj)[1];
+      // }
+      // if(text.ww){
+      //   ww = regC.exec(text.ww)[1];
+      // }
       return(
-        <span> {sq} {ww} {gj} </span>
+        <span> {text.sq} {text.ww} {text.gj} </span>
       )
     },
   }, {
@@ -136,14 +136,14 @@ const mic = ({loading, knowledge, dispatch}) => {
       <Modal title="详情" visible={knowledge.visibleA} onOk={handleOk} onCancel={handleCancel}>
         <div>中文名：&emsp;{knowledge.temp.name}</div>
         <div>药材类别：{knowledge.temp.gxlx}</div>
-        <div>英文名称：{knowledge.temp.ename}</div>
-        <div>拉丁名称：{knowledge.temp.lname}</div>
-        <div>别名：&emsp;&emsp;{knowledge.temp.bname}</div>
+        <div>英文名称：{knowledge.temp.ywmc}</div>
+        <div>拉丁名称：{knowledge.temp.ldmc}</div>
+        <div>别名：&emsp;&emsp;{knowledge.temp.bm}</div>
         <div>基源：&emsp;&emsp;{knowledge.temp.jy}</div>
         <div>功能主治：</div>
         <div className={styles.detail}>{knowledge.temp.glzz}</div>
         <div>性味归经：</div>
-        <div className={styles.detail}>{knowledge.temp.xwgj}</div>
+        <div className={styles.detail}>{knowledge.temp.sq}{knowledge.temp.ww}{knowledge.temp.gj}</div>
         <div>性状：</div>
         <div className={styles.detail}>{knowledge.temp.xz}</div>
         <div>来源：</div>
