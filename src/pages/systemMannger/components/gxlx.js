@@ -17,6 +17,8 @@ const gxlx = ({systemMannger, dispatch})=>{
       systemMannger.itemData[data.target['title']] = data.target.value;
     } else if(typeof data === "number") {
       systemMannger.itemData.fClass = data;
+    } else {
+      message.warning('请选择需要修改或添加的节点');
     }
     dispatch({type:'systemMannger/changeItemData', itemData:systemMannger.itemData})
   }

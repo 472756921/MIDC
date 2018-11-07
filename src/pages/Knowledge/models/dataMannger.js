@@ -1,5 +1,5 @@
 /* global window */
-import {getSLData, cdList} from "../../systemMannger/service/systemMannger";
+import {getSLData, cdList, getCF} from "../../systemMannger/service/systemMannger";
 import {searchData, searchData2, searchData3} from '../service/index';
 export default {
   namespace: 'knowledge',
@@ -7,11 +7,11 @@ export default {
     visibleA: false,
     visibleB: false,
     visibleC: false,
+    cfData: [],
     tableList: [],
     searchV: { glzz: "", jy: "", name: "", type: "", xwgj: "", xz: "", lyya: "" },
     searchV2: {doctor: "", name: "", xyjb: "", zfm: "", zhenzhuang: "", zyjb: "", zyzh: ""},
     searchV3: {
-      cfName: "",
       cfly: "",
       cfys: "",
       fjgx: "",
@@ -19,6 +19,7 @@ export default {
       gytj: "",
       name: "",
       lyya: "",
+      xjyb: "",
       zyzh: "",
       zyzz: "",
       zzxyjb: "",
@@ -39,6 +40,10 @@ export default {
       const {data}  = yield call(cdList, payload);
       yield put({type: 'setSelectValue', payload: data});
     },
+    *getCF({payload}, {call, put, select}) {
+      const {data}  = yield call(getCF, payload);
+      yield put({type: 'SetcfData', payload: data});
+    },
     *searchData({payload}, {call, put, select}) {
       let searchV = '';
       let url = searchData;
@@ -55,12 +60,14 @@ export default {
         let t = yield select(_=>_.knowledge);
         searchV = t.searchV3
       }
-      console.log(searchV);
       const {data}  = yield call(url, searchV);
       yield put({type: 'tableListChange', payload: data.rows});
     },
   },
   reducers: {
+    SetcfData (state, {payload}) {
+      return {...state, cfData: payload}
+    },
     changeVisibleA (state, {payload}) {
       return {...state, visibleA: payload.visible}
     },
@@ -74,10 +81,11 @@ export default {
       return {...state, visibleC: payload.visible, yaShowData: payload.data}
     },
     reset (state, {payload}) {
-      return {...state, tableList: payload.tableList, searchV: payload.searchV}
+      return {...state, ...payload}
     },
     setSearchV (state, {payload}) {
-      return {...state, searchV: payload.searchV}
+      console.log(payload);
+      return {...state, ...payload}
     },
     setSelectValue (state, {payload}) {
       return {...state, selectData: payload}

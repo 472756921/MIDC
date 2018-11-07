@@ -10,13 +10,13 @@ export default {
     visible: false,
     visibleDown: false,
     tempData: '',
-    listData: '',
+    listData: [],
   },
   subscriptions: {
     setUp({dispatch, history}) {
       history.listen((location) => {
         if(location.pathname === '/dataMannger'){
-          dispatch({type: 'getData', payload:{pageSize:30, page: 1, title: '', key: ''}});
+          dispatch({type: 'getData', payload:{title: '', key: ''}});
         }
       })
     }
@@ -24,7 +24,7 @@ export default {
   effects: {
     *getData({payload}, {call, put, select}) {
       const {data} = yield call(query, payload);
-      yield put({type:'setlist', payload:data.data});
+      yield put({type:'setlist', payload:data.rows});
     },
     *save({payload}, {call, put, select}) {
       const {imgList, change} = getList();
@@ -72,7 +72,7 @@ export default {
     },
     *search({payload}, {call, put}) {
       const {data} = yield call(query, payload);
-      yield put({type:'setlist', payload:data.data});
+      yield put({type:'setlist', payload:data.rows});
     },
   },
   reducers: {

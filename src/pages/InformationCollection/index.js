@@ -107,7 +107,7 @@ const IC = ({loading, informationCollection, dispatch}) => {
         </Col>
       </Row>
       <br/>
-      <Table columns={columns} dataSource={informationCollection.listData.content} loading={loading.models.informationCollection} pagination={{'total': informationCollection.listData.totalElements, 'pageSize': 30}} onChange={chage}/>
+      <Table columns={columns} dataSource={informationCollection.listData.content} loading={loading.models.informationCollection} pagination={{'total': informationCollection.listData.totalElements, 'pageSize': 30}} onChange={chage} rowKey={record => record.id} />
 
       <Modal width={800} title="患者信息" visible={informationCollection.visible} onOk={()=>{handleOk()}} onCancel={()=>{modalControl(false)}}>
         <Row gutter={16}>
@@ -146,7 +146,7 @@ const IC = ({loading, informationCollection, dispatch}) => {
           <Col span={6}><Input placeholder="国籍" className='info_data' data-name={'citizenship'}/></Col>
           <Col span={6}><Input placeholder="职业" className='info_data' data-name={'profession'}/></Col>
           <Col span={6}><Input placeholder="民族" className='info_data' data-name={'ethnic'}/></Col>
-          <Col span={6}><Input placeholder="体重" className='info_data' data-name={'weight'}/></Col>
+          <Col span={6}><Input placeholder="体重(KG)" className='info_data' data-name={'weight'}/></Col>
           <br/>
           <br/>
         </Row>

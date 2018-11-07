@@ -120,7 +120,7 @@ const ya = ({systemMannger, dispatch, loading}) => {
       <Button type='primary' onClick={search}>查询</Button>
       <br/>
       <br/>
-      <Table dataSource={systemMannger.tableItem} columns={columns} />
+      <Table rowKey={record => record.id} dataSource={systemMannger.tableItem} columns={columns} />
       <Modal title="病人管理" visible={systemMannger.modelShow} onOk={handleOk} onCancel={handleCancel} width='800px'>
         <div><div className={styles.contentBu}>姓名：</div><Input title='name' className='ya'/></div>
         <div>

@@ -9,7 +9,7 @@ import {isType} from "../../../utils";
 const { TextArea } = Input;
 const Option = Select.Option;
 
-// wdm   未完成
+// wdm
 const zy = ({systemMannger, dispatch})=>{
 
   const changeValue = (data) => {
@@ -17,6 +17,8 @@ const zy = ({systemMannger, dispatch})=>{
       systemMannger.itemData[data.target['title']] = data.target.value;
     } else if(typeof data === "number") {
       systemMannger.itemData.fClass = data;
+    } else {
+      message.warning('请选择需要修改或添加的节点');
     }
     dispatch({type:'systemMannger/changeItemData', itemData:systemMannger.itemData})
   }
@@ -250,10 +252,10 @@ const zy = ({systemMannger, dispatch})=>{
           {/*<div>功能分类：</div>*/}
           {/*<Input value={systemMannger.itemData.glfl} title='glfl' onChange={changeValue} />*/}
         {/*</Col>*/}
-        <Col xl={12} xxl={8} style={{marginBottom: '14px'}}>
-          <div>图片：</div>
-          <Input value={systemMannger.itemData.tp} title='tp' onChange={changeValue} />
-        </Col>
+        {/*<Col xl={12} xxl={8} style={{marginBottom: '14px'}}>*/}
+          {/*<div>图片：</div>*/}
+          {/*<Input value={systemMannger.itemData.tp} title='tp' onChange={changeValue} />*/}
+        {/*</Col>*/}
         <Col xl={12} xxl={8} style={{marginBottom: '14px'}}>
           <div>备注：</div>
           <TextArea rows={3} value={systemMannger.itemData.bz} title='bz' onChange={changeValue} />

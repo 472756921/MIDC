@@ -39,7 +39,15 @@ const index =  ({loading, dataMannger, dispatch}) => {
     Confirm('确认删除','删除后将无法恢复 '+text.name, delItem);
   }
   const showMore = (data) => {
+    data.attach = data.attach.map((it, i) => {
+      it.key = it.id;
+      it.uid = it.id;
+      it.name = it.fileName;
+      it.url = it.filePath;
+      return it
+    })
     let d = JSON.stringify(data);
+    console.log(d);
     dispatch({type:'dataMannger/settempData', payload:JSON.parse(d)});
     dispatch({type:'dataMannger/visible', payload:{visible: true}});
   }
@@ -56,10 +64,6 @@ const index =  ({loading, dataMannger, dispatch}) => {
     dispatch({type:'dataMannger/settempData', payload:{name:'', keyName: '', attach: []}});
     dispatch({type:'dataMannger/visible', payload:{visible: true}});
   }
-  const changePage = (p, f, s) => {
-    dispatch({type: 'dataMannger/getData', payload:{ page: p.current, pageSize: 30 }});
-  }
-
   const down = (data) => {
     dispatch({type:'dataMannger/settempData', payload:data});
     dispatch({type:'dataMannger/visibleDown', payload:{visibleDown: true}});
@@ -87,7 +91,7 @@ const index =  ({loading, dataMannger, dispatch}) => {
       </div>
       <br/>
       <br/>
-      <Table dataSource={dataMannger.listData.content} columns={columns} pagination={{'total': dataMannger.listData.totalElements, 'pageSize': 30}} onChange={changePage}  loading={loading.models.dataMannger} />
+      <Table rowKey={record => record.id} dataSource={dataMannger.listData} columns={columns} loading={loading.models.dataMannger} />
 
       <Modal title="详情" visible={dataMannger.visible} onOk={handleOk} onCancel={handleCancel}>
         标题：<Input placeholder="输入标题" style={{width: '300px'}} value={dataMannger.tempData.name} onChange={(value)=>changeTemp(value, 'name')}/>
@@ -103,7 +107,7 @@ const index =  ({loading, dataMannger, dispatch}) => {
         {
           (dataMannger.tempData.attach && dataMannger.tempData.attach.length !== 0)?dataMannger.tempData.attach.map((it, i) => {
           return (
-            <div key={i} title='点击下载' style={{cursor:'pointer', color: '#1890ff'}} onClick={()=>downloadFile(it.name, it.url)}>{it.name}</div>
+            <div key={i} title='点击下载' style={{cursor:'pointer', color: '#1890ff'}} onClick={()=>downloadFile(it.fileName, it.filePath)}>{it.fileName}</div>
           )
         }):'暂无附件'
       }

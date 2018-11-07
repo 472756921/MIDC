@@ -21,13 +21,13 @@ module.exports = {
       icon: 'search',
       route: '/knowledge',
     },
-    {
-      id: '4',
-      name: '数据分析',
-      type: 2,
-      icon: 'database',
-      route: '/data',
-    },
+    // {
+    //   id: '4',
+    //   name: '数据分析',
+    //   type: 2,
+    //   icon: 'database',
+    //   route: '/data',
+    // },
     {
       id: '5',
       name: '统计报表',

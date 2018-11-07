@@ -81,7 +81,7 @@ const fj = ({loading, user, dispatch}) => {
       <Button type="primary" onClick={newUser}>新建用户</Button>
       <br/>
       <br/>
-      <Table dataSource={user.tableList} columns={columns} loading={loading.models.user}/>
+      <Table rowKey={record => record.id} dataSource={user.tableList} columns={columns} loading={loading.models.user}/>
 
       <Modal title="详情" visible={user.visibleA} onOk={handleOk} onCancel={handleCancel}>
         <div>账号名：<Input value={user.tempData.account} disabled={user.tempData.type==='edit'} onChange={(value) => changes(value,'account')}/></div>

@@ -1,20 +1,28 @@
 /* global window */
 import {getSLData, cdList} from "../../systemMannger/service/systemMannger";
+import {getCF} from '../../systemMannger/service/systemMannger';
 import {searchData, queryCount} from '../service/report';
+import {message} from 'antD';
 export default {
   namespace: 'report',
   state: {
     visibleA: false,
+    visibleB: false,
     tableList: [],
     searchV: {},
     temp: {},
     selectData: [],
     charType: '',
     charData: '',
+    cfData: [],
   },
   subscriptions: {
   },
   effects: {
+    *getCF({payload}, {call, put, select}) {
+      const {data}  = yield call(getCF, payload);
+      yield put({type: 'setcfData', payload: data});
+    },
     *selectData({payload}, {call, put, select}) {
       const {data}  = yield call(getSLData, payload);
       yield put({type: 'setSelectValue', payload: data});
@@ -28,9 +36,13 @@ export default {
       const typesList = ['zh','pc','gj','sq','ww'];
       const type = typesList.indexOf(payload.type);
       const {data}  = yield call(queryCount, searchV, type);
-      yield put({type: 'setChartData', payload: data});
-      yield put({type: 'setCharType', payload: {charType: payload.charType, dataType: type}});
-      yield put({type: 'changeVisibleA', payload: {visible: true}});
+      if(data.success) {
+        yield put({type: 'setChartData', payload: data});
+        yield put({type: 'setCharType', payload: {charType: payload.charType, dataType: type}});
+        yield put({type: 'changeVisibleA', payload: {visible: true}});
+      } else {
+        message.error('暂未查询到相关记录，请稍后再试')
+      }
     },
     *searchData({payload}, {call, put, select}) {
       const {searchV} = yield select(_=>_.report);
@@ -63,6 +75,12 @@ export default {
     },
     setChartData (state, {payload}) {
       return {...state, charData: payload}
+    },
+    setcfData (state, {payload}) {
+      return {...state, cfData: payload, visibleB: true}
+    },
+    closevisibleB (state) {
+      return {...state, visibleB: false}
     },
   },
 }

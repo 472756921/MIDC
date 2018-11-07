@@ -19,7 +19,7 @@ const info = ({info}) => {
         <div>婚况：{info.marriage===0?'未婚':info.marriage===1?'已婚':'未知'}</div>
       </Col>
       <Col span={4}>
-        <div>就诊次数：{info.visitTimes}次</div>
+        <div>就诊次数：{info.time}次</div>
       </Col>
       <Col span={4}>
         <div>职业：{info.profession}</div>

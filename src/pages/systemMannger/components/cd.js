@@ -80,7 +80,7 @@ const cd = ({systemMannger_cd, dispatch}) => {
       <br/>
       <br/>
 
-      <Table dataSource={systemMannger_cd.tableItem} columns={columns} />
+      <Table rowKey={record => record.id} dataSource={systemMannger_cd.tableItem} columns={columns} />
 
       <Modal title="添加/修改" visible={systemMannger_cd.modelShow} onOk={handleOk} onCancel={handleCancel}>
         <div><div className={styles.contentBu}>名称：</div><Input  className='cd' title='name'/></div>

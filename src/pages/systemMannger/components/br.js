@@ -118,7 +118,7 @@ const br = ({systemMannger, dispatch}) => {
       <Button type='primary' onClick={search}>查询</Button>
       <br/>
       <br/>
-      <Table dataSource={systemMannger.tableItem} columns={columns} pagination={{'total': systemMannger.totalElements, 'pageSize': 30}} onChange={chage}/>
+      <Table rowKey={record => record.id} dataSource={systemMannger.tableItem} columns={columns} pagination={{'total': systemMannger.totalElements, 'pageSize': 30}} onChange={chage}/>
 
       <Modal title="病人管理" visible={systemMannger.modelShow} onOk={handleOk} onCancel={handleCancel}>
         <div><div className={styles.contentBu}>姓名：</div><Input title='name' className='br'/></div>

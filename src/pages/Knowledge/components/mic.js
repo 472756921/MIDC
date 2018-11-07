@@ -131,11 +131,11 @@ const mic = ({loading, knowledge, dispatch}) => {
       <Button style={{marginLeft: '2px', float: 'right'}} type='primary' onClick={searchData}>查询</Button>
       <br/>
       <Divider/>
-      <Table dataSource={knowledge.tableList} columns={columns}/>
+      <Table rowKey={record => record.id} dataSource={knowledge.tableList} columns={columns} rowKey={record => record.id}/>
 
       <Modal title="详情" visible={knowledge.visibleA} onOk={handleOk} onCancel={handleCancel}>
         <div>中文名：&emsp;{knowledge.temp.name}</div>
-        <div>药材类别：{knowledge.temp.gxlx}</div>
+        {/*<div>药材类别：{knowledge.temp.gxlx}</div>*/}
         <div>英文名称：{knowledge.temp.ywmc}</div>
         <div>拉丁名称：{knowledge.temp.ldmc}</div>
         <div>别名：&emsp;&emsp;{knowledge.temp.bm}</div>
@@ -146,8 +146,8 @@ const mic = ({loading, knowledge, dispatch}) => {
         <div className={styles.detail}>{knowledge.temp.sq}{knowledge.temp.ww}{knowledge.temp.gj}</div>
         <div>性状：</div>
         <div className={styles.detail}>{knowledge.temp.xz}</div>
-        <div>来源：</div>
-        <div className={styles.detail}>{knowledge.temp.ly}</div>
+        {/*<div>来源：</div>*/}
+        {/*<div className={styles.detail}>{knowledge.temp.ly}</div>*/}
         <div>药用部位：</div>
         <div className={styles.detail}>{knowledge.temp.yybw}</div>
         <div>用法用量：</div>

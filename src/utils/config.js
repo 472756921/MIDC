@@ -1,6 +1,6 @@
 const api_M = '/apiM'
-const serviceIP = 'http://192.168.0.108:8088'  //测试
-// const serviceIP = 'http://116.62.201.135'  //生产
+// const serviceIP = 'http://192.168.0.108:8088'  //测试
+const serviceIP = 'http://116.62.201.135'  //生产
 const apiOnline = serviceIP + '/apiM'
 
 module.exports = {
@@ -44,6 +44,7 @@ module.exports = {
     searchData2: apiOnline + '/knowledge/getYiAnData',
     //知识检索-方剂查询
     searchData3: apiOnline + '/knowledge/getFjData',
+    getCF: apiOnline + '/knowledge/getCF',
     //用户管理
     userList: apiOnline + '/user/findAll',
     userSave: apiOnline + '/user/save',

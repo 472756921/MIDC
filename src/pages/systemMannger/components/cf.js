@@ -11,7 +11,7 @@ const columns = [
   title: '化合物名称',
   dataIndex: 'name',
   key: 'name',
-  width: 120,
+  width: 300,
 }, {
   title: '来源',
   dataIndex: 'come',
@@ -95,7 +95,7 @@ const cf = ({systemMannger, dispatch}) => {
       </Select>
       <br/>
       <br/>
-      <Table dataSource={systemMannger.tableItem} columns={columns} />
+      <Table dataSource={systemMannger.tableItem} columns={columns} rowKey={record => record.id} />
 
       <Modal title="成分管理" visible={systemMannger.modelShow} onOk={handleOk} onCancel={handleCancel}>
         <div><div className={styles.contentBu}>化合物名称：</div><Input title='name' className='cf'/></div>

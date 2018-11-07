@@ -66,7 +66,7 @@ const ICD = ({loading, Idetail, dispatch}) => {
       <Row gutter={16}>
         <Col xxl={{span:8}}>
           <Divider orientation="left">就诊历史</Divider>
-          <Table columns={columns} dataSource={Idetail.patient.historyData.data} pagination={{size: 'small'}}  loading={loading.models.Idetail} />
+          <Table rowKey={record => record.id} columns={columns} dataSource={Idetail.patient.historyData.data} pagination={{size: 'small'}}  loading={loading.models.Idetail} />
         </Col>
         <Col xxl={{span:16}}>
           <Divider orientation="left">就诊详情</Divider>

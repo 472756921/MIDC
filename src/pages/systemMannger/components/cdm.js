@@ -23,6 +23,8 @@ const cdm = ({systemMannger, dispatch})=>{
       }
     } else if(systemMannger.itemData !== '' && typeof data === "number") {
       systemMannger.itemData.fClass = data;
+    } else {
+      message.warning('请选择需要修改或添加的节点');
     }
     dispatch({type:'systemMannger/changeItemData', itemData:systemMannger.itemData});
   }

@@ -28,6 +28,8 @@ const fj = ({systemMannger, dispatch})=>{
       } catch (e) {
         message.warning('当前无选中对象');
       }
+    } else {
+      message.warning('请选择需要修改或添加的节点');
     }
     dispatch({type:'systemMannger/changeItemData', itemData:systemMannger.itemData});
   }
@@ -165,7 +167,7 @@ const fj = ({systemMannger, dispatch})=>{
         <Col xl={12} xxl={8} style={{marginBottom: '10px'}}>
           <div>类别：<span className={styles.redPoint}>*</span></div>
           <Select value={systemMannger.itemData.fClass} style={{ width: '100%' }}  title='fClass' onChange={changeValue} disabled={systemMannger.itemData.isMenu===1?true:false}>
-            <Option key={99991} value={1}>默认方剂类型</Option>
+            <Option key={99991} value={27}>默认方剂类型</Option>
           </Select>
         </Col>
       </Row>

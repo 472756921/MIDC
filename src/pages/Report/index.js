@@ -14,27 +14,34 @@ const columns = [
     key: 'name',
   }, {
     title: '主治疾病',
-    dataIndex: 'zzjb',
-    key: 'zzjb',
+    dataIndex: 'zyjb',
+    key: 'zyjb',
   }, {
     title: '适宜症候',
     dataIndex: 'syzh',
     key: 'syzh',
   }, {
     title: '方剂组成',
-    dataIndex: 'fjzc',
-    key: 'fjzc',
+    key: 'action',
+    render: (text, record) => (
+      <span>
+        <span onClick={() => show(text.mid, text.status)} style={{cursor: 'pointer'}}>详情</span>
+      </span>
+    ),
   }
 ];
 let dis = '';
 
+const show = (mid, status)=>{
+  dis({type: 'report/getCF', payload: {mid: mid, status: status}});
+}
+
+
 const fj = ({loading, report, dispatch}) => {
-
   dis = dispatch;
-  const handleOk = (e) => {
-    dis({type: 'report/changeVisibleA', payload: {visible: false}})
+  const closevisibleB = (e) => {
+    dis({type: 'report/closevisibleB'})
   }
-
   const handleCancel = (e) => {
     dis({type: 'report/changeVisibleA', payload: {visible: false}})
   }
@@ -151,18 +158,22 @@ const fj = ({loading, report, dispatch}) => {
       <Button style={{marginLeft: '6px'}} onClick={()=>showChat('h','zh')} disabled={report.tableList.length===0?true:false}>证候统计</Button>
       <Button style={{marginLeft: '6px'}} onClick={()=>showChat('h','pc')} disabled={report.tableList.length===0?true:false}>药物频次</Button>
       <Button style={{marginLeft: '6px'}} onClick={()=>showChat('h','gj')} disabled={report.tableList.length===0?true:false}>归经统计</Button>
-      <Button style={{marginLeft: '6px'}} onClick={()=>showChat('p','gl')} disabled={report.tableList.length===0?true:false}>归类统计</Button>
+      {/*<Button style={{marginLeft: '6px'}} onClick={()=>showChat('p','gl')} disabled={report.tableList.length===0?true:false}>归类统计</Button>*/}
       <Button style={{marginLeft: '6px'}} onClick={()=>showChat('p','sq')} disabled={report.tableList.length===0?true:false}>四气统计</Button>
       <Button style={{marginLeft: '6px'}} onClick={()=>showChat('p','ww')} disabled={report.tableList.length===0?true:false}>五味统计</Button>
       <br/>
       <br/>
-      <Table dataSource={report.tableList} columns={columns}/>
+      <Table rowKey={record => record.id} dataSource={report.tableList} columns={columns} rowKey={record => record.id}/>
 
-      <Modal width={1000} title="详情" visible={report.visibleA} onOk={handleOk} onCancel={handleCancel}>
+      <Modal width={1000} title="详情" visible={report.visibleA} onOk={handleCancel} onCancel={handleCancel}>
         {
           report.visibleA?
           report.charType === 'h'?<Chart_H {...report.charData}/>:<Chart_P {...report.charData}/>:''
         }
+      </Modal>
+      <Modal title="详情" visible={report.visibleB} onOk={closevisibleB} onCancel={closevisibleB}>
+        <div>方剂组成：</div>
+        {report.cfData.map((it, i) =>(<div>{it.name} - {it.liang}g - {it.zhuyong} - {it.yongfa}</div>))}
       </Modal>
     </div>
   )
