@@ -131,7 +131,7 @@ const mic = ({loading, knowledge, dispatch}) => {
       <Button style={{marginLeft: '2px', float: 'right'}} type='primary' onClick={searchData}>查询</Button>
       <br/>
       <Divider/>
-      <Table rowKey={record => record.id} dataSource={knowledge.tableList} columns={columns} rowKey={record => record.id}/>
+      <Table dataSource={knowledge.tableList} columns={columns} rowKey={record => record.id}/>
 
       <Modal title="详情" visible={knowledge.visibleA} onOk={handleOk} onCancel={handleCancel}>
         <div>中文名：&emsp;{knowledge.temp.name}</div>

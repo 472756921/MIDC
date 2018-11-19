@@ -163,7 +163,7 @@ const fj = ({loading, report, dispatch}) => {
       <Button style={{marginLeft: '6px'}} onClick={()=>showChat('p','ww')} disabled={report.tableList.length===0?true:false}>五味统计</Button>
       <br/>
       <br/>
-      <Table rowKey={record => record.id} dataSource={report.tableList} columns={columns} rowKey={record => record.id}/>
+      <Table rowKey={record => record.id} dataSource={report.tableList} columns={columns}/>
 
       <Modal width={1000} title="详情" visible={report.visibleA} onOk={handleCancel} onCancel={handleCancel}>
         {

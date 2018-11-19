@@ -115,7 +115,7 @@ class info extends React.Component{
           Object.keys(m).map( (it, i) => {
             let temp = m[it];
             return (
-              <Row gutter={16} key={i} key={i}>
+              <Row gutter={16} key={i}>
                 <Col span={24}>
                   <Divider orientation="left" style={{fontSize:'14px', marginTop:'20px', color:'#1890ff'}}>{m[it].name}</Divider>
                 </Col>

@@ -157,7 +157,7 @@ const fj = ({loading, knowledge, dispatch}) => {
       <Button style={{marginLeft: '2px', float: 'right'}} type='primary' onClick={searchData}>查询</Button>
       <br/>
       <Divider/>
-      <Table rowKey={record => record.id} dataSource={knowledge.tableList} columns={columns} rowKey="id"/>
+      <Table rowKey={record => record.id} dataSource={knowledge.tableList} columns={columns}/>
 
       {knowledge.visibleB?
         <Modal title="详情" visible={knowledge.visibleB} onOk={handleOk} onCancel={handleCancel}>
